@@ -1,8 +1,8 @@
-mySwiper = undefined
+shopSwiper = undefined
 $("[tab-target=shopPromo]").tapend(function(){
     setTimeout(function() {
-        if (mySwiper == undefined){
-            mySwiper = new Swiper('.swiper-container', {
+        if (shopSwiper == undefined){
+            shopSwiper = new Swiper('[section-name=shop] .swiper-container', {
                 speed: 400,
                 spaceBetween: 100,
                 pagination: '.swiper-pagination',
