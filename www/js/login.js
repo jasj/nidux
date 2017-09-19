@@ -57,6 +57,7 @@ $("#logout_btn").tapend(function () {
 $(".login_input input").focus(function () { $("#login_info_txt").html("") })
 
 $(".login--Credentials").tapend(function () {
+    simDevice()
     if (emailRegEx.test($("#login_user").val())) {
         var tempObj = {
             user: $("#login_user").val().toLowerCase(),
