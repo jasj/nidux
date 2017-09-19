@@ -1,0 +1,633 @@
+.chat_lst_element{
+      display: flex;
+    background: white;
+    padding: 10px;
+    margin-top: 5px;
+    width: calc(100% + 53px);
+    justify-content: space-between;
+}
+
+.chat_lst_element_picture{
+
+    flex: 0 0 60px;
+    font-size: 37px;
+    background: lightgrey;
+    text-align: center;
+    line-height: 60px;
+    border-radius: 360px;
+    height: 60px;
+    color: white;
+
+}
+
+
+
+.chat_lst_element_info{
+	padding-left: 12px;
+	flex: 10;
+}
+
+.chat_lst_element_right{
+	display: flex;
+}
+
+.chat_lst_element_who{
+	font-weight: bolder;
+}
+
+.chat_lst_element_lastMsg{
+	color: gray;
+    height: 38px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    margin-right: 15px;
+}
+
+.chat_lst_element_lastMsgDate{
+	font-size: 10px;
+}
+
+.chat_lst_element_msgQty {
+    line-height: 22px;
+    height: 22px;
+    flex: 0 0 22px;
+    background: #0177D7;
+    border-radius: 360px;
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    margin-right: 29px;
+}
+
+.chat_contact {
+    background: white;
+    padding: 15px;
+    margin-top: 1px;
+}
+
+.chat_contact span{
+	float: right;
+}
+
+.chat_contact i{
+	border: 1px solid lightgray;
+    color: gray;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+.chat_action_bar{
+	display: flex;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    background: #FFFFFF;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 24px;
+	height: 52px;
+}
+
+.chat_action_bar div{
+	text-align: center;
+    width: 100%;
+    line-height: 50px;
+    margin-left: -38px;
+}
+
+.chat_action_bar div.btn{
+    text-align: right;
+    color: gray !important;
+    line-height: 59px;
+}
+
+.selQty{
+	line-height: 60px;
+    color: #0177d7;
+    font-weight: bolder;
+    font-size: 19px;
+}
+.chat_action_bar>.fa{
+	margin-right: 16px;
+    color: #0177d7;
+    height: 58px;
+    flex: 0 0 50px;
+    text-align: center;
+    line-height: 55px;
+}
+
+.i_said {
+    background: white;
+    width: auto;
+    border-radius: 12px 0px 12px 12px;
+    max-width: 60%;
+    margin-right: 10px;
+    border: 1px solid lightgray;
+	margin-left: auto;
+    padding: 12px;
+	word-wrap: break-word;
+}
+
+.he_said {
+    padding: 12px;
+    max-width: 60%;
+    background: #0177D7;
+    width: auto;
+    border-radius: 0px 12px 12px 12px;
+    margin-left: 10px;
+    border: 1px solid lightgray;
+    color: white;
+	word-wrap: break-word;
+}
+
+.removeChat {
+    background: indianred;
+    margin: -10px;
+    width: 80px;
+    font-size: 32px;
+    text-align: center;
+    line-height: 80px;
+    color: white;
+}
+
+#chat_sender_box {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    max-height: 80%;
+    min-height: 100px;
+    background-color: white;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.2);
+}
+
+#chat_sender_txt {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 75px;
+    bottom: 10px;
+    border: 1px solid lightgrey;
+    background: white;
+    -webkit-box-shadow: inset 4px 4px 5px 3px rgba(0,0,0,0.09);
+    -moz-box-shadow: inset 4px 4px 5px 3px rgba(0,0,0,0.09);
+    box-shadow: inset 1px 1px 4px 0px rgba(0,0,0,0.09);
+    border-radius: 14px;
+	overflow-x: auto;
+	padding: 10px;
+}
+
+#chat_sender_btn {
+    position: absolute;
+    right: 14px;
+    top: 13px;
+    font-size: 25px;
+    width: 48px;
+    height: 39px;
+    text-align: center;
+    line-height: 39px;
+    color: #0177D7;
+}
+
+#chat_sender_ath {
+    position: absolute;
+    right: 14px;
+    top: 49px;
+    font-size: 25px;
+    width: 48px;
+    height: 39px;
+    text-align: center;
+    line-height: 39px;
+    color: darkgrey;
+}
+
+#chat_lst_box {
+    position: absolute;
+    top: 11px;
+    bottom: 100px;
+    left: 0px;
+    right: 0px;
+    overflow-y: auto;
+	padding-bottom: 15px;
+}
+
+#chat_lst_box .big {
+    font-size: 60px;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 17px;
+}
+
+#chat_lst_box img{
+	max-height: 80%;
+	max-width: 100%;
+}
+
+.said_bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+.said_state {
+    color: gray;
+    font-size: 10px;
+    line-height: 25px;
+    margin-bottom: -8px;
+	margin-right: 10px;
+}
+
+
+
+.said_date{
+	text-align: right;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.said_who {
+    font-style: oblique;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.i_said .said_who {
+		display : none;
+}
+
+.i_said .said_body{
+	text-align: right;
+}
+
+.chat_message{
+	width: 100%;
+	display:  flex;
+	margin-top: 6px;
+}
+
+.chat_action_bar div>.fa {
+    padding: 10px;
+    font-size: 20px;
+    padding-bottom: 5px;
+    margin-top: -5px;
+}
+
+.chat_message.selected{
+	opacity: 0.3;
+    background: lightblue;
+}
+
+audio {
+ width: 193px;
+ max-width: 193px;
+}
+
+#imgPreview {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: #353739;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-x: 50%;
+    background-position-y: 50%;
+	display: none;
+}
+
+#imgPreview_actionBar {
+    margin: 0px;
+    height: 20px;
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    font-size: 20px;
+}
+
+
+#goBottom{
+	position: fixed;
+    height: 32px;
+    width: 32px;
+    border-radius: 360px;
+    background: #F7F7F7;
+    bottom: 121px;
+    right: 20px;
+    -webkit-box-shadow: 0px 1px 31px 10px rgba(240,240,240,1);
+    -moz-box-shadow: 0px 1px 31px 10px rgba(240,240,240,1);
+    box-shadow: 0px 1px 9px 5px rgba(200,200,200,0.8);
+    font-size: 22px;
+    text-align: center;
+    line-height: 32px;
+    color: gray;
+}
+
+.qtyNewMsg {
+    font-size: 12px;
+    margin-top: -47px;
+    background: #0177d7;
+    color: white;
+    border-radius: 360px;
+    margin-left: -9px;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+}
+
+.qtyNewMsg[qty="0"]{
+	display: none;
+}
+	
+
+
+.close_top_btn{
+	height: 50px;
+    margin-top: -14px;
+    width: 50px;
+    text-align: center;
+	line-height: 50px !important;
+    margin-left: -15px;
+}
+
+
+.downloadIcon {
+    font-size: 36px;
+    color: gray;
+    opacity: 0.6;
+    background: white;
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    line-height: 80px;
+    border-radius: 360px;
+    border: 1px solid gray;
+    margin-top: calc(-50% - 5px);
+    margin-left: calc(50% - 40px);
+    margin-bottom: 15px;
+}
+
+.fileInfo {
+    height: 31px;
+    background: rgba(250,250,250,0.9);
+    margin-top: -12px;
+    width: 144px;
+    font-size: 10px;
+    padding: 3px;
+    text-align: center;
+    line-height: 31px;
+    text-overflow: ellipsis;
+    color: #0177D7;
+}
+
+
+.downloading{
+	animation-duration: 0.7s;
+    animation-name: downloading;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in;	
+ }
+ 
+#phone_rec{
+	position: absolute;
+    bottom: 0px;
+    height: 140px;
+    width: 140px;
+    background-color: #0177d7;
+    border-radius: 360px;
+    right: -30px;
+    opacity: 0.3;
+	animation-duration: 1s;
+    animation-name: recording;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in;	
+	
+}
+
+.hide_rec{
+    bottom: 37px !important;
+    height: 48px !important;
+    width: 40px !important;
+    background-color: #fff !important;
+    right: 18px !important;
+    opacity: 0 !important;
+    animation-name: inherit !important;
+}
+
+#canceling {
+    background: indianred;
+    height: 0px;
+    width: 0px;
+    border-radius: 50%;
+    margin: 66px;
+}
+
+#select_attachment_type {
+    height: 26px;
+    background: white;
+    position: absolute;
+    bottom: 91px;
+    left: 0px;
+    right: 0px;
+    display: flex;
+    color: #0177D7;
+    font-size: 32px;
+    padding: 12px;
+    justify-content: space-between;
+    text-align: center;
+	display : none;
+	z-index:1000;
+}
+ 
+#select_attachment_type div {
+    text-align: center;
+    width: 100%;
+}
+
+
+#msgInfoPreview{
+	display: flex;
+    text-align: center;
+    margin: auto;
+    background: ALICEBLUE;
+    padding: 20px 0px;
+}
+
+.statusChatHeader {
+    display: flex;
+    border-bottom: 1px solid lightgray;
+    padding: 10px;
+    justify-content: space-between;
+    color: #0177D7;
+    font-weight: bold;
+}
+
+.pictureUser {
+    font-size: 32px !important;
+    padding: 15px;
+    color: lightblue;
+    line-height: 46px !important;
+}
+
+.chatPersonInfo {
+    height: 80px;
+    display: flex;
+}
+
+
+.containerPersonInfo {
+    width: calc(100% - 62px);
+    border-bottom: 1px solid lightgray;
+    height: 70px;
+    display: table;
+    align-items: center;
+}
+
+.verticalAlign {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+.containerPersonalInfo_name {
+    font-weight: bold;
+}
+
+
+.infoStatusTime {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+    font-size: 14px;
+    margin: 5px;
+}
+
+
+.statusInfoBox {
+    background: white;
+    margin: 15px;
+}
+
+.quote {
+    border-left: 4px solid lavender;
+    padding: 5px;
+    background: rebeccapurple;
+    margin-bottom: 10px;
+	opacity: 0.9;
+	color: white;
+}
+
+
+.quote_header {
+    background: lavender;
+    color: rebeccapurple;
+    padding: 5px;
+    margin: -5px;
+    margin-bottom: 5px;
+}
+
+
+.audioBox {
+    height: 40px;
+    width: 189px;
+    padding: 0px;
+    display: flex;
+    border-radius: 4px;
+}
+
+
+.he_said .audioBox_controlBtn {
+    padding: 8px;
+    background: white;
+    color:  #0177d7;
+	line-height: 25px;
+}
+
+.i_said .audioBox_controlBtn {
+    padding: 8px;
+    background: #0177d7;
+    color: white;
+	line-height: 25px;
+}
+
+.audioBox_info {
+    flex: 0 0 160px;
+    background: #f0f0f0;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.audioBok_trackBar {
+    background-color: lightgrey;
+    margin-top: 8px;
+    margin-left: 5px;
+    width: 149px;
+    border-radius: 5px;
+    height: 18px;
+}
+
+.audioBok_position {
+    background: #0177d7;
+    height: 18px;
+    width: 0px;
+    border-radius: 3px;
+}
+
+.audioBox_currentTime {
+    font-size: 11px;
+    margin-top: 2px;
+    margin-right: 7px;
+    color: dimgray;
+	text-align: right;
+}
+
+
+.audioBox_loading {
+    text-align: center;
+    line-height: 40px;
+    color: #0177D7;
+}
+
+
+div#chat_list {
+    overflow-x: hidden;
+}
+
+
+canvas {
+	width : 300px;
+	height: 300px;
+}
+
+@keyframes downloading {
+  from {
+    color: gray;
+	
+  }
+
+  to {
+    color: #0177d7;
+	
+  }
+}
+
+@keyframes recording {
+  from {
+    opacity: 0.3;
+	
+  }
+
+  to {
+    opacity: 0.7;
+	
+  }
+}

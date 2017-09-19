@@ -1,0 +1,88 @@
+ * {
+            font-family: 'Fira Sans', sans-serif;
+}
+
+
+i.fa.fa-shopping-bag._pp {
+    font-size: 80px !important;
+}
+
+
+#condo_logo {
+	width: 250px;
+    height: 140px;
+    background-size: cover;
+    color: white;
+    text-align: right;
+    background-color: #d7c101;
+    line-height: 194px;
+    background-size: 100px 100px;
+    background-repeat: no-repeat;
+    background-position-x: 70px;
+    background-position-y: 25px;
+    text-align: center;
+}
+
+#main_menu{
+	position: 	absolute;
+	top: 		0px;
+	left:		-250px;
+	bottom: 	0px;
+	width:		250px;
+	
+	/*background-color: #222225;*/
+	/*background-color: rgba(0,0,0,0.7);*/
+	background-color: #353739;
+    height:100%; 
+	z-index : 10;
+	
+}
+
+
+#main_menu ul {
+	padding: 0;
+	list-style-type: none;
+	margin-top: 1px;
+}
+
+
+
+
+
+#main_menu li {
+	border-bottom: 1px solid #303238;
+	color: white;
+	font-size: 16px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align: center;
+}
+
+#modal{
+	position: absolute;
+	left: 0px;
+	top:0px;
+	right:0px;
+	bottom:0px;
+	z-index: 9;
+    background-color: rgba(100,116,126,0.5);
+	display:none;
+	
+}
+
+.nav_li_selected {
+    background-color: white;
+    color: #d7c101 !important;
+}
+
+#people_cars{
+	margin-top: 20px;
+}
+
+#slide_menu{
+	position: fixed;
+	left: 0px;
+	top:0px;
+	bottom: 0px;
+	width:10px;
+}

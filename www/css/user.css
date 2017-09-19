@@ -1,0 +1,20 @@
+#user_config {
+	position:	absolute;
+	top:		50%;
+	left:		50%;
+	
+	background:white;
+	border-radius:  30px;
+	
+	border: 1px solid lightgray;
+	
+	height: 400px;
+	width: 300px;
+	
+	margin-left: -150px;
+	margin-top:	-200px;
+	z-index: 10;
+	
+	display: none;
+	
+}

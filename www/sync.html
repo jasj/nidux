@@ -1,0 +1,36 @@
+<div id="sync">0
+</div>
+
+<script>
+	var f = document.getElementById("sync")
+	var sync = 0;
+	var c = 0;
+	
+	
+var recursive = function(n) {
+    if(n <= 2) {
+        return 1;
+    } else {
+        return this.recursive(n - 1) + this.recursive(n - 2);
+    }
+};
+
+	
+	setInterval(function() {
+	// Send the message "Hello" to the parent window
+	// ...if the domain is still "davidwalsh.name"
+	parent.postMessage("Hello","*");
+},1000);
+
+
+var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+var eventer = window[eventMethod];
+var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+// Listen to message from child window
+eventer(messageEvent,function(e) {
+  
+  console.log('parent received message!:  ',recursive(parseInt(e.data)));
+},false);
+
+</script>

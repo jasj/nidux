@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
+		<!--meta http-equiv="Content-Security-Policy" content="default-src *; script-src * 'unsafe-eval' 'unsafe-inline'; connect-src *; img-src *; style-src * 'unsafe-inline' ; media-src *">  
+		<meta http-equiv="Content-Security-Policy" content="default-src *; img-src * 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' *;style-src  'self' 'unsafe-inline' *" -->
+
+		<link rel="stylesheet" type="text/css" href="css/login.css" />
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
+		<link rel="stylesheet" type="text/css" href="css/menu.css" />
+		<link rel="stylesheet" type="text/css" href="css/switch.css" />
+		<link rel="stylesheet" type="text/css" href="css/user.css" />
+		<link rel="stylesheet" type="text/css" href="css/chat.css" />
+		<link rel="stylesheet" type="text/css" href="lib/nivo/nivo-slider.css" />
+		<link rel="stylesheet" type="text/css" href="lib/nivo/themes/default/default.css" />
+		<link rel="stylesheet" type="text/css" href="css/dashboard.css" />
+		<link rel="stylesheet" type="text/css" href="css/jasjcalendar.css" />
+		<link rel="stylesheet" type="text/css" href="lib/pickadate.js-3.5.6/lib/themes/classic.css" />
+		<link rel="stylesheet" type="text/css" href="lib/pickadate.js-3.5.6/lib/themes/classic.date.css" />
+		<link rel="stylesheet" type="text/css" href="lib/pickadate.js-3.5.6/lib/themes/classic.time.css" />
+		<link rel="stylesheet" type="text/css" href="lib/select2/css/select2.min.css" />		
+		<link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="lib/Swiper-3.4.2/dist/css/swiper.min.css">
+
+		<title>Nidux Shopping</title>
+	
+    </head>
+    <body>
+		<canvas id="canvas"></canvas>
+		<div id="login">
+			<div id="login_box">
+				<div id="login_logo" class="fa fa-shopping-bag"></div>
+				<div class="nidux_shopping">Nidux Shopping</div>
+				<div class="login_input">      
+					<input id="login_user" required>
+					<span class="highlight"></span>
+					<span class="bar"></span>
+					<label i18Trans="EMAIL"></label>
+				</div>
+				<div class="login_input">      
+					<input id="login_psw" type="password" required>
+					<span class="highlight"></span>
+					<span class="bar"></span>
+					<label i18Trans="PASSWORD"></label>
+				</div>
+				<p id="login_info_txt"></p>
+				<button class="loginBtn login--Credentials fa fa-key" i18Trans="LOGIN"></button>
+				<button class="loginBtn loginBtn--facebook" i18Trans="FACEBOOK_LOGIN" section-target="home"></button>
+				<button class="loginBtn loginBtn--google" i18Trans="GOOGLE_LOGIN" section-target="home"></button>
+				<a href="" i18Trans="CANT_SIGN"></a>
+				<a href="" i18Trans="REGISTER_ACCOUNT"></a>
+			</div>
+		</div>
+
+        <div class="app">
+			<div id="modal"></div>
+			<nav id="main_menu">
+				<div id="condo_logo"  section-target="home" i18Trans="<input type='search' placeholder='Buscar'> <i class='search_input fa fa-search'></i>" i18Target="section-title">
+					<i class="fa fa-shopping-bag _pp" aria-hidden="true"></i>
+				</div>
+				<ul>
+					<li class="menu_nav" section-target="home" section-tabToGo="1" i18Trans="<input type='search' placeholder='Buscar'> <i class='search_input fa fa-search'></i>" i18Target="section-title"><a i18Trans="MY_SHOPS"></a></li>
+					<li class="menu_nav" section-target="chat"><a i18Trans="MY_ORDERS"></a></li>
+					<li class="menu_nav" section-target="promotions"><a i18Trans="PROMOTIONS"></a></li>
+				</ul>
+			</nav>
+			   
+			<section id="workarea">
+				<header id="header">
+					<div id="header_menu_btn">
+						<i class="fa fa-bars" aria-hidden="true"></i>
+					</div>
+					<div id="header_section_description" i18Trans="<input type='search' placeholder='Buscar'> <i class='search_input fa fa-search'></i>"></div>
+					<div id="header_user_btn">
+						<i class="fa fa-user" aria-hidden="true"></i>
+					</div>
+				</header>
+					
+				<!-- PAGINA HOME -->
+			
+
+				<div section-name="home" class="section_page section_active">
+
+						
+
+
+					<div id ="dashboard" >
+
+							<nav id="dashboardNav">
+									<ul class="tablist" tab-group="AdminNav">
+										<li class="active" tab-target="portada" i18Trans="Portada"></li>
+										<li tab-target="myshops" i18Trans="MY_SHOPS"></li>
+									</ul>
+								</nav>
+
+					
+
+						<div class=" tab-listtab" tab-name="portada" id="portada">
+							
+							<div id="wrapper"><!-- #Begin full width Nivo slider layer -->
+								
+											<div class="slider-wrapper theme-default">
+								
+												<div id="slider" class="nivoSlider">
+								
+													<a href="#"><img src="img/slider/i1.png" title="#65a6d1" alt="#" /></a>
+								
+													<a href="#"><img src="img/slider/i2.png" title="#30C337" alt="#" /></a> 
+								
+													<a href="#"><img src="img/slider/i3.png" title="#FFAA00" alt="#" /></a>
+		
+								
+												</div>
+								
+											</div>
+								
+										</div>
+
+										<div class="products get-nicer">
+												<div class="nice-wrapper flex wrap">
+									<div class="product-card">
+										<div class="product-image">
+										  <img src="/img/products/p2.png">
+										</div>
+										<div class="product-info">
+										  <h5>Salida de Baño</h5>
+										  <h6>$99.99</h6>
+										</div>
+									  </div>
+
+									  <div class="product-card">
+										<div class="product-image">
+											<img src="/img/products/p1.png">
+										</div>
+										<div class="product-info">
+										  <h5>Impresora D09</h5>
+										  <h6>$99.99</h6>
+										</div>
+									  </div>
+
+									  <div class="product-card">
+										<div class="product-image">
+											<img src="/img/products/p3.png">
+										</div>
+										<div class="product-info">
+										  <h5>Winter Jacket</h5>
+										  <h6>$99.99</h6>
+										</div>
+									  </div>
+
+									  <div class="product-card">
+										<div class="product-image">
+											<img src="/img/products/p4.png">
+										</div>
+										<div class="product-info">
+										  <h5>Winter Jacket</h5>
+										  <h6>$99.99</h6>
+										</div>
+									  </div>
+
+									  <div class="product-card">
+										<div class="product-image">
+											<img src="/img/products/p5.png">
+										</div>
+										<div class="product-info">
+										  <h5>Winter Jacket</h5>
+										  <h6>$99.99</h6>
+										</div>
+									  </div>
+
+									  <div class="product-card">
+										<div class="product-image">
+											<img src="/img/products/p6.png">
+										</div>
+										<div class="product-info">
+										  <h5>Winter Jacket</h5>
+										  <h6>$99.99</h6>
+										</div>
+									  </div>
+
+									  <div class="product-card">
+										<div class="product-image">
+											<img src="/img/products/p7.png">
+										</div>
+										<div class="product-info">
+										  <h5>Winter Jacket</h5>
+										  <h6>$99.99</h6>
+										</div>
+									  </div>
+
+									  <div class="product-card">
+										<div class="product-image">
+											<img src="/img/products/p8.png">
+										</div>
+										<div class="product-info">
+										  <h5>Winter Jacket</h5>
+										  <h6>$99.99</h6>
+										</div>
+									  </div>
+
+									  <div class="product-card">
+										<div class="product-image">
+											<img src="/img/products/p9.png">
+										</div>
+										<div class="product-info">
+										  <h5>Winter Jacket</h5>
+										  <h6>$99.99</h6>
+										</div>
+									  </div>
+								</div>
+										</div>
+								 
+						</div>
+
+						<div class="tab-listtab get-nicer" tab-name="myshops" id="myshops">
+							<div class="nice-wrapper">
+								<div class="shop" style="background-image: url(img/logos/l6.png);"></div>
+								
+								<div class="shop" style="background-image: url(img/logos/l5.png);" section-target="shop" section-title="Vertigo" section-color="#F40000"></div>
+								
+								<div class="shop" style="background-image: url(img/logos/l3.png);"></div>
+								
+								<div class="shop" style="background-image: url(img/logos/l4.png);"></div>
+								
+								<div class="shop" style="background-image: url(img/logos/l1.png);"></div>
+								
+								<div class="shop" style="background-image: url(img/logos/l2.png);"></div>
+								
+								<div class="shop" style="background-image: url(img/logos/l7.png);"></div>
+								
+								<div class="shop" style="background-image: url(img/logos/l8.png);"></div>
+							</div>
+							<div class="add_btn fa fa-plus"></div>
+							<div class="qr_btn fa fa-qrcode"></div>
+							
+							</div>
+
+							
+					</div>
+				</div>
+
+				<div section-name="chat" class="section_page">
+					<nav id="ChatNav">
+						<ul class="tablist" tab-group="AdminNav">
+							<li class="active" tab-target="Chat" i18Trans="CHATS"></li>
+							<li tab-target="Employee" i18Trans="PERSONAL"></li>
+							<li tab-target="Department" i18Trans="GROUPS"></li>
+						</ul>
+					</nav>
+					
+					<div class="tab-listtab get-nicer" tab-name="Employee" id="chat_list_people">
+						<div class="nice-wrapper"></div>
+					</div>
+					<div class="tab-listtab get-nicer" tab-name="Department" id="chat_list_group">
+						<div class="nice-wrapper"></div>
+					</div>
+				</div>
+					
+				<div section-name="msgInfo" class="section_page">
+					<nav id="ChatMsgInfoNav" class="chat_action_bar">
+						<i class="fa fa-chevron-left" aria-hidden="true" section-target="msgChat"  i18Trans="CHAT" i18Target="section-title"></i>
+						<div>user@mail.com</div>
+					</nav>
+					<div class="tab-listtab get-nicer" tab-name="msgInfo">
+						<div class="nice-wrapper">
+							<div id="msgInfoPreview">
+							</div>
+							<div id="chatsRead" class="statusInfoBox">
+								<div class="statusChatHeader">
+								<div i18Trans="READ"></div>
+								<div class="fa fa-eye"></div>
+								</div>
+							</div>
+							<div id="chatsDelivered" class="statusInfoBox">
+								<div class="statusChatHeader">
+								<div i18Trans="DELIVERED"></div>
+								<div class="fa fa-check"></div>
+								</div>
+							</div>
+							<div id="chatsUndelivered" class="statusInfoBox">
+								<div class="statusChatHeader">
+								<div i18Trans="REMAININGS"></div>
+								<div class="fa fa-paper-plane-o"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div section-name="msgChat" class="section_page" avoid-autoscroll="true">
+					<nav id="ChatMsgNav" class="chat_action_bar">
+						<i class="fa fa-chevron-left" aria-hidden="true" section-target="shop" section-tabToGo="3"  section-title="KEEP_LAST_VALUE" section-color="KEEP_LAST_VALUE"></i>
+						<div></div>
+					</nav>
+					<div class="tab-listtab" tab-name="Chat2">
+						<div id="chat_lst_box" class="get-nicer">
+							<div class="nice-wrapper">
+							</div>
+						</div>
+						<div id="chat_sender_box">
+							<div id="chat_sender_txt" contenteditable=true>
+							</div>
+							<div id="chat_sender_btn">
+								<i class="fa fa-microphone" aria-hidden="true"></i>
+							</div>
+							<div id="chat_sender_ath">
+								<i class="fa fa-paperclip fa-flip-vertical" aria-hidden="true"></i>
+							</div>
+						</div>
+						<div id="phone_rec" class="hide_rec">
+							<div id="canceling"></div>
+						</div>
+						<div id="select_attachment_type" class="">
+							<div class="fa fa-camera" aria-hidden="true"></div>
+							<div class="fa fa-picture-o" aria-hidden="true"></div>
+							<div class="fa fa-file-o" aria-hidden="true" style="font-size: 30px;"></div>
+						</div>
+					</div>
+					<div id="goBottom">
+						<i class="fa fa-angle-double-down" aria-hidden="true"></i>
+						<div class="qtyNewMsg">1</div>
+					</div>
+				</div>
+
+				<div section-name="shop" class="section_page">
+						<nav id="shopNav">
+								<div class="fa fa-chevron-left actionBtn" aria-hidden="true" section-target="home" i18trans="<input type='search' placeholder='Buscar'> <i class='search_input fa fa-search'></i>" i18target="section-title"></div>
+								<ul class="tablist" tab-group="AdminNav">
+										
+									<li class="" tab-target="shopHome"><i class="fa fa-home" aria-hidden="true"></i></li>
+									<li tab-target="shopMap" class=""><i class="fa fa-map-marker" aria-hidden="true"></i></li>
+									<li tab-target="shopPromo" class="active"><i class="fa fa-bullhorn" aria-hidden="true"></i></li>
+									<li tab-target="Chat" class=""><i class="fa fa-comments-o" aria-hidden="true"></i><div class="bubble">3</div></li>
+								
+								</ul>
+    <div class="fa fa-phone actionBtn"></div>
+							</nav>
+<div class="tab-listtab" tab-name="shopHome">
+						<div id="wrapper"><!-- #Begin full width Nivo slider layer -->
+							
+										<div class="slider-wrapper theme-default">
+											<div id="slider_shop" >
+												<a href="#"><img src="img/vertigo/v1.png" title="#65a6d1" alt="#" /></a>
+												<a href="#"><img src="img/vertigo/v2.png" title="#30C337" alt="#" /></a> 
+												<a href="#"><img src="img/vertigo/v3.png" title="#FFAA00" alt="#" /></a>
+												<a href="#"><img src="img/vertigo/v4.png" title="#FFAA00" alt="#" /></a>
+											</div>
+										</div>
+									</div>
+
+					<div class="products get-nicer">
+							<div class="nice-wrapper flex wrap">
+									
+											<div class="product-card">
+												<div class="product-image">
+												  <img src="/img/vertigo/pr2.png">
+												</div>
+												<div class="product-info">
+												  <h5>EPICA/THE SOLACE SYSTEM</h5>
+												  <h6>¢7,950.00</h6>
+												</div>
+											  </div>
+		
+											  <div class="product-card">
+												<div class="product-image">
+													<img src="/img/vertigo/pr1.png">
+												</div>
+												<div class="product-info">
+												  <h5>POP CAPTAIN UNDERPANTS</h5>
+												  <h6>¢28,200.00</h6>
+												</div>
+											  </div>
+		
+											  <div class="product-card">
+												<div class="product-image">
+													<img src="/img/vertigo/pr3.png">
+												</div>
+												<div class="product-info">
+												  <h5>POP GAME OF THRONES</h5>
+												  <h6>¢10,500.00</h6>
+												</div>
+											  </div>
+		
+											  <div class="product-card">
+												<div class="product-image">
+													<img src="/img/vertigo/pr4.png">
+												</div>
+												<div class="product-info">
+												  <h5>INJUSTICE 2/PS4</h5>
+												  <h6>¢49,500.00</h6>
+												</div>
+											  </div>
+		
+											  <div class="product-card">
+												<div class="product-image">
+													<img src="/img/vertigo/pr5.png">
+												</div>
+												<div class="product-info">
+												  <h5>FIGURAS AMIIBO SUPER</h5>
+												  <h6>¢15,500.00</h6>
+												</div>
+											  </div>
+		
+											  <div class="product-card">
+												<div class="product-image">
+													<img src="/img/products/p6.png">
+												</div>
+												<div class="product-info">
+												  <h5>Winter Jacket</h5>
+												  <h6>$99.99</h6>
+												</div>
+											  </div>
+		
+											  <div class="product-card">
+												<div class="product-image">
+													<img src="/img/products/p7.png">
+												</div>
+												<div class="product-info">
+												  <h5>Winter Jacket</h5>
+												  <h6>$99.99</h6>
+												</div>
+											  </div>
+		
+											  <div class="product-card">
+												<div class="product-image">
+													<img src="/img/products/p8.png">
+												</div>
+												<div class="product-info">
+												  <h5>Winter Jacket</h5>
+												  <h6>$99.99</h6>
+												</div>
+											  </div>
+		
+											  <div class="product-card">
+												<div class="product-image">
+													<img src="/img/products/p9.png">
+												</div>
+												<div class="product-info">
+												  <h5>Winter Jacket</h5>
+												  <h6>$99.99</h6>
+												</div>
+											  </div>
+										</div>
+								</div>
+							</div>
+						
+
+						<div class="tab-listtab get-nicer" tab-name="shopMap">Map</div>	
+						<div class="tab-listtab " tab-name="shopPromo">
+						<!-- Slider main container -->
+								<div class="swiper-container">
+										<!-- Additional required wrapper -->
+										<div class="swiper-wrapper">
+											<!-- Slides -->
+											<div class="swiper-slide"><img src="img/vertigo/p1.png">
+												
+												<h4>2x1 en Juegos de Play Station 4</h4>
+												<p>Promoción valida del hasta el 15 de diciembre del 2017. En sus compras en la App</p>
+												<div class="btn_get">Obtner</div>
+											</div>
+											<div class="swiper-slide">Slide 2</div>
+											<div class="swiper-slide">Slide 3</div>
+											...
+										</div>
+										<!-- If we need pagination -->
+										<div class="swiper-pagination"></div>
+										
+										<!-- If we need navigation buttons -->
+										<div class="swiper-button-prev"></div>
+										<div class="swiper-button-next"></div>
+										
+									
+									</div>	
+						</div>	
+						<div class="tab-listtab get-nicer" tab-name="Chat" id="chat_list">
+								<div class="nice-wrapper"></div>
+							</div>	
+
+					</div>
+
+			</section>
+			   
+		<!--	<div class="loading"></div> -->
+
+			<section id="user_config">
+				<h4 class="h4_active_state" i18Trans="ACTIVE_CONDOMINIUM"></h4>
+				<h4  class="h4_mech_auth" i18Trans="LOGIN_TYPES"></h4>
+				<div id="personalProfile">
+					<img id="profilePicture" />
+					<span>user@mail.com</span>
+					<i class="fa fa-times close_modal_btn" aria-hidden="true"></i>
+				</div>
+				<div id="AuthIntegration">
+					<div class="authIntegration_key">
+						<i class="fa fa-key" aria-hidden="true"></i>
+					</div>
+				</div>
+				<select id="myCondos"></select>
+				<div id="logout_btn" i18Trans="LOGOUT"></div>
+			</section>
+			   
+			<section class="modalEfika" id="modal2Btn">
+				<div class="bgModal"></div>
+				<div class="boxModal">
+					<h2></h2>
+					<p></p>
+					<ul>
+						<li>
+							<button class="yesBtn" i18Trans="YES"></button>
+						</li>
+						<li>
+							<button class="noBtn" i18Trans="NO"></button>
+						</li>
+					</ul>
+				</div>
+			</section><!--close modal-->
+		
+			<section class="modalEfika" id="modal1Btn">
+				<div class="bgModal"></div>
+					<div class="boxModal">
+					<h2></h2>
+					<p></p>
+					<button class="okBtn" i18Trans="OK"></button>
+				</div><!--close modal-->
+			</section>
+				
+			<div class="jasj_calendar"></div>
+				
+			<div class="jasj_time">
+				<table style="width: 100%;text-align: center;margin-top: 20px;color: #0177D7;">
+					<tbody>
+						<tr class="tmr_up">
+							<td >
+								<i class="fa fa-chevron-up" aria-hidden="true"></i>
+							</td>
+							<td>
+								<i class="fa fa-chevron-up" aria-hidden="true"></i>
+							</td>
+							<td>
+								<i class="fa fa-chevron-up" aria-hidden="true"></i>
+							</td>
+						</tr>    
+						<tr>
+							<td>
+								<div class="jasj_td_scroll"><p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p><p>10</p><p>11</p><p>12</p></div>
+							</td>
+							<td>
+								<div class="jasj_td_scroll"><p>00</p><p>15</p><p>30</p><p>45</p></div>
+							</td>
+							<td>
+								<div class="jasj_td_scroll"><p>am</p><p>pm</p></div>
+							</td>
+						</tr>
+						<tr class="tmr_down">
+							<td>
+								<i class="fa fa-chevron-down" aria-hidden="true"></i>
+							</td>
+							<td>
+								<i class="fa fa-chevron-down" aria-hidden="true"></i>
+							</td>
+							<td>
+								<i class="fa fa-chevron-down" aria-hidden="true"></i>
+							</td>
+						</tr>    
+					</tbody>
+				</table>
+				
+				<div class="jasj_topcover"></div>
+				<div class="jasj_bottomcover">
+					<table class='navTimer'>
+						<tr>
+							<td class='tmr_clean' i18Trans='CLEAN'></td>
+							<td d class='tmr_cancel' i18Trans='CANCEL'></td>
+							<td d class='tmr_acept' i18Trans='ACCEPT'></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+					
+		<div id="imgPreview">
+			<div id="imgPreview_actionBar">
+				<div class="fa fa-times close_top_btn">
+				</div>
+				<div>
+					<i class="fa fa-download" aria-hidden="true"></i>
+				</div>
+			</div>
+		</div>
+	
+		<div id="slide_menu"></div>
+		<div id="invisibleTap"></div>
+		
+		<!-- Scripts-->
+        <script type="text/javascript" src="js/globals.js"></script>
+        <script type="text/javascript" src="config/services.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="push.js"></script>
+		<script type="text/javascript" src="SQLitePlugin.js"></script>
+		<script type="text/javascript" src="lib/hamster/hamster.js"></script>
+		<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
+        <script type="text/javascript" src="js/i18next-1.8.0.min.js"></script>
+		<script type="text/javascript" src="js/mobile-events.js"></script>
+		<script type="text/javascript" src="js/TouchSwipe.js"></script>
+		<script type="text/javascript" src="js/pouchdb-6.1.2.min.js"></script>
+		<script type="text/javascript" src="js/qr.js"></script>
+		<script type="text/javascript" src="lib/nivo/jquery.nivo.slider.js"></script>
+		<script type="text/javascript" src="lib/select2/js/select2.min.js"></script>
+		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.js"></script>
+		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.date.js"></script>
+		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.time.js"></script>
+		<script type="text/javascript" src="js/nicescroll.js"></script>
+		<script type="text/javascript" src="lib/rsa/prng4.js"></script>
+		<script type="text/javascript" src="lib/rsa/jsbn.js"></script>
+		<script type="text/javascript" src="lib/rsa/rng.js"></script>
+		<script type="text/javascript" src="lib/rsa/jsbn2.js"></script>
+		<script type="text/javascript" src="lib/rsa/rsa.js"></script>
+		<script type="text/javascript" src="lib/rsa/base64.js"></script>
+		<script type="text/javascript" src="js/ResizeSensor.js"></script>
+		<script type="text/javascript" src="js/html2canvas.js"></script>
+		<script type="text/javascript" src="js/deviceready/pushNotification.js"></script>
+		<script type="text/javascript" src="js/deviceready/downloader.js"></script>
+		<script type="text/javascript" src="js/deviceready/db.js"></script>
+		<script type="text/javascript" src="js/deviceready/fs.js"></script>
+		<script type="text/javascript" src="js/deviceready/buttons.js"></script>
+		<script type="text/javascript" src="js/deviceready/specialEvents.js"></script>
+		<script type="text/javascript" src="js/deviceready/audio.js"></script>
+		<script type="text/javascript" src="js/clipboard.min.js"></script>
+		<script type="text/javascript" src="js/crypto/whirpool.js"></script>
+		<script type="text/javascript" src="js/crypto/aes.js"></script>
+		<script type="text/javascript" src="js/date.js"></script>
+		<script type="text/javascript" src="js/generics.js"></script>
+		<script type="text/javascript" src="js/cssFixIt.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+		<script type="text/javascript" src="js/datecou.js"></script>
+		<script type="text/javascript" src="js/menu.js"></script>
+		<!--script type="text/javascript" src="js/sim.js"></script-->
+		<script type="text/javascript" src="js/pushDriver.js"></script>
+		<script src="lib/Swiper-3.4.2/dist/js/swiper.min.js"></script>
+		<!-- pages scripts -->
+		<script type="text/javascript" src="js/pages/home.js"></script>
+		<script type="text/javascript" src="js/pages/user.js"></script>
+		<script type="text/javascript" src="js/pages/shop.js"></script>
+		<!-- <script type="text/javascript" src="js/pages/people.js"></script>
+		<script type="text/javascript" src="js/pages/guest.js"></script>
+		<script type="text/javascript" src="js/pages/employee.js"></script>
+		<script type="text/javascript" src="js/pages/habitant.js"></script>
+		<script type="text/javascript" src="js/pages/entries.js"></script>
+		<script type="text/javascript" src="js/pages/residents.js"></script> -->
+		<script type="text/javascript" src="js/pages/chat.js"></script>
+		<!-- <script type="text/javascript" src="js/pages/services.js"></script>
+		<script type="text/javascript" src="js/pages/resources.js"></script>
+		<script type="text/javascript" src="js/pages/bills.js"></script> -->
+		<script type="text/javascript" src="js/pnglib.js"></script>
+		<script type="text/javascript" src="js/Identicon.js"></script>
+    </body>
+</html>

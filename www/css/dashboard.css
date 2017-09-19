@@ -1,0 +1,57 @@
+#slider {
+    height: 168px !important;
+}
+
+.fa.fa-phone.actionBtn {
+    font-size: 25px!important;
+}
+
+.products {
+    position: absolute !important;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    top: 220px;
+}
+
+.product-card {
+    padding: 2%;
+    flex-grow: 1;
+    flex-basis: 22%;
+    display: grid;
+    margin: 10px;
+    color: #d7c101;
+    box-shadow: 0px 0px 12px -4px;
+    background-color: white;
+    text-align: center;
+}
+
+.product-image img {
+    max-width: 100%;
+}
+
+.product-info {
+    margin-top: auto;
+}
+
+.products .product-card:first-child, 
+.products .product-card:nth-child(2) {
+  flex: 2 40%;
+}
+
+.product-info h6{
+    background: dodgerblue;
+    padding: 15px;
+    margin-top: -16px;
+    margin-bottom: 0px;
+    color: white;
+}
+
+
+.search_input.fa.fa-search {
+    position: absolute;
+    left: 77px;
+    top: 22px;
+    color: dimgray;
+    font-size: 14px;
+}

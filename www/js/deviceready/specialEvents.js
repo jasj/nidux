@@ -1,0 +1,7 @@
+onResume = function(){
+
+}
+
+onPause = function(){
+
+} 

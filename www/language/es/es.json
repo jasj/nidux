@@ -1,0 +1,13 @@
+{
+    
+    "EMAIL" : "Email",
+    "PASSWORD" : "Contraseña",
+    "FACEBOOK_LOGIN" : "Login con Facebook",
+    "LOGIN" : "Login con Credenciales",
+    "GOOGLE_LOGIN" : "Login con Google",
+
+    
+    "MY_SHOPS" : "Mis Tiendas",
+    "PROMOTIONS" : "Promociones",
+    "MY_ORDERS" : "Mis Pedidos"
+}

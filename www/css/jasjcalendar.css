@@ -1,0 +1,99 @@
+.jasj_calendar {
+	position: fixed;
+    left: 50%;
+    top: 50%;
+    height: 360px;
+    width: 80%;
+    background: #F7F7F7;
+    border: 1px solid lightgray;
+    z-index: 8;
+    margin-top: -180px;
+    margin-left: -40%;
+    box-shadow: 0px 0px 23px -2px;
+	padding-top: 10px;
+	
+	display: none;
+}
+
+.jasj_calendar>table{
+	width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.jasj_calendar th {
+    font-size: .6875em;
+    font-weight: 400;
+    border-bottom: 1px solid #4eccc4;
+	padding: 10px;
+}
+
+.jasj_calendar td {
+    text-align: center;
+    height: 32px;
+}
+
+.jasj_calendar .fa{
+	color : #0177D7;
+}
+
+.jasj_calendar .navCalendar{
+	color : #0177D7;
+	font-weight: bold;
+	
+	font-size: 14px;
+	position: absolute;
+    bottom: 15px;
+}
+
+
+.jasj_time{
+	position: fixed;
+    left: 50%;
+    top: 50%;
+    height: 200px;
+    width: 80%;
+    background: #F7F7F7;
+    border: 1px solid lightgray;
+    z-index: 8;
+    margin-top: -100px;
+    margin-left: -40%;
+    box-shadow: 0px 0px 23px -2px;
+    padding-top: 10px;
+	
+	display:none;
+}
+
+.jasj_td_scroll {
+    height: 60px;
+    overflow-y: auto;
+    font-size: 20px;
+	
+}
+
+.jasj_topcover {
+    position: absolute;
+    left: 0px;
+    height: 20px;
+    right: 0px;
+    background: #f7f7f7;
+    top: 53px;
+    opacity: 0.6;
+}
+
+.jasj_bottomcover{
+    position: absolute;
+    left: 0px;
+    height: 20px;
+    right: 0px;
+    background: #f7f7f7;
+    top: 100px;
+    opacity: 0.6
+}
+
+
+table.navTimer {
+    width: 100%;
+    margin-top: 65px;
+    text-align: center;
+}
