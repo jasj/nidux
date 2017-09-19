@@ -1,3 +1,21 @@
+mySwiper = undefined
+$("[tab-target=shopPromo]").tapend(function(){
+    setTimeout(function() {
+        if (mySwiper == undefined){
+            mySwiper = new Swiper('.swiper-container', {
+                speed: 400,
+                spaceBetween: 100,
+                pagination: '.swiper-pagination',
+                
+                // Navigation arrows
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
+                loop : true
+            }); 
+        }
+    }, 500);
+  
+})
 
 
 shop = {
@@ -18,19 +36,10 @@ shop = {
         $(".btn_get").css({ "background-color" : color} )
         $("#chat_sender_btn").css({ "color" : color} )
         $("#select_attachment_type").css({ "color" : color} )
-        var mySwiper = new Swiper ('.swiper-container', {
-            loop: true,
-            
-            // If we need pagination
-            pagination: '.swiper-pagination',
-            
-            // Navigation arrows
-            nextButton: '.swiper-button-next',
-            prevButton: '.swiper-button-prev',
+       
 
-        paginationClickable: true
+         
         
-          }) 
 //temporal demo chat
           insertChat({
             id : 1000,
