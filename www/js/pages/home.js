@@ -1,22 +1,106 @@
+function replaceAdsProducts(products){
+    console.log(products)
+    for(productIndex in products) {
+       var product  = products[productIndex]
+       var productDOM =  $("#dashboard .product-card").eq(productIndex -1)
+       
+        if (product.empty == 1){
+            productDOM.find("img").attr("src","https://dividendappreciation.com/wp-content/uploads/2017/05/For-Sale-Oldcastle.gif")
+            productDOM.find("h6").html("CALL")
+            productDOM.find("h5").html("")
+        }else{
+            productDOM.find("img").attr("src",product.thumbnail)
+            productDOM.find("h5").html(product.description)
+            productDOM.find("h6").html(product.price + " "+ product.currency)
+        }
+    };
+}
+
+function replaceAdsBanner(banners){
+    for(bannerIndex in banners) {
+        var banner  = banners[bannerIndex]
+        var bannerDOM =  $("#dashboard .product-card").eq(bannerIndex -1)
+        
+        if (banner.empty == 1){
+            $("#portada .nivoSlider img").eq(bannerIndex).attr("src","https://dividendappreciation.com/wp-content/uploads/2017/05/For-Sale-Oldcastle.gif")            
+        }else{
+            $("#portada .nivoSlider img").eq(bannerIndex).attr("src",banner.imageURL) 
+        }
+    }
+
+}
+
 function getEstateIdentifier (estates, id) {
     return estates.filter(function (estate) { return estate.estateId == id })[0].identifier
 }
 
-function requestDashboardInfo () {
-    loginInfo(function (doc) {
-        var tempObj = {
-            userId: doc.userId
-        }
-        _consolePost(beServices.SECURITY.DASHBOARD, tempObj, function (data) {
-            $("#home_condos").find(".fa-home").html(" " + data.length)
-            $(".get-nicer").getNiceScroll().resize()
-            console.log(data)
+
+function getSavedDashboardInfo(){
+    db.get("adsProducts").then(function(products){
+        replaceAdsProducts(products.products)
+        console.log(products.version,products.products)
+        db.get("adsBanners").then(function(banners){
+            replaceAdsBanner(banner.banner)
+            requestDashboardInfo(products.version,products.products,banners.version,banners.banners)
+        }).catch(function(){
+            console.log(products.version,products.products)
+            requestDashboardInfo(products.version,products.products,0,{})
         })
+        
+    }).catch(function(){
+        requestDashboardInfo(0,{},0,{})
     })
+}
+
+
+function requestBanners(versionBanner,oldBannerData){
+    _consolePost(beServices.DASHBOARD.GET_BANNER_LIST, {version : versionBanner}, function (newBannerData) {
+        if(!$.isEmptyObject(newBannerData)){
+             replaceAdsBanner(newBannerData.banners)
+             console.log(oldBannerData,newBannerData.banners)
+             var mergedBanners = {
+                 banners : Object.assign(oldBannerData,newBannerData.banners),
+                 version : newBannerData.version
+             }
+             db.upsert("adsBanners",Object.assign(oldBannerData,newBannerData))
+        }
+
+       
+    })
+}
+
+
+function requestDashboardInfo (versionProducts,oldProductData,versionBanner,oldBannerData) {
+    console.log(versionProducts,oldProductData,versionBanner,oldBannerData)
+    loginInfo(function (doc) {
+         
+        _consolePost(beServices.DASHBOARD.GET_PRODUCT_LIST, {version : versionProducts}, function (newProductData) {
+            
+            $(".get-nicer").getNiceScroll().resize()
+                replaceAdsProducts(newProductData.products)
+               if($.isEmptyObject(newProductData)){
+                    requestBanners(versionBanner,oldBannerData)
+               }else{
+                    console.log(oldProductData, newProductData.products)
+                    var mergedProducts = {
+                        products: Object.assign(oldProductData, newProductData.products),
+                        version: newProductData.version 
+                    }
+                    db.upsert("adsProducts", mergedProducts).then(function(){
+                        requestBanners(versionBanner,oldBannerData)
+                    })
+                    
+               }
+               
+                $(".get-nicer").getNiceScroll().resize()
+            })
+
+        
+        })
 }
 
 home = {
     init: function () {
-        requestDashboardInfo()
+        getSavedDashboardInfo()
     }
 }

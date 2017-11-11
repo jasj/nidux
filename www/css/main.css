@@ -1601,6 +1601,61 @@ table.billDetails {
 }
 
 
+.jasj_select_categorie {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: rgba(0,0,0,0.8);
+    display: none;
+}
+
+.jasj_categorie_header {
+    height: 20px;
+    color: white;
+    border-top: 2px solid #D7C101;
+    padding: 20px;
+}
+
+
+
+.jasj_categorie_header>i {
+    margin-right: 20px;
+}
+
+.jasj_categorie.active .jasj_categorie_header {
+    background: white;
+    color: #D7C101 !important;
+}
+
+
+
+.jasj_categorie_categories {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 20px;
+    
+}
+
+.jasj_categorie.active .jasj_categorie_categories {
+    display: none;
+}
+
+.jasj_categorie_categorie {
+    padding: 10px;
+    border: 1px solid;
+    color: #D7C101;
+    margin: 5px;
+}
+
+.jasj_categorie_categorie.active {
+    background: #D7C101;
+    color: white;
+}
+
+
 
 
 @keyframes loading {

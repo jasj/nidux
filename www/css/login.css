@@ -113,6 +113,7 @@
     border: none;
     border-bottom: 1px solid #dedede;
     background: transparent;
+    color: white;
 }
 .login_input  input:focus     { outline:none; }
 

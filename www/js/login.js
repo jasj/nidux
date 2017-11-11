@@ -10,6 +10,7 @@ function checkPreviusLogin () {
         _consolePost(beServices.SECURITY.CHECK_LOGIN, tempObj, function (data) {
             loginObj = data
             fillUserConfigLogin(data) 
+            home.init()
             
             if ("endpoints" in data && data.endpoints.length > 0) {
                 condoSelected = data.endpoints[0].condoId
@@ -57,11 +58,12 @@ $("#logout_btn").tapend(function () {
 $(".login_input input").focus(function () { $("#login_info_txt").html("") })
 
 $(".login--Credentials").tapend(function () {
-    simDevice()
+    //simDevice()
     if (emailRegEx.test($("#login_user").val())) {
         var tempObj = {
             user: $("#login_user").val().toLowerCase(),
             password: HexWhirlpool($("#login_psw").val()),
+            type: userType,
             uuid: typeof device !== "undefined" ? device.uuid : "Browser",
             pushNumber: typeof device !== "undefined" ? PN : "Browser"
         }
@@ -77,17 +79,13 @@ $(".login--Credentials").tapend(function () {
                 loginObj = data
                 fillUserConfigLogin(data) 
 
-                console.log("data length: ", data.endpoints.length)
-
-                if ("endpoints" in data && data.endpoints.length > 0) {
-                    condoSelected = data.endpoints[0].condoId
-                    setCondoEndpoint(condoSelected)
-                }
-
+                
+                console.log(loginObj)
                 db.bulkDocs([
                     Object.assign({"_id": "email"}, {email: tempObj.user}),
                     Object.assign({"_id": "loginInfoAdmin"}, data)
                 ])
+                home.init()
             }, function (e) {
                 if (e.status == 401) {
                     $("#login_info_txt").html($.t("BAD_CREDENTIALS"))

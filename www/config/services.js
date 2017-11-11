@@ -20,5 +20,9 @@ beServices = {
         "DELETE_APP": ":2521/ravel/1.0/chat/delete/app",
         "READ_USERS_GROUPS": ":2521/ravel/1.0/chat/read/users/groups",
         "WRITE_APP": ":2521/ravel/1.0/chat/write/app"
+    },
+    "DASHBOARD" : {
+        "GET_PRODUCT_LIST" : "/core/promo/product/get",
+        "GET_BANNER_LIST" : "/core/banner/get"
     }
 }
