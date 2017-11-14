@@ -8,12 +8,14 @@ function onDeviceReady_db () {
                 _rev: doc._rev
             }, data))
         }).then(function (response) {
-            console.log(response)
+            if (typeof  callback == "function") callback()
         }).catch(function (err) {
             if (err.status == 404) {
                 return db.put(Object.assign({
                     _id: id
-                }, data))
+                }, data)).then(function (response) {
+                   if (typeof  callback == "function") callback()
+                })
             }
         })
     }

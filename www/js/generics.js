@@ -334,6 +334,13 @@ if ($ != undefined) {
         return this.get(0).scrollHeight > this.height()
     }
 
+    $(document).on("tapend","[href]",function(ev){
+        ev.preventDefault()
+        if(checkPress(ev)){
+            window.open($(this).attr("href"));
+        }
+    })
+
     $(".switch").tapend(function (ev) {
         if (checkPress(ev)) {
             ev.preventDefault()

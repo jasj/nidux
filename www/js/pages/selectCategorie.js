@@ -11,7 +11,7 @@ $(".jasj_categorie").tapend(function(ev){
 $(".jasj_categorie_categorie").tapend(function(ev){
     ev.stopPropagation()
     $(".jasj_categorie_categorie.active").removeClass("active")
-    $(".jasj_categorie").not($(this).parents(.jasj_categorie)).removeClass("active")
+    $(".jasj_categorie").not($(this).parents(".jasj_categorie")).removeClass("active")
     $(this).parents(".jasj_categorie").addClass("active")
     $(this).addClass("active")
 })

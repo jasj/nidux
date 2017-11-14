@@ -1,20 +1,119 @@
 promoSwiper = undefined
+
+function insertPublishPromotion(promo){
+    console.log("promo",promo)
+    if($("#ppromo_"+promo.promotionId).length == 0){
+        var dom= $(`<div id="ppromo_`+promo.promotionId+`" niduxPromoCode="`+promo.niduxPromoCode+`" class="swiper-slide">
+                         <img src="`+promo.image+`"/>
+                         <h4>`+promo.header+`</h4>
+                         <p>`+promo.description+`</p>
+                         <div class="btn_get">`+$.t("GET")+`</div>
+                  </div>`)
+                if( $("#ppromo_"+promo.promotionId).length == 0){
+                    $('[section-name=promotions] .swiper-wrapper').append(dom)
+                }
+                  
+
+    }
+}
+
+function requestPublishPromotion(version,old){
+    console.log("old",old)
+    _consolePost(beServices.PUBLIHED_PROMOTIONS.GET_PROMOTIONS,{"publicVersion" : version},function(data){
+        console.log(data)
+        if(data.version != null){
+			if(old != undefined){
+				console.log("old pp lst",old)
+				var newIdexes = data.promos.map(function(t){return t.id})
+				old.promos = old.promos.filter(function(t){return newIdexes.indexOf(t.id) < 0 && data.deleted.indexOf(t.id) <0 })
+				data.promos = old.promos.concat(data.promos)
+			}
+			
+			
+			if(data.deleted != null){
+				data.deleted.forEach(function(id){
+					$("#ppromo_"+id).remove()
+				})
+			}
+           
+            for(var i = 0 ; i < data.promos.length;i++)
+            {
+                var promo = data.promos[i]
+                if(promo.publishEndDate < dptime){
+                    data.promos.slice(i,1)
+                    try{
+                     $("#ppromo_"+promo.promotionId).remove()
+                    }catch(e){
+    
+                    }
+                }
+                else if(promo.publishStartDate < dptime){
+                    insertPublishPromotion(promo)
+                }
+            }
+
+            db.upsert("publishedPromotions",data)
+           
+		}
+
+        createPublishedPromoSlider()
+    },function(){
+        console.log("fallo de promo")
+        createPublishedPromoSlider()
+    })
+    
+}
+
+function getSavedPublishPromotion(){
+    dptime = new Date().getTime()
+    db.get("publishedPromotions").then(function(promos){
+        requestPublishPromotion(promos.version,promos)
+        console.log("oldPromos",promos)
+        for(var i = 0 ; i < promos.promos.length;i++)
+        {
+            var promo = promos.promos[i]
+            if(promo.publishEndDate < dptime){
+                promos.promos.slice(i,1)
+                try{
+                 $("#ppromo_"+promo.promotionId).remove()
+                }catch(e){
+
+                }
+            }
+            else if(promo.publishStartDate < dptime){
+                insertPublishPromotion(promo)
+            }
+        }
+
+       // insertPublishPromotion(promos.promos)
+    }).catch(function(e){
+        console.log(e)
+        requestPublishPromotion(0)
+    })
+}
+
+function createPublishedPromoSlider(){
+    setTimeout(function() {
+        if (promoSwiper == undefined){
+            promoSwiper = new Swiper('[section-name=promotions] .swiper-container', {
+                speed: 400,
+                spaceBetween: 0,
+                pagination: '.swiper-pagination',
+                
+                // Navigation arrows
+                nextButton: '.swiper-button-next',
+                prevButton: '.swiper-button-prev',
+                loop : true
+            });
+         
+        }
+    }, 500);
+}
+
+
+
 promotions = {
     init : function () {
-        setTimeout(function() {
-            if (promoSwiper == undefined){
-                promoSwiper = new Swiper('[section-name=promotions] .swiper-container', {
-                    speed: 400,
-                    spaceBetween: 100,
-                    pagination: '.swiper-pagination',
-                    
-                    // Navigation arrows
-                    nextButton: '.swiper-button-next',
-                    prevButton: '.swiper-button-prev',
-                    loop : true
-                });
-                alert(909) 
-            }
-        }, 500);
+        getSavedPublishPromotion()
     }
 }

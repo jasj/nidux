@@ -5,10 +5,13 @@ function replaceAdsProducts(products){
        var productDOM =  $("#dashboard .product-card").eq(productIndex -1)
        
         if (product.empty == 1){
+            
             productDOM.find("img").attr("src","https://dividendappreciation.com/wp-content/uploads/2017/05/For-Sale-Oldcastle.gif")
             productDOM.find("h6").html("CALL")
             productDOM.find("h5").html("")
+            productDOM.attr("href","https://www.nidux.com/inicio/")
         }else{
+            productDOM.attr("href",product.href)
             productDOM.find("img").attr("src",product.thumbnail)
             productDOM.find("h5").html(product.description)
             productDOM.find("h6").html(product.price + " "+ product.currency)
@@ -19,11 +22,12 @@ function replaceAdsProducts(products){
 function replaceAdsBanner(banners){
     for(bannerIndex in banners) {
         var banner  = banners[bannerIndex]
-        var bannerDOM =  $("#dashboard .product-card").eq(bannerIndex -1)
-        
-        if (banner.empty == 1){
+        console.log(bannerIndex)
+        if (1 == 1){
+            $("#portada .nivoSlider a").eq(bannerIndex -1).attr("href","https://www.nidux.com/inicio/")
             $("#portada .nivoSlider img").eq(bannerIndex).attr("src","https://dividendappreciation.com/wp-content/uploads/2017/05/For-Sale-Oldcastle.gif")            
         }else{
+            $("#portada .nivoSlider a").eq(bannerIndex -1).attr("href",banner.href)
             $("#portada .nivoSlider img").eq(bannerIndex).attr("src",banner.imageURL) 
         }
     }
@@ -40,11 +44,11 @@ function getSavedDashboardInfo(){
         replaceAdsProducts(products.products)
         console.log(products.version,products.products)
         db.get("adsBanners").then(function(banners){
-            replaceAdsBanner(banner.banner)
-            requestDashboardInfo(products.version,products.products,banners.version,banners.banners)
+            replaceAdsBanner(banners.banners)
+            requestDashboardInfo(0,products.products,banners.version,banners.banners)
         }).catch(function(){
             console.log(products.version,products.products)
-            requestDashboardInfo(products.version,products.products,0,{})
+            requestDashboardInfo(0,products.products,0,{})
         })
         
     }).catch(function(){
@@ -86,7 +90,7 @@ function requestDashboardInfo (versionProducts,oldProductData,versionBanner,oldB
                         products: Object.assign(oldProductData, newProductData.products),
                         version: newProductData.version 
                     }
-                    db.upsert("adsProducts", mergedProducts).then(function(){
+                    db.upsert("adsProducts", mergedProducts,function(){
                         requestBanners(versionBanner,oldBannerData)
                     })
                     
@@ -98,6 +102,10 @@ function requestDashboardInfo (versionProducts,oldProductData,versionBanner,oldB
         
         })
 }
+
+
+
+
 
 home = {
     init: function () {

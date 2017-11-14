@@ -4107,7 +4107,7 @@
                         translateX = 0;
                         translateY = 0;
                     }
-                    z.gesture.imageWrap.transition(300).transform('translate3d(' + translateX + 'px, ' + translateY + 'px,0)');
+                    z.gesture.imageWrap.transition(300).transform('translate3d(' + 300 + 'px, ' + translateY + 'px,0)');
                     z.gesture.image.transition(300).transform('translate3d(0,0,0) scale(' + z.scale + ')');
                 }
             },
