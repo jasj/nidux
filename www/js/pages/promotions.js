@@ -97,7 +97,7 @@ function createPublishedPromoSlider(){
         if (promoSwiper == undefined){
             promoSwiper = new Swiper('[section-name=promotions] .swiper-container', {
                 speed: 400,
-                spaceBetween: 0,
+                spaceBetween: 30,
                 pagination: '.swiper-pagination',
                 
                 // Navigation arrows

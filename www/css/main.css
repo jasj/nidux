@@ -1553,12 +1553,13 @@ table.billDetails {
 }
 
 .swiper-container {
-
+    position: fixed!important;
+    left: 0px;
+    right: 0px;
+    top: 61px;
+    bottom: 38px;
 }      
 
-.swiper-slide{
-    padding: 4.5px;
-}
 
 
 .swiper-slide img {
@@ -1567,10 +1568,17 @@ table.billDetails {
     margin-left: -14px;
     margin-top: -16px;
     margin-bottom: -10px;
+    width: calc(100% + 30px);
 }
 .swiper-slide h4 {
     text-align: center;
 }
+
+.swiper-slide p {
+    padding-left: 10px;
+}
+
+
 
 .btn_get {
     width: 200px;
@@ -1580,7 +1588,9 @@ table.billDetails {
     font-weight: bolder;
     text-align: center;
     border-radius: 13px;
-    margin-left: calc(50% - 139px);
+    margin-left: calc(50% - 117px);
+    position: absolute;
+    bottom : 0px;
 }
 
 .qr_btn {
