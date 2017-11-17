@@ -3,11 +3,11 @@ promoSwiper = undefined
 function insertPublishPromotion(promo){
     console.log("promo",promo)
     if($("#ppromo_"+promo.promotionId).length == 0){
-        var dom= $(`<div id="ppromo_`+promo.promotionId+`" niduxPromoCode="`+promo.niduxPromoCode+`" class="swiper-slide">
+        var dom= $(`<div id="ppromo_`+promo.promotionId+`"  class="swiper-slide">
                          <img src="`+promo.image+`"/>
                          <h4>`+promo.header+`</h4>
                          <p>`+promo.description+`</p>
-                         <div class="btn_get">`+$.t("GET")+`</div>
+                         <div class="btn_get" section-target="promotionsQR" niduxPromoCode="`+promo.promotionId+`">`+$.t("GET")+`</div>
                   </div>`)
                 if( $("#ppromo_"+promo.promotionId).length == 0){
                     $('[section-name=promotions] .swiper-wrapper').append(dom)

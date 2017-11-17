@@ -152,7 +152,7 @@ function _post (url, obj, cb, fail) {
 }
 
 function addLoginInfo (obj) {
-    obj.loginId = loginObj.loginId
+    obj.loginId = obj.loginId || loginObj.loginId
     obj.uuid = typeof device !== "undefined" ? device.uuid : "Browser"
 }
 
@@ -177,7 +177,7 @@ function getNameFromUrl (url) {
 }
 
 function simDevice () {
-    window.device = {platform: "chrome", uuid: uuid()}
+    window.device = {platform: "chrome", uuid: "uuid()"}
     window.cordova = {platformId: "chrome"}
     PN = "BROWSER" + uuid()
     navigator.splashscreen = { show: function () {}}
