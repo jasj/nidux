@@ -44,7 +44,11 @@ function RegisterPN () {
 // iOS
 function onNotificationAPN (event) {
     // cordova.plugins.notification.badge.set(100);
-    ;
+    pushDriver({
+        payload:  event,
+        foreground: event.foreground == "1"
+    })
+    
     window.plugins.toast.showLongBottom(event.alert, function (a) { console.log("toast success: " + a) }, function (b) { console.log("toast error: " + b) })
     if (event.alert) {
         navigator.notification.console.log(event.alert)

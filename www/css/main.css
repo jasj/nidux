@@ -1619,6 +1619,18 @@ table.billDetails {
     padding: 40px;
 }
 
+.code_border {
+    background: white;
+    border: 3px solid #d7c101;
+    text-align: center;
+    padding: 20px;
+    width: 100px;
+    margin-left: calc(50% - 70px);
+    border-radius: 10px;
+    font-weight: 900;
+}
+
+
 
 .jasj_select_categorie {
     position: fixed;
@@ -1673,6 +1685,102 @@ table.billDetails {
     background: #D7C101;
     color: white;
 }
+
+
+.code_lst_elment {
+    height: 430px;
+    margin-bottom: 41px;
+    width: calc(100% - 20px);
+}
+
+.code_lst_elment .front, .code_lst_elment .back{
+    background-color: white;
+    padding: 8px;
+    border: 2px dashed gold;
+    height: 430px;
+
+}
+
+.code_lst_elment p {
+    text-align: justify;
+    text-overflow: ellipsis;
+    height: 38px;
+    overflow: hidden;
+    /* white-space: nowrap; */
+    /* line-height: 1.4; */
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    font-stretch: ultra-condensed;
+    color: #444;
+}
+
+.code_lst_elment img{
+    width: calc(100% + 17px);
+    margin: -8px;
+    height: 228px;
+}
+
+.code_lst_elment h3 {
+    /*color: black;
+    font-size: 15px;*/
+    text-align: center;
+}
+
+.code_lst_elment .disclosure {
+    margin-top: 30px;
+    font-stretch: ultra-condensed;
+    height: 120px;
+    overflow: hidden;
+}
+
+.ribbon {
+    transform: rotate(51deg);
+    padding: 5px;
+    background: gold;
+    text-align: center;
+    width: 80px;
+    border-radius: 60px 0px;
+    position: relative;
+    top: -439px;
+    left: calc(100% - 73px);
+}
+
+.code_lst_elment table {
+    width: 100%;
+    text-align: center;
+    color: dimgray;
+    margin-top: 15px;
+    margin-bottom: -10px;
+}
+
+.inactiveCodeElement {
+    height: 100px;
+    background-color: white;
+    margin-bottom: 2px;
+    padding-top: 25px;
+}
+
+.inactiveCodeElement h3 {
+    font-size: 14px;
+    color: indianred;
+    margin-top: 0px;
+    margin-left: 8px;
+}
+
+.inactiveCodeElement p {
+    margin-top: -6px;
+    margin-left: 8px;
+    overflow: hidden;
+    word-wrap: unset;
+}
+
+
+
+.inactiveCodeElement table {
+    margin-top: -10px;
+    margin-left: 5px;
+}
+
 
 
 

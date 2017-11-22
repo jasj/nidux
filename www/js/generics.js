@@ -253,6 +253,12 @@ function normalDateLocal (date) {
     return date_.getFullYear() + "-" + zeroPad(date_.getMonth() + 1, 2) + "-" + zeroPad(date_.getDate(), 2) + " " + zeroPad(date_.getHours()) + ":" + zeroPad(date_.getMinutes()) + ":" + zeroPad(date_.getSeconds())
 }
 
+function normalDateOnlyLocal (date) {
+    var date_ = new Date(date)
+    return date_.getFullYear() + "-" + zeroPad(date_.getMonth() + 1, 2) + "-" + zeroPad(date_.getDate(), 2) 
+}
+
+
 function Int2Time (integer) {
     return {h: parseInt(integer / 100), m: integer % 100}
 }

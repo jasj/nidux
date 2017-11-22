@@ -1,5 +1,5 @@
 userType = "C"
-ConsoleServerIP = "http://192.168.0.69:2521/ravel/1.0"
+ConsoleServerIP = "http://192.168.1.132:2521/ravel/1.0"
 CondominiumIP = ""
 loginObj = {}
 condoSelected = 0

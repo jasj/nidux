@@ -60,7 +60,7 @@
 				</div>
 				<ul>
 					<li class="menu_nav" section-target="home" section-tabToGo="1" i18Trans="<input type='search' placeholder='Buscar'> <i class='search_input fa fa-search'></i>" i18Target="section-title"><a i18Trans="MY_SHOPS"></a></li>
-					<li class="menu_nav" section-target="chat"><a i18Trans="MY_ORDERS"></a></li>
+					<li class="menu_nav" section-target="myCodes"><a i18Trans="MY_PROMOTION_CODES"></a></li>
 					<li class="menu_nav" section-target="promotions"><a i18Trans="PROMOTIONS"></a></li>
 				</ul>
 			</nav>
@@ -389,6 +389,29 @@
 					</div>
 				</div>
 
+
+				<div section-name="myCodes" class="section_page">
+					<nav id="myCodesNav">
+						<ul class="tablist" tab-group="AdminNav">
+							<li class="active" tab-target="activeCodes" i18Trans="ACTIVE"></li>
+							<li tab-target="redimedCodes" i18Trans="INACTIVE"></li>
+						</ul>
+					</nav>
+
+					<div id="codeList" class="tab-listtab get-nicer" tab-name="activeCodes">
+						<div class="nice-wrapper padding10"></div>
+					</div>
+
+					<div id="codeListRedem" class="tab-listtab get-nicer" tab-name="redimedCodes">
+						<div class="nice-wrapper"></div>
+					</div>
+
+
+
+					
+
+				</div>
+
 				<div section-name="msgChat" class="section_page" avoid-autoscroll="true">
 					<nav id="ChatMsgNav" class="chat_action_bar">
 						<i class="fa fa-chevron-left" aria-hidden="true" section-target="shop" section-tabToGo="3"  section-title="KEEP_LAST_VALUE" section-color="KEEP_LAST_VALUE"></i>
@@ -612,6 +635,7 @@
 						</nav>
 						<div class="tab-listtab get-nicer" tab-name="msgInfo">
 							<img id="promotionQRImage" />
+							<div class="code_border">00000000</div>
 							<h4 i18Trans="DISCLAIMER"></h4>
 							<div id="qrPromotionCode" ></div>
 							<p id="promotionDisclamer" align= "justify"></p>
@@ -784,6 +808,7 @@
 		<script type="text/javascript" src="js/TouchSwipe.js"></script>
 		<script type="text/javascript" src="js/pouchdb-6.1.2.min.js"></script>
 		<script type="text/javascript" src="js/qr.js"></script>
+		<script type="text/javascript" src="js/flip.js"></script>
 		<script type="text/javascript" src="lib/nivo/jquery.nivo.slider.js"></script>
 		<script type="text/javascript" src="lib/select2/js/select2.min.js"></script>
 		<script type="text/javascript" src="lib/pickadate.js-3.5.6/lib/picker.js"></script>
@@ -825,6 +850,8 @@
 		<script type="text/javascript" src="js/pages/shop.js"></script>
 		<script type="text/javascript" src="js/pages/promotions.js"></script>
 		<script type="text/javascript" src="js/pages/promotionsQR.js"></script>
+		<script type="text/javascript" src="js/pages/myCodes.js"></script>
+		
 		<!-- <script type="text/javascript" src="js/pages/people.js"></script>
 		
 		<script type="text/javascript" src="js/pages/employee.js"></script>

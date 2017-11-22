@@ -71,17 +71,23 @@ function getSavedPublishPromotion(){
         console.log("oldPromos",promos)
         for(var i = 0 ; i < promos.promos.length;i++)
         {
+            console.log("di2")
             var promo = promos.promos[i]
             if(promo.publishEndDate < dptime){
+                console.log("di5")
                 promos.promos.slice(i,1)
                 try{
                  $("#ppromo_"+promo.promotionId).remove()
                 }catch(e){
-
+                      console.log(e)
                 }
             }
             else if(promo.publishStartDate < dptime){
+                console.log("di")
                 insertPublishPromotion(promo)
+            }
+            else{
+                console.log("di3")
             }
         }
 
