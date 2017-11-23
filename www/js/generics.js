@@ -263,6 +263,22 @@ function Int2Time (integer) {
     return {h: parseInt(integer / 100), m: integer % 100}
 }
 
+function imageContent(url,imageFx){
+    db.get(HexWhirlpool(url)).then(function(base64){
+        imageFx("data:image/jpeg;base64,"+base64.image)
+    }).catch(function(){
+         var img = new Image()
+         img.setAttribute("crossOrigin","Anonymous")
+         img.src = url
+         img.onload = function(){
+             var b64 = getBase64Image(img)
+             imageFx("data:image/jpeg;base64,"+b64)
+             db.upsert(HexWhirlpool(url),{image : b64})
+         }
+    })
+}
+
+
 function setCondoEndpoint (condoId) {
     for (var i = 0; i < loginObj.endpoints.length; i++) {
         var condo = loginObj.endpoints[i]

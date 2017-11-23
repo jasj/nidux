@@ -66,7 +66,7 @@ function requestNewMyCodes(version,oldPromo) {
                   Object.assign(oldPromo.promos, data.promos)
                   var newPromoRequest = data.promosPerUser.map(function(t){return t.promotionPerUserId})
                   var notUpdatedPromoRequest =  oldPromo.promosPerUser.filter(function(t){
-                         return newPromoRequest.indexOf(t.promotionPerUserId) > -1
+                         return newPromoRequest.indexOf(t.promotionPerUserId) == -1
                   })
                   oldPromo.promosPerUser = notUpdatedPromoRequest.concat(data.promosPerUser)
                   db.upsert("promosPerUser",oldPromo)

@@ -1,3 +1,6 @@
+
+controStepSave = 0
+
 function replaceAdsProducts(products){
     console.log(products)
     for(productIndex in products) {
@@ -104,11 +107,64 @@ function requestDashboardInfo (versionProducts,oldProductData,versionBanner,oldB
 }
 
 
+function addMyShops(shop){
+    console.log("shop.image",shop.image)
+    imageContent(shop.image,function(image){
+        $("#myShop"+shop.myShopId).remove()
+        console.log("getImage")
+           $("#myShop"+shop.myShopId)
+           $(`<div id="myShop`+shop.myShopId+`"
+                class="shop" style="background-image: url(`+image+`);"
+                    section-target="shop"
+                    section-title="`+shop.name+`"
+                    section-color="`+shop.color+`">
+                </div>`).appendTo("#myshops .nice-wrapper")
+    })
+}
+
+function requestMyShops(version,old){
+    loginInfo(function(x){  
+        _consolePost(beServices.MY_SHOPS.GET_LIST,{
+                loginId : x.loginId,
+                type: "C",
+                uuid : device.uuid,
+                userId: x.userId,
+                version:version},function(data){
+            console.log(data)
+            if(!$.isEmptyObject(data)){
+                var newMyShops = data.myShops.map(function(t){return t.myShopId})
+                var updatedMyShops =
+                    old.myShops.filter(function(t){return data.deleted.indexOf(t.myShopId) == -1 && newMyShops.indexOf(t.myShopId)== -1}).concat(data.myShops)
+                    db.upsert("myShops", {version : data.version, myShops : updatedMyShops})
+                    for(var i= 0; i < data.myShops.length; i++){
+                        addMyShops(data.myShops[i])
+                    }
+
+            }
+        })
+    })
+}
+
+
+function getSavedMyShops(){
+    db.get("myShops").then(function(shops){
+        for(var i= 0; i < shops.myShops.length; i++){
+            addMyShops(shops.myShops[i])
+        }
+        requestMyShops(shops.version,shops.myShops)
+        
+
+    }).catch(function(){
+        requestMyShops(0,{version:0 , deleted : [], myShops: []})
+   })
+}
 
 
 
 home = {
     init: function () {
         getSavedDashboardInfo()
+        getSavedMyShops()
+
     }
 }

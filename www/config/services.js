@@ -25,6 +25,9 @@ beServices = {
         "GET_PRODUCT_LIST" : "/core/promo/product/get",
         "GET_BANNER_LIST" : "/core/banner/get"
     },
+    "MY_SHOPS" :{
+        "GET_LIST" : "/core/myShops/get"
+    },
     "PUBLIHED_PROMOTIONS" : {
         "GET_PROMOTIONS" : "/core/promotion/publish/get",
         "REQUEST_PROMOTION" : "/core/shops/promotion/get"
