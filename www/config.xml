@@ -3,7 +3,7 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.efika2.niduxshopping"
+        id        = "com.efika.niduxshopping"
         version   = "1.0.0">
 
     <name>NiduxShop</name>
@@ -64,9 +64,9 @@
 	 <!--<plugin spec="https://github.com/couchbaselabs/Couchbase-Lite-PhoneGap-Plugin.git" />-->
 
      
-     <gap:plugin name="cordova-plugin-googleplus" source="npm">
+    <!-- <gap:plugin name="cordova-plugin-googleplus" source="npm">
         <param name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.319755554314-a4trc6cbpumd7ukt10ncindu5lq25rnu" />
-    </gap:plugin>
+    </gap:plugin>-->
 
 
 	<plugin spec="https://github.com/jasj/Cordova-sqlite-evcore-extbuild-free.git" />
