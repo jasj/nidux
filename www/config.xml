@@ -68,10 +68,7 @@
         <param name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.319755554314-a4trc6cbpumd7ukt10ncindu5lq25rnu" />
     </gap:plugin>
 
-	<gap:plugin name="cordova-plugin-facebook" source="npm">
-            <param name="FACEBOOK_APP_ID" value="298960577183466" />
-            <param name="FACEBOOK_DISPLAY_NAME" value="CondoSoft" />
-    </gap:plugin>
+
 	<plugin spec="https://github.com/jasj/Cordova-sqlite-evcore-extbuild-free.git" />
 	<plugin spec="https://github.com/phonegap/phonegap-plugin-barcodescanner.git#9da5174cd6edd26fc022f081e1780f3f9a9b3d1c" />
 <!--plugin spec="https://github.com/jasj/phonegap-plugin-barcodescanner.git" /''-->
