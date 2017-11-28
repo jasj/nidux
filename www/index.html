@@ -18,6 +18,7 @@
 		<link rel="stylesheet" type="text/css" href="lib/nivo/themes/default/default.css" />
 		<link rel="stylesheet" type="text/css" href="css/dashboard.css" />
 		<link rel="stylesheet" type="text/css" href="css/jasjcalendar.css" />
+		<link rel="stylesheet" type="text/css" href="fonts/niduxFonts.css" />
 		<link rel="stylesheet" type="text/css" href="lib/pickadate.js-3.5.6/lib/themes/classic.css" />
 		<link rel="stylesheet" type="text/css" href="lib/pickadate.js-3.5.6/lib/themes/classic.date.css" />
 		<link rel="stylesheet" type="text/css" href="lib/pickadate.js-3.5.6/lib/themes/classic.time.css" />
@@ -227,14 +228,9 @@
 								<div class="shop" style="background-image: url(img/logos/l4.png);"></div>
 								
 								<div class="shop" style="background-image: url(img/logos/l1.png);"></div>
-								
-								<div class="shop" style="background-image: url(img/logos/l2.png);"></div>
-								
-								<div class="shop" style="background-image: url(img/logos/l7.png);"></div>
-								
-								<div class="shop" style="background-image: url(img/logos/l8.png);"></div>
+							
 							</div>
-							<div class="add_btn fa fa-plus" section-target="searchShops"></div>
+							<div class="add_btn fa fa-plus" section-target="searchShops" i18trans="<input id='searchForShop' type='search' placeholder='Buscar'> <i class='search_input fa fa-search'></i>" i18target="section-title"></div>
 							<div class="qr_btn fa fa-qrcode"></div>
 							
 							</div>
@@ -244,102 +240,24 @@
 				</div>
 
 				<div section-name="searchShops" class="section_page ">
-					<div class="products get-nicer">
-						<div class="nice-wrapper flex wrap">
-			<div class="product-card">
-				<div class="product-image">
-					<img src="img/products/p2.png">
-				</div>
-				<div class="product-info">
-					<h5>Salida de Baño</h5>
-					<h6>$99.99</h6>
-				</div>
+					<nav id="searchShopsNav" class="search_action_bar">
+							<i class="fa fa-chevron-left" aria-hidden="true" section-target="home" section-tabToGo="2"  section-title="KEEP_LAST_VALUE" section-color="KEEP_LAST_VALUE"></i>
+							<div i18Trans="ALL_CAT"></div>
+					</nav>
+					<div class="shopsLst get-nicer">
+						<div class="nice-wrapper">
+
+						</div>
+					</div>
+					<div class="bottomBar">
+							
+								<div class="btn fa fa-chevron-left"></div><div class="pageNo">15</div>
+							<div class="btn fa fa-chevron-right"></div>
+							
+					</div>
+					<div class="add_btn fa fa-tag" id="selectCat"></div>
 				</div>
 
-				<div class="product-card">
-				<div class="product-image">
-					<img src="img/products/p1.png">
-				</div>
-				<div class="product-info">
-					<h5>Impresora D09</h5>
-					<h6>$99.99</h6>
-				</div>
-				</div>
-
-				<div class="product-card">
-				<div class="product-image">
-					<img src="img/products/p3.png">
-				</div>
-				<div class="product-info">
-					<h5>Botas Negras</h5>
-					<h6>$99.99</h6>
-				</div>
-				</div>
-
-				<div class="product-card">
-				<div class="product-image">
-					<img src="img/products/p4.png">
-				</div>
-				<div class="product-info">
-					<h5>Winter Gloves</h5>
-					<h6>$29.99</h6>
-				</div>
-				</div>
-
-				<div class="product-card">
-				<div class="product-image">
-					<img src="img/products/p5.png">
-				</div>
-				<div class="product-info">
-					<h5>Winter Burgger</h5>
-					<h6>$99.99</h6>
-				</div>
-				</div>
-
-				<div class="product-card">
-				<div class="product-image">
-					<img src="img/products/p6.png">
-				</div>
-				<div class="product-info">
-					<h5>Winter Jacket</h5>
-					<h6>$99.99</h6>
-				</div>
-				</div>
-
-				<div class="product-card">
-				<div class="product-image">
-					<img src="img/products/p7.png">
-				</div>
-				<div class="product-info">
-					<h5>Winter Jacket</h5>
-					<h6>$99.99</h6>
-				</div>
-				</div>
-
-				<div class="product-card">
-				<div class="product-image">
-					<img src="img/products/p8.png">
-				</div>
-				<div class="product-info">
-					<h5>Winter Jacket</h5>
-					<h6>$99.99</h6>
-				</div>
-				</div>
-
-				<div class="product-card">
-				<div class="product-image">
-					<img src="img/products/p9.png">
-				</div>
-				<div class="product-info">
-					<h5>Winter Jacket</h5>
-					<h6>$99.99</h6>
-				</div>
-				</div>
-		</div>
-		<div class="add_btn fa fa-tag" section-target="searchShops"></div>s
-				</div>
-			
-				</div>
 
 				<div section-name="chat" class="section_page">
 					<nav id="ChatNav">
@@ -449,7 +367,7 @@
 
 				<div section-name="shop" class="section_page">
 						<nav id="shopNav">
-								<div class="fa fa-chevron-left actionBtn" aria-hidden="true" section-target="home" i18trans="<input type='search' placeholder='Buscar'> <i class='search_input fa fa-search'></i>" i18target="section-title"></div>
+								<div class="fa fa-chevron-left actionBtn" aria-hidden="true" section-tabToGo="2" section-target="home" i18trans="<input type='search' placeholder='Buscar'> <i class='search_input fa fa-search'></i>" i18target="section-title"></div>
 								<ul class="tablist" tab-group="AdminNav">
 										
 									<li class="" tab-target="shopHome"><i class="fa fa-home" aria-hidden="true"></i></li>
@@ -689,46 +607,481 @@
 			</section>
 				
 			<div class="jasj_select_categorie">
-				<div class="jasj_categorie">
-					<div class="jasj_categorie_header">
-				<i class="fa fa-car fa-fw"></i> Automovile 
+				<div class="whitAllCat">
+					<div class="jasj_categorie_menu active">
+						<div class="fa fa-tag fa-fw"><div class="allTitle">Todas las Categorias</div></div> <div class="fa fa-times fa-fw">
+							<div class="allTitle">Cerrar  Selección</div>
+						</div> 
+					</div>
 				</div>
+				<div id="categoriesContainer" class=" get-nicer">
+						<div class="nice-wrapper">
+							
+							<div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-turkey fa-fw"></i><span i18Trans="Alimentos y bebidas"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Bebidas con alcohol"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Bebidas sin alcohol"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Café"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Carnes"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Frutas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Frutos secos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Granos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Hortalizas y verduras"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Lácteos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Mini vegetales"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Pescaderia y mariscos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Postres y golosinas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Productos orgánicos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Té"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-car fa-fw"></i><span i18Trans="Automóviles y Motocicletas"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios exteriores"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios interiores"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios para motos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Artículos para limpieza"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Audio"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Autos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Herramientas y Equipos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Luces"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Llantas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Mantenimiento "></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Motos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Para alquiler"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Repuestos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Seguridad"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-karaoke fa-fw"></i><span i18Trans="Bodas y eventos"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios para boda"></div>
+										 -
+										 <div class="jasj_categorie_categorie" i18Trans="Baby Shower"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Bailes"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Cumpleaños"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Eventos corporativos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Eventos nocturnos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Fiesta infantiles"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Quinceaños"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Vestidos de baile"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Vestidos de cóctel"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Vestidos de dama de honor"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Vestidos de noche"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Vestidos de novia"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Vestidos quince años"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-user fa-fw"></i><span i18Trans="Caballeros"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Calcetines"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Camisas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Camisas y Sudaderas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Camisetas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Chaquetas y Abrigos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Pantalones"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Pantalones cortos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Para dormir y Descansar"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Ropa deportiva"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Ropa interior"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Suéteres"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Trajes de baño"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Trajes y Blazers"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-workplace fa-fw"></i><span i18Trans="Computación e informática"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios de laptops"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios de ordenador de escritorio"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios de tabletas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Adaptadores"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Almacenamiento"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Componentes de computadora"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Electrónica"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Laptops"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Notebooks y ultrabooks"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="PCs y Servidores"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Periféricos informáticos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Redes"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Software"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Tabletas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Tarjetas de memoria"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-user-1 fa-fw"></i><span i18Trans="Damas"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Blusas y Camisas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Calcetines"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Camisas y Sudaderas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Camisetas y Tops"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Chaquetas y Abrigos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Enaguas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Enterizos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Lencería y pijamas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Licras"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Mamelucos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Monos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Pantalones"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Para dormir y Descansar"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Ropa deportiva"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Shorts"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Suéteres"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Trajes de baño"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Trajes y Conjuntos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Vestidos"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-gymnastics fa-fw"></i><span i18Trans="Deportes"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios deportivos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Artes Marciales"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Atletismo"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Bolos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Camping y Senderismo"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Ciclismo"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Defensa personal"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Deportes acuáticos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Deportes de raqueta"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Deportes en equipo"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Entretenimiento"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Fitness &amp; Body Building"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Futbol"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Golf"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Patines y Scooters"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Pesca"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Ropa deportiva"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-headphones fa-fw"></i><span i18Trans="Electrónica"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Alarmas y accesorios"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Audio y video"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Cables y conectores"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Cámara y fotografía"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Dispositivos de almacenamiento"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Dispositivos de realidad virtual"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Dispositivos inteligentes"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Drones"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Juegos de Video"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Televisores"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa fa-film fa-fw"></i><span i18Trans="Entretenimiento"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Instrumentos musicales"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Literatura"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Música"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Película"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-warning fa-fw"></i><span i18Trans="Exclusividades"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Disfraces y Accesorios"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otro"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Ropa de Baile"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Uniformes"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-garden fa-fw"></i><span i18Trans="Hogar y jardinería"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Cocina, Comedor y Bar"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Decoración para el hogar"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Fiesta"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Las artes, la Artesanía y Costura"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Limpieza y organización"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Productos de baño"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Productos para mascotas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Suministros de jardín"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Textiles Para El hogar"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-spotlight fa-fw"></i><span i18Trans="Iluminación"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios de iluminación"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Bombillas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Iluminación al aire libre"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Iluminación comercial"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Iluminación LED"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Iluminación portátil"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Iluminación profesional"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Lámparas LED"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Lámparas y Cortinas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Luces y Ventiladores de techo"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-diamond fa-fw"></i><span i18Trans="Joyería y accesorios"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Anillos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Bisutería"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Collares y Colgantes"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Joyería de la boda y de Compromiso"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Joyería fina"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Juego de joyas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Pendientes"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Pulseras y Brazaletes"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-kite fa-fw"></i><span i18Trans="Juguetes y pasatiempos"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Acción y Figuras de Juguete"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Aprendizaje y educación"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Carros de juguete"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Diversión y Deportes al aire libre"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Juegos de mesa"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Juguetes a escala"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Juguetes clásicos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Juguetes de Control remoto"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Juguetes electrónicos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Juguetes para bebé"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Muñecas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Rompecabezas"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-bodysuit fa-fw"></i><span i18Trans="Madres y bebés"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Actividad"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Alimentación"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Cuidado del bebé"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Juegos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Maternidad"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Ropa de Cama"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Ropa para niña"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Ropa para niño"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Seguridad"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Zapatos de bebé"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Zapatos de niño"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-suitcase fa-fw"></i><span i18Trans="Maletas y bolsos"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Bolsas de niños y Bebés"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Bolsos de hombre"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Bolsos de Mujer"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Carteras"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Maletas y Bolsos de Viaje"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Mochilas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-improvement fa-fw"></i><span i18Trans="Mejoras para el hogar"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios de baño"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios de cocina"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Aire Acondicionado"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Electrodomésticos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Equipo eléctrico"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Herramientas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Luces e Iluminación"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Materiales de construcción"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Seguridad y Defensa"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-armchair-1 fa-fw"></i><span i18Trans="Muebles"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios Para muebles"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Herramientas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Mimbre"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Mobiliario comercial"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Muebles antiguos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Muebles de bambú"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Muebles de cristal"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Muebles de exterior"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Muebles de madera"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Muebles de metal"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Muebles de oficina"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Muebles de plástico"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Muebles inflables"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Muebles para el hogar"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Muebles para niños"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Muebles plegables"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-stopwatch-1 fa-fw"></i><span i18Trans="Relojería"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios para reloj"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Reloj de bolsillo"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Reloj de hombre"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Reloj de mujer"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Reloj de niños"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-cosmetics fa-fw"></i><span i18Trans="Salud y belleza"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Afeitado y Depilación"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Cuidado de la piel"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Cuidado de la salud"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Cuidado del cabello"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Elementos Esenciales de belleza"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Extensiones de cabello y Pelucas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Herramientas y Accesorios"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Higiene Oral"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Maquillaje"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Perfumes y Desodorantes"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Productos del baño"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Tattoo &amp; Body Art"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Terapias naturales"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-unlocked-1 fa-fw"></i><span i18Trans="Seguridad y defensa"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Alarma de seguridad"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Cajas fuertes"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Control de acceso"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Kits de emergencia"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Protección de incendios"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Puerta de Intercomunicación"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Seguridad en el trabajo"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Suministros de Autodefensa"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Video vigilancia"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa fa-handshake-o fa-fw"></i><span i18Trans="Servicios"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Académicos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Alimentación"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Animación"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Construcción"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Diseño e impresión"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Fotografía y video"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Hospedaje"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Legales"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Transporte"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Viajes"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-print fa-fw"></i><span i18Trans="Suministros de oficina"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios de escritorio"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Adhesivos y Cintas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Artículos personalizados"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Artículos promocionales"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Bolígrafos, lápices y Útiles de Escritura"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Calendarios, planificadores y Tarjetas"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Cuadernos y Blocs"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Electrónica"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Escolar"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Etiquetas, índices y Sellos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Libros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Muebles de oficina"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Oficina"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Pintura"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Ropa de trabajo"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Salud Ocupacional"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Suministros de oficina"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Uniformes"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-smartphone-5 fa-fw"></i><span i18Trans="Suministros electrónicos"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios y sistemas Electrónicos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Componentes electrónicos"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Otros Componentes Electrónicos"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+								<div class="jasj_categorie_header"><i class="fa ndx-icon-smartphones-couple fa-fw"></i><span i18Trans="Teléfonos y telecomunicaciones"></span></div>
+								<div class="jasj_categorie_categories">
+								   <div class="flexCategorieContainer">
+									 
+										 <div class="jasj_categorie_categorie" i18Trans="Accesorios"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Bolsos y estuches"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Cargadores"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Celulares"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Equipos de comunicación"></div>
+										 <div class="jasj_categorie_categorie" i18Trans="Teléfonos fijos"></div>
+								   </div></div></div>
+							 <div class="jasj_categorie">
+							 <div class="jasj_categorie_header"><i class="fa ndx-icon-shoes-snickers-streamline fa-fw"></i><span i18Trans="Zapatería"></span></div>
+							 <div class="jasj_categorie_categories">
+								<div class="flexCategorieContainer">
+								  
+									  <div class="jasj_categorie_categorie" i18Trans="Accesorios de calzado"></div>
+									  <div class="jasj_categorie_categorie" i18Trans="Botas de hombre"></div>
+									  <div class="jasj_categorie_categorie" i18Trans="Botas de mujer"></div>
+									  <div class="jasj_categorie_categorie" i18Trans="Sandalias de los hombres"></div>
+									  <div class="jasj_categorie_categorie" i18Trans="Sandalias de mujer"></div>
+									  <div class="jasj_categorie_categorie" i18Trans="Zapatos de hombre"></div>
+									  <div class="jasj_categorie_categorie" i18Trans="Zapatos de mujer"></div>
+									  <div class="jasj_categorie_categorie" i18Trans="Zapatos deportivos"></div>
+								   </div>
+								</div>
+							 </div>
+							</div>
 
-				<div class="jasj_categorie_categories">
-					<div class="jasj_categorie_categorie">Motos</div>
-					 <div class="jasj_categorie_categorie">Repuetos</div>
-					 <div class="jasj_categorie_categorie active">Llanta</div>
-					<div class="jasj_categorie_categorie">Otro</div>
-					<div class="jasj_categorie_categorie">Motos</div>
-					<div class="jasj_categorie_categorie">Repuetos</div>
-					<div class="jasj_categorie_categorie ">Llanta</div>
-				   <div class="jasj_categorie_categorie">Otro</div>
+
+
+						</div>
 				</div>
-			
-			
-				</div>  
-				
-				
-				  <div class="jasj_categorie active">
-					<div class="jasj_categorie_header">
-				<i class="fa fa-home fa-fw"></i> Hogar 
-				</div>
-			
-			<div class="jasj_categorie_categories">
-				<div class="jasj_categorie_categorie">Motos</div>
-				 <div class="jasj_categorie_categorie">Repuetos</div>
-				 <div class="jasj_categorie_categorie active">Llanta</div>
-				<div class="jasj_categorie_categorie">Otro</div>
 			</div>
-			
-			
-				</div>
-					<div class="jasj_categorie_header">
-				<i class="fa fa-tag fa-fw"></i> Bebe 
-				</div>
-			
-			
-				</div>
 				
 			<div class="jasj_time">
 				<table style="width: 100%;text-align: center;margin-top: 20px;color: #0177D7;">
@@ -841,6 +1194,7 @@
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/datecou.js"></script>
 		<script type="text/javascript" src="js/menu.js"></script>
+		
 		<!--script type="text/javascript" src="js/sim.js"></script-->
 		<script type="text/javascript" src="js/pushDriver.js"></script>
 		<script src="lib/Swiper-3.4.2/dist/js/swiper.jquery.js"></script>
@@ -850,8 +1204,9 @@
 		<script type="text/javascript" src="js/pages/shop.js"></script>
 		<script type="text/javascript" src="js/pages/promotions.js"></script>
 		<script type="text/javascript" src="js/pages/promotionsQR.js"></script>
-		<script type="text/javascript" src="js/pages/myCodes.js"></script>
-		
+		<script type="text/javascript" src="js/pages/myCodes.js"></script> 
+		<script type="text/javascript" src="js/pages/searchShops.js"></script>
+		<script type="text/javascript" src="js/pages/selectCategorie.js"></script>
 		<!-- <script type="text/javascript" src="js/pages/people.js"></script>
 		
 		<script type="text/javascript" src="js/pages/employee.js"></script>
