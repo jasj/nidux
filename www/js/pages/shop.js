@@ -18,6 +18,19 @@ $("[tab-target=shopPromo]").tapend(function(){
 })
 
 
+$(document).on("search","#myShopsSearch",function(){
+    $("[tab-target=myshops]").trigger("tapend")
+    var tempr = new RegExp($(this).val(),"i")
+    $("[tab-name=myshops]>div>div[shopId]").each(function(){
+        if(tempr.test($(this).attr("section-title"))){
+            $(this).show()
+        }else{
+            $(this).hide()
+        }
+    })
+    
+})
+
 function requestShopProducts(version,oldProductData){
     loginInfo(function (doc) {
         var tempObj = {
