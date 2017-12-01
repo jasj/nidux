@@ -1612,6 +1612,10 @@ table.billDetails {
     background-position-y: center;
 }
 
+#slider_shop{
+    height: 100px !important;
+}
+
 .bubble {
     left: 40px;
     top: -19px;
@@ -1628,8 +1632,16 @@ table.billDetails {
     left: 0px;
     right: 0px;
     top: 61px;
-    bottom: 38px;
-}      
+    bottom: 0px;
+}   
+
+.swiperShop-container {
+    position: fixed!important;
+    left: 0px;
+    right: 0px;
+    top: 118px;
+    bottom: 0px;
+}
 
 
 

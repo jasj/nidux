@@ -1,4 +1,5 @@
 function getPromotionCodeAndDi(promotionId){
+    console.log("promotionId",promotionId)
     loginInfo(function (doc) {
         var tempObj = {
             loginId: doc.loginId,
@@ -12,7 +13,7 @@ function getPromotionCodeAndDi(promotionId){
         $("#qrPromotionCode").html("")
         new QRCode(document.getElementById("qrPromotionCode"),{text: JSON.stringify({"qrValue" : data.code}), colorDark : "#000",correctLevel : QRCode.CorrectLevel.H ,width: window.innerWidth - 80 ,width: window.innerWidth - 80});
         $(".code_border").html( data.code)
-        $("#promotionDisclamer").html("disclosure")
+      $("#promotionDisclamer").html(data.disclosure)
         })
    })
 }

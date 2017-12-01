@@ -59,6 +59,8 @@ $(document).on("tapend", ".tablist>li:not(.active)", function () {
     $(this).parent().parent().parent().find("[tab-name]").hide()
     $("[tab-name=" + $(this).attr("tab-target") + "]").show()
     $(".get-nicer").getNiceScroll().resize()
+
+    if($(this).hasAttr("tab-fx")) {eval($(this).attr("tab-fx"))}
 })
 
 $("#slide_menu").swipe({

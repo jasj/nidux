@@ -1,4 +1,13 @@
-promoSwiper = undefined
+promoSwiper = new Swiper("[section-name=promotions] .swiper-container", {
+    speed: 400,
+    spaceBetween: 30,
+    pagination: '.swiper-pagination',
+    
+    // Navigation arrows
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    loop : true
+});
 
 function insertPublishPromotion(promo){
     console.log("promo",promo)
@@ -22,7 +31,7 @@ function requestPublishPromotion(version,old){
     _consolePost(beServices.PUBLIHED_PROMOTIONS.GET_PROMOTIONS,{"publicVersion" : version},function(data){
         console.log(data)
         if(data.version != null){
-			if(old != undefined){
+			if(old != undefined){ 
 				console.log("old pp lst",old)
 				var newIdexes = data.promos.map(function(t){return t.id})
 				old.promos = old.promos.filter(function(t){return newIdexes.indexOf(t.id) < 0 && data.deleted.indexOf(t.id) <0 })
@@ -51,15 +60,16 @@ function requestPublishPromotion(version,old){
                     insertPublishPromotion(promo)
                 }
             }
+            
 
             db.upsert("publishedPromotions",data)
            
 		}
 
-        createPublishedPromoSlider()
+        promoSwiper.update();
     },function(){
         console.log("fallo de promo")
-        createPublishedPromoSlider()
+        promoSwiper.update();
     })
     
 }
@@ -90,6 +100,7 @@ function getSavedPublishPromotion(){
                 console.log("di3")
             }
         }
+        promoSwiper.update();
 
        // insertPublishPromotion(promos.promos)
     }).catch(function(e){
@@ -98,28 +109,14 @@ function getSavedPublishPromotion(){
     })
 }
 
-function createPublishedPromoSlider(){
-    setTimeout(function() {
-        if (promoSwiper == undefined){
-            promoSwiper = new Swiper('[section-name=promotions] .swiper-container', {
-                speed: 400,
-                spaceBetween: 30,
-                pagination: '.swiper-pagination',
-                
-                // Navigation arrows
-                nextButton: '.swiper-button-next',
-                prevButton: '.swiper-button-prev',
-                loop : true
-            });
-         
-        }
-    }, 500);
-}
 
 
 
 promotions = {
     init : function () {
         getSavedPublishPromotion()
+        setTimeout(function() {
+            promoSwiper.update()
+        }, 500);
     }
 }

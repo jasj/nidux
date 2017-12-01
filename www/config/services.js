@@ -28,10 +28,13 @@ beServices = {
     "MY_SHOPS" :{
         "GET_LIST"   : "/core/myShops/get",
         "ADD"        : "/core/myShops/add",
-        "REMOVE"     : "/core/myShops/delete"
+        "REMOVE"     : "/core/myShops/delete",
     },
     "SHOPS" : {
-        "SEARCH" : "/core/shops/get"
+        "SEARCH"        : "/core/shops/get",
+        "GET_PRODUCTS"  : "/core/shops/product/get",
+        "GET_BANNERS"   : "/core/shops/banner/get",
+        "GET_PROMOTIONS": "/core/shops/promotion/list"
     },
     "PUBLIHED_PROMOTIONS" : {
         "GET_PROMOTIONS" : "/core/promotion/publish/get",

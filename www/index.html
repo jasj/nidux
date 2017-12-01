@@ -219,15 +219,7 @@
 
 						<div class="tab-listtab get-nicer" tab-name="myshops" id="myshops">
 							<div class="nice-wrapper">
-								<div class="shop" style="background-image: url(img/logos/l6.png);"></div>
-								
-								<div class="shop" style="background-image: url(img/logos/l5.png);" section-target="shop" section-title="Vertigo" section-color="#F40000"></div>
-								
-								<div class="shop" style="background-image: url(img/logos/l3.png);"></div>
-								
-								<div class="shop" style="background-image: url(img/logos/l4.png);"></div>
-								
-								<div class="shop" style="background-image: url(img/logos/l1.png);"></div>
+							
 							
 							</div>
 							<div class="add_btn fa fa-plus" section-target="searchShops" i18trans="<input id='searchForShop' type='search' placeholder='Buscar'> <i class='search_input fa fa-search'></i>" i18target="section-title"></div>
@@ -372,7 +364,7 @@
 										
 									<li class="" tab-target="shopHome"><i class="fa fa-home" aria-hidden="true"></i></li>
 									<li tab-target="shopMap" class=""><i class="fa fa-map-marker" aria-hidden="true"></i></li>
-									<li tab-target="shopPromo" class="active"><i class="fa fa-bullhorn" aria-hidden="true"></i></li>
+									<li tab-target="shopPromo" class="active" tab-fx="createPromoSlider('[section-name=shop2]')"><i class="fa fa-bullhorn" aria-hidden="true"></i></li>
 									<li tab-target="Chat" class=""><i class="fa fa-comments-o" aria-hidden="true"></i><div class="bubble">3</div></li>
 								
 								</ul>
@@ -390,7 +382,7 @@
 										</div>
 									</div>
 
-					<div class="products get-nicer">
+					<div id="myShopProducts" class="products get-nicer">
 							<div class="nice-wrapper flex wrap">
 									
 											<div class="product-card">
@@ -490,18 +482,11 @@
 						<div class="tab-listtab get-nicer" tab-name="shopMap">Map</div>	
 						<div class="tab-listtab " tab-name="shopPromo">
 						<!-- Slider main container -->
-								<div class="swiper-container">
+								<div class="swiper-container swiperShop-container">
 										<!-- Additional required wrapper -->
 										<div class="swiper-wrapper">
 											<!-- Slides -->
-											<div class="swiper-slide"><img src="img/vertigo/p1.png">
-												
-												<h4>2x1 en Juegos de Play Station 4</h4>
-												<p>Promoción valida del hasta el 15 de diciembre del 2017. En sus compras en la App</p>
-												<div class="btn_get">Obtner</div>
-											</div>
-											<div class="swiper-slide">Slide 2</div>
-											<div class="swiper-slide">Slide 3</div>
+
 										
 										</div>
 										<!-- If we need pagination -->
@@ -512,7 +497,7 @@
 										<div class="swiper-button-next"></div>
 										
 									
-									</div>	
+								</div>	
 						</div>	
 						<div class="tab-listtab get-nicer" tab-name="Chat" id="chat_list">
 								<div class="nice-wrapper"></div>
@@ -554,8 +539,8 @@
 						<div class="tab-listtab get-nicer" tab-name="msgInfo">
 							<img id="promotionQRImage" />
 							<div class="code_border">00000000</div>
-							<h4 i18Trans="DISCLAIMER"></h4>
 							<div id="qrPromotionCode" ></div>
+							<h4 i18Trans="DISCLAIMER"></h4>
 							<p id="promotionDisclamer" align= "justify"></p>
 						</div>
 					</div>

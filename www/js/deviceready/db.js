@@ -1,6 +1,9 @@
+
+
 function onDeviceReady_db () {
     db = new PouchDB("condominus", {adapter: "websql"})
-
+    db._pouchDBBusy  = false
+    
     db.upsert = function (id, data, callback, err) {
         db.get(id).then(function (doc) {
             return db.put(Object.assign({
@@ -18,6 +21,22 @@ function onDeviceReady_db () {
                 })
             }
         })
+    }
+
+    db.upsertPll = function (id, data, callback, err) {
+        var cycles = 0
+        concurentWait(
+            function(){
+                cycles++
+                return !db._pouchDBBusy || cycles > 500
+            },
+            function(){
+                db._pouchDBBusy = true
+                db.upsert(id, data, function(){
+                    setTimeout(function(){ db._pouchDBBusy = false;  if (typeof  callback == "function") callback() },100)
+                }, err)
+            }
+        )
     }
 
     db.get4User = function (id, user, callback) {

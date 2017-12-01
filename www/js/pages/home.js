@@ -1,11 +1,11 @@
 
 controStepSave = 0
 
-function replaceAdsProducts(products){
+function replaceAdsProducts(products,where){
     console.log(products)
     for(productIndex in products) {
        var product  = products[productIndex]
-       var productDOM =  $("#dashboard .product-card").eq(productIndex -1)
+       var productDOM =  $(where+" .product-card").eq(productIndex -1)
        
         if (product.empty == 1){
             
@@ -22,16 +22,16 @@ function replaceAdsProducts(products){
     };
 }
 
-function replaceAdsBanner(banners){
+function replaceAdsBanner(banners,where){
     for(bannerIndex in banners) {
         var banner  = banners[bannerIndex]
         console.log(bannerIndex)
-        if (1 == 1){
-            $("#portada .nivoSlider a").eq(bannerIndex -1).attr("href","https://www.nidux.com/inicio/")
-            $("#portada .nivoSlider img").eq(bannerIndex).attr("src","https://dividendappreciation.com/wp-content/uploads/2017/05/For-Sale-Oldcastle.gif")            
+        if (banner.empty == 1){
+            $(where +" .nivoSlider a").eq(bannerIndex -1).attr("href","https://www.nidux.com/inicio/")
+            $(where +" .nivoSlider img").eq(bannerIndex -1).attr("src","https://dividendappreciation.com/wp-content/uploads/2017/05/For-Sale-Oldcastle.gif")            
         }else{
-            $("#portada .nivoSlider a").eq(bannerIndex -1).attr("href",banner.href)
-            $("#portada .nivoSlider img").eq(bannerIndex).attr("src",banner.imageURL) 
+            $(where + " .nivoSlider a").eq(bannerIndex -1).attr("href",banner.href)
+            $(where + " .nivoSlider img").eq(bannerIndex -1).attr("src",banner.imageURL) 
         }
     }
 
@@ -42,67 +42,58 @@ function getEstateIdentifier (estates, id) {
 }
 
 
-function getSavedDashboardInfo(){
+function getSavedProductsDashboard(){
     db.get("adsProducts").then(function(products){
-        replaceAdsProducts(products.products)
-        console.log(products.version,products.products)
-        db.get("adsBanners").then(function(banners){
-            replaceAdsBanner(banners.banners)
-            requestDashboardInfo(0,products.products,banners.version,banners.banners)
-        }).catch(function(){
-            console.log(products.version,products.products)
-            requestDashboardInfo(0,products.products,0,{})
-        })
-        
+       replaceAdsProducts(products.products,"#dashboard")
+       requestProductDashboard(products.version,products.products)
     }).catch(function(){
-        requestDashboardInfo(0,{},0,{})
+        requestProductDashboard(0,{})
+    })
+}
+
+function getSavedBannersDashboard(){
+    db.get("adsBanners").then(function(banners){
+        replaceAdsBanner(banners.banners,"#portada")
+        requestBannersDashboard(banners.version,banners.banners)
+    }).catch(function(){
+        requestBannersDashboard(0,{})
     })
 }
 
 
-function requestBanners(versionBanner,oldBannerData){
+function requestBannersDashboard(versionBanner,oldBannerData){
     _consolePost(beServices.DASHBOARD.GET_BANNER_LIST, {version : versionBanner}, function (newBannerData) {
         if(!$.isEmptyObject(newBannerData)){
-             replaceAdsBanner(newBannerData.banners)
+             replaceAdsBanner(newBannerData.banners,"#portada")
              console.log(oldBannerData,newBannerData.banners)
              var mergedBanners = {
                  banners : Object.assign(oldBannerData,newBannerData.banners),
                  version : newBannerData.version
              }
-             db.upsert("adsBanners",Object.assign(oldBannerData,newBannerData))
+             db.upsertPll("adsBanners",Object.assign(oldBannerData,newBannerData))
         }
-
-       
     })
 }
 
 
-function requestDashboardInfo (versionProducts,oldProductData,versionBanner,oldBannerData) {
-    console.log(versionProducts,oldProductData,versionBanner,oldBannerData)
+function requestProductDashboard (versionProducts,oldProductData) {
     loginInfo(function (doc) {
          
         _consolePost(beServices.DASHBOARD.GET_PRODUCT_LIST, {version : versionProducts}, function (newProductData) {
             
             $(".get-nicer").getNiceScroll().resize()
-                replaceAdsProducts(newProductData.products)
-               if($.isEmptyObject(newProductData)){
-                    requestBanners(versionBanner,oldBannerData)
-               }else{
+                replaceAdsProducts(newProductData.products,"#dashboard")
+               if(!$.isEmptyObject(newProductData)){
                     console.log(oldProductData, newProductData.products)
                     var mergedProducts = {
                         products: Object.assign(oldProductData, newProductData.products),
                         version: newProductData.version 
                     }
-                    db.upsert("adsProducts", mergedProducts,function(){
-                        requestBanners(versionBanner,oldBannerData)
-                    })
-                    
+                    db.upsertPll("adsProducts", mergedProducts,function(){})
                }
                
                 $(".get-nicer").getNiceScroll().resize()
             })
-
-        
         })
 }
 
@@ -113,7 +104,7 @@ function addMyShops(shop){
         $("#myShop"+shop.myShopId).remove()
         console.log("getImage")
            $("#myShop"+shop.myShopId)
-           $(`<div id="myShop`+shop.myShopId+`"
+           $(`<div id="myShop`+shop.myShopId+`" shopId="`+shop.shopId+`"
                 class="shop" style="background-image: url(`+image+`);"
                     section-target="shop"
                     section-title="`+shop.name+`"
@@ -130,12 +121,12 @@ function requestMyShops(version,old){
                 uuid : device.uuid,
                 userId: x.userId,
                 version:version},function(data){
-            console.log(data)
+            console.log(data,old)
             if(!$.isEmptyObject(data)){
                 var newMyShops = data.myShops.map(function(t){return t.myShopId})
                 var updatedMyShops =
                     old.myShops.filter(function(t){return data.deleted.indexOf(t.myShopId) == -1 && newMyShops.indexOf(t.myShopId)== -1}).concat(data.myShops)
-                    db.upsert("myShops", {version : data.version, myShops : updatedMyShops})
+                    db.upsertPll("myShops", {version : data.version, myShops : updatedMyShops})
                     for(var i= 0; i < data.myShops.length; i++){
                         addMyShops(data.myShops[i])
                     }
@@ -151,7 +142,7 @@ function getSavedMyShops(){
         for(var i= 0; i < shops.myShops.length; i++){
             addMyShops(shops.myShops[i])
         }
-        requestMyShops(shops.version,shops.myShops)
+        requestMyShops(shops.version,shops)
         
 
     }).catch(function(){
@@ -163,7 +154,8 @@ function getSavedMyShops(){
 
 home = {
     init: function () {
-        getSavedDashboardInfo()
+        getSavedProductsDashboard()
+        getSavedBannersDashboard()
         getSavedMyShops()
 
     }

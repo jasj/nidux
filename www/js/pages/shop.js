@@ -1,26 +1,209 @@
-shopSwiper = undefined
+shopSwiper = new Swiper("[section-name=shop] .swiper-container", {
+    speed: 400,
+    spaceBetween: 30,
+    pagination: '.swiper-pagination',
+    
+    // Navigation arrows
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    loop : true
+});
+
+
 $("[tab-target=shopPromo]").tapend(function(){
     setTimeout(function() {
-        if (shopSwiper == undefined){
-            shopSwiper = new Swiper('[section-name=shop] .swiper-container', {
-                speed: 400,
-                spaceBetween: 100,
-                pagination: '.swiper-pagination',
-                
-                // Navigation arrows
-                nextButton: '.swiper-button-next',
-                prevButton: '.swiper-button-prev',
-                loop : true
-            }); 
-        }
+        shopSwiper.update()
     }, 500);
   
 })
 
 
+function requestShopProducts(version,oldProductData){
+    loginInfo(function (doc) {
+        var tempObj = {
+            "shopId" : myShopSync.idShop,
+            "version" : version
+        }
+        _consolePost(beServices.SHOPS.GET_PRODUCTS,tempObj,function(newProductData){
+            if(!$.isEmptyObject(newProductData)){
+                replaceAdsProducts(newProductData.products,"#myShopProducts")
+                var mergedProducts = {
+                    products: Object.assign(oldProductData.products, newProductData.products),
+                    version: newProductData.version 
+                }
+                db.upsertPll(HexWhirlpool("myShopP" + myShopSync.idShop),mergedProducts)
+            }
+
+           
+            
+
+        })
+    })
+}
+
+function requestShopBanner(version,oldBannerData){
+    loginInfo(function (doc) {
+        var tempObj = {
+            "shopId" : myShopSync.idShop,
+            "version" : version
+        }
+        _consolePost(beServices.SHOPS.GET_BANNERS,tempObj,function(newBannerData){
+            if(!$.isEmptyObject(newBannerData)){
+                replaceAdsBanner(newBannerData.shopBanners,"[section-name=shop]")
+                var mergedBanner = {
+                    shopBanners: Object.assign(oldBannerData.shopBanners, newBannerData.shopBanners),
+                    version: newBannerData.version 
+                }
+                db.upsertPll(HexWhirlpool("myShopB" + myShopSync.idShop),mergedBanner)
+            }
+            
+
+        })
+    })
+}
+
+
+
+function insertShopPromotion(promo){
+    console.log("promo",promo)
+    if($("#ppromom_"+promo.promotionId).length == 0){
+        var dom= $(`<div id="ppromo_`+promo.promotionId+`"  class="swiper-slide">
+                         <img src="`+promo.image+`"/>
+                         <h4>`+promo.header+`</h4>
+                         <p>`+promo.description+`</p>
+                         <div class="btn_get" section-target="promotionsQR" niduxPromoCode="`+promo.promotionId+`">`+$.t("GET")+`</div>
+                  </div>`)
+                if( $("#ppromo_"+promo.promotionId).length == 0){
+                    $('.swiperShop-container .swiper-wrapper').append(dom)
+                }
+                  
+
+    }
+}
+
+function requestShopPromotions(version,old){
+    loginInfo(function (doc) {
+        var tempObj = {
+            "shopId" : myShopSync.idShop,
+            "version" : version
+        }
+        var dptime = new Date().getTime()
+        _consolePost(beServices.SHOPS.GET_PROMOTIONS,tempObj,function(data){
+            if(data.version != null){
+                if(old != undefined){
+                    console.log("old pp lst",old)
+                    var newIdexes = data.promos.map(function(t){return t.id})
+                    old.promos = old.promos.filter(function(t){return newIdexes.indexOf(t.id) < 0 && data.deleted.indexOf(t.id) <0 })
+                    data.promos = old.promos.concat(data.promos)
+                }
+                
+                
+                if(data.deleted != null){
+                    data.deleted.forEach(function(id){
+                        $("#ppromom_"+id).remove()
+                    })
+                }
+               
+                for(var i = 0 ; i < data.promos.length;i++)
+                {
+                    var promo = data.promos[i]
+                    if(promo.dueTime < dptime){
+                        data.promos.slice(i,1)
+                        try{
+                         $("#ppromom_"+promo.promotionId).remove()
+                        }catch(e){
+        
+                        }
+                    }
+                    else{
+                        insertShopPromotion(promo)
+                    }
+                }
+                shopSwiper.update()
+                db.upsertPll(HexWhirlpool("myShopM" + myShopSync.idShop),data)
+            }
+        })
+    })
+}
+
+
+myShopSync = {
+    idShop : 0,
+
+    get :{
+        products : function(){
+            db.get(HexWhirlpool("myShopP" + myShopSync.idShop)).then(function(products){
+                replaceAdsProducts(products.products,"#myShopProducts")
+                requestShopProducts(products.version, products.products)
+            }).catch(function(){
+                requestShopProducts(0, {products : {} ,version: 0})
+            })
+         },
+
+        banner : function(){
+              db.get(HexWhirlpool("myShopB" + myShopSync.idShop)).then(function(banners){
+                  console.log("oldbit",banners)
+                replaceAdsBanner(banners.shopBanners,"[section-name=shop]")
+                requestShopBanner( banners.version, banners.shopBanners)
+               
+            }).catch(function(){
+                requestShopBanner(0, {shopBanners : {} ,version: 0})
+            })
+         },
+
+        promotions: function(){
+            $('.swiperShop-container .swiper-wrapper').html("")
+            db.get(HexWhirlpool("myShopM" + myShopSync.idShop)).then(function(data){
+                console.log(data)
+                var dptime = new Date().getTime()
+                for(var i = 0 ; i < data.promos.length;i++)
+                {
+                    var promo = data.promos[i]
+                    if(promo.dueTime < dptime){
+                        data.promos.slice(i,1)
+                        try{
+                         $("#ppromom_"+promo.promotionId).remove()
+                        }catch(e){
+        
+                        }
+                    }
+                    else{
+                        console.log("inserted",promo)
+                        insertShopPromotion(promo)
+                    }
+                }
+                shopSwiper.update()
+                requestShopPromotions(data.version,data)
+               // createPromoSlider("[section-name=shop]")
+            }).catch(function(err){
+                console.log(err)
+                requestShopPromotions(0)
+            })
+        
+        },
+    },
+
+    "do" : function() {
+        //request each element independently
+        myShopSync.get.products()
+        myShopSync.get.banner()
+        myShopSync.get.promotions()
+
+    }
+
+}
+
+
+
+
+
+
+
 shop = {
     init : function(t,tt){
         shop_name = $(t).attr("section-title")
+        myShopSync.idShop = $(t).attr("shopId")
+        myShopSync.do()
         
         $('#slider_shop').nivoSlider();
         addStylesheetRule("#shopNav .active { color: "+$(t).attr("section-color")+"; border-bottom: 2px solid "+$(t).attr("section-color")+"}")
