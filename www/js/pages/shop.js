@@ -17,6 +17,21 @@ $("[tab-target=shopPromo]").tapend(function(){
   
 })
 
+$(document).on("tapend",".callBtn",function(ev){
+	if(checkPress(ev)){
+		console.log("llamando",$(this).attr("phone-number"))
+		phonedialer.dial(
+		  	$(this).attr("phone-number"), 
+			function(err) {
+				if (err == "empty") alert($.t("UNKNOWN_PHONE_NUMBER"));
+				else showInfoD($.t("ERROR_CALLING"),$.t("ERROR_GENERIC"))   
+			},
+		  	function(success) { }
+		);
+	}
+})
+
+
 
 $(document).on("search","#myShopsSearch",function(){
     $("[tab-target=myshops]").trigger("tapend")
@@ -217,6 +232,8 @@ shop = {
         shop_name = $(t).attr("section-title")
         myShopSync.idShop = $(t).attr("shopId")
         myShopSync.do()
+
+        $(".callBtn").attr("phone-number",$(t).attr("phone-num"))
         
         $('#slider_shop').nivoSlider();
         addStylesheetRule("#shopNav .active { color: "+$(t).attr("section-color")+"; border-bottom: 2px solid "+$(t).attr("section-color")+"}")

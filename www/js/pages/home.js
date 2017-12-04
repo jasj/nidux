@@ -108,7 +108,10 @@ function addMyShops(shop){
                 class="shop" style="background-image: url(`+image+`);"
                     section-target="shop"
                     section-title="`+shop.name+`"
-                    section-color="`+shop.color+`">
+                    section-color="`+shop.color+`"
+                    map-lat="`+shop.map.lat+`"
+                    map-lng="`+shop.map.long+`"
+                    phone-num="`+shop.phone+`">
                 </div>`).appendTo("#myshops .nice-wrapper")
     })
 }
