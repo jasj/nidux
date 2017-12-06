@@ -17,17 +17,34 @@ $("[tab-target=shopPromo]").tapend(function(){
   
 })
 
+
+function call(phoneNumber){
+    phonedialer.dial(
+       phoneNumber, 
+      function(err) {
+          if (err == "empty") alert($.t("UNKNOWN_PHONE_NUMBER"));
+          else showInfoD($.t("ERROR_CALLING"),$.t("ERROR_GENERIC"))   
+      },
+        function(success) { }
+  );
+}
+
 $(document).on("tapend",".callBtn",function(ev){
 	if(checkPress(ev)){
-		console.log("llamando",$(this).attr("phone-number"))
-		phonedialer.dial(
-		  	$(this).attr("phone-number"), 
-			function(err) {
-				if (err == "empty") alert($.t("UNKNOWN_PHONE_NUMBER"));
-				else showInfoD($.t("ERROR_CALLING"),$.t("ERROR_GENERIC"))   
-			},
-		  	function(success) { }
-		);
+        console.log("llamando",$(this).attr("phone-number"))
+        permissions.checkPermission(permissions.CALL_PHONE, function(status){
+            if ( !status.hasPermission ) {
+                permissions.requestPermission(permissions.CALL_PHONE, function(){
+                    call( $(this).attr("phone-number"))
+                }, function(){
+                    showInfoD($.t("WARNING",$.t("SOME_FEATURES_WILL_NOT_WORK")))
+                });
+            }else{
+                call( $(this).attr("phone-number"))
+            }
+
+        });
+		
 	}
 })
 
