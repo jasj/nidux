@@ -1,4 +1,5 @@
 function checkPreviusLogin () {
+    home.init()
     navigator.splashscreen.show()
     db.get("loginInfoAdmin").then(function (doc) {
         loginId = doc.loginId

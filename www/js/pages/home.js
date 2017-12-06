@@ -1,6 +1,32 @@
 
 controStepSave = 0
 
+$(".qr_btn ").tapend(function(ev){
+    if(checkPress(ev)){
+        cordova.plugins.barcodeScanner.scan(function(s){
+            loginInfo(function(doc){
+                
+                    var searchObj = {
+                        "loginId": doc.loginId,
+                        "uuid" : device.uuid,
+                        "type" : "C",
+                        "userId" : doc.userId,
+                        "shopId" : s.text
+                            
+                    }
+                    console.log(searchObj)
+                    _consolePost(beServices.MY_SHOPS.ADD,searchObj,function(data){
+                          showInfoD($.t("SHOP_ADDED"),$.t("THIS_SHOP_WHAS_ADDED"),function(){
+                              home.init()
+                          })
+                    })
+                })
+        })
+    }
+})
+
+
+
 function replaceAdsProducts(products,where){
     console.log(products)
     for(productIndex in products) {
