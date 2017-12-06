@@ -49,6 +49,46 @@ $(document).on("tapend",".callBtn",function(ev){
 })
 
 
+$(document).on("tapend",".mapBtn",function(){
+    if(checkPress(ev)){
+        var directoryObj = { lat :  $(this).attr("map-lat"), lng :  $(this).attr("map-lng")}
+        setTimeout(function(){
+            map.animateCamera({
+                target: {lat: directoryObj.lat, lng: directoryObj.lng},
+                zoom: 17,
+                tilt: 60,
+                bearing: 140,
+                duration: 1000
+              }, function() {
+                console.log(1)
+            try{
+                  mkr.remove();
+            }catch(e){console.log(e)}
+                // Add a maker
+                console.log(2)
+                map.addMarker({
+                  position: {lat: directoryObj.lat, lng: directoryObj.lng},
+                  title: "",
+                  animation: plugin.google.maps.Animation.BOUNCE
+                }, function(marker) {
+                    mkr = marker
+                    console.log(3)
+                  // Show the info window
+                  marker.showInfoWindow();
+            
+                  // Catch the click event
+                  marker.on(plugin.google.maps.event.INFO_CLICK, function() {
+            
+                   
+            
+                  });
+                });
+              });
+          },1600)
+    }
+   
+})
+
 
 $(document).on("search","#myShopsSearch",function(){
     $("[tab-target=myshops]").trigger("tapend")
@@ -251,6 +291,8 @@ shop = {
         myShopSync.do()
 
         $(".callBtn").attr("phone-number",$(t).attr("phone-num"))
+        $(".mapBtn").attr("map-lat",$(t).attr("map-lat"))
+        $(".mapBtn").attr("map-lng",$(t).attr("map-lng"))
         
         $('#slider_shop').nivoSlider();
         addStylesheetRule("#shopNav .active { color: "+$(t).attr("section-color")+"; border-bottom: 2px solid "+$(t).attr("section-color")+"}")
