@@ -31,6 +31,7 @@ function call(phoneNumber){
 
 $(document).on("tapend",".callBtn",function(ev){
 	if(checkPress(ev)){
+        var permissions = cordova.plugins.permissions;
         console.log("llamando",$(this).attr("phone-number"))
         permissions.checkPermission(permissions.CALL_PHONE, function(status){
             if ( !status.hasPermission ) {
@@ -49,9 +50,12 @@ $(document).on("tapend",".callBtn",function(ev){
 })
 
 
-$(document).on("tapend",".mapBtn",function(){
+$(document).on("tapend",".fa-map-marker",function(ev){
+   
+    
     if(checkPress(ev)){
         var directoryObj = { lat :  $(this).attr("map-lat"), lng :  $(this).attr("map-lng")}
+        console.log(directoryObj)
         setTimeout(function(){
             map.animateCamera({
                 target: {lat: directoryObj.lat, lng: directoryObj.lng},
@@ -291,8 +295,8 @@ shop = {
         myShopSync.do()
 
         $(".callBtn").attr("phone-number",$(t).attr("phone-num"))
-        $(".mapBtn").attr("map-lat",$(t).attr("map-lat"))
-        $(".mapBtn").attr("map-lng",$(t).attr("map-lng"))
+        $(".fa-map-marker").attr("map-lat",$(t).attr("map-lat"))
+        $(".fa-map-marker").attr("map-lng",$(t).attr("map-lng"))
         
         $('#slider_shop').nivoSlider();
         addStylesheetRule("#shopNav .active { color: "+$(t).attr("section-color")+"; border-bottom: 2px solid "+$(t).attr("section-color")+"}")
