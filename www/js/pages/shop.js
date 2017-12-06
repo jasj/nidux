@@ -31,17 +31,18 @@ function call(phoneNumber){
 
 $(document).on("tapend",".callBtn",function(ev){
 	if(checkPress(ev)){
+        var phoneNumber = $(this).attr("phone-number")
         var permissions = cordova.plugins.permissions;
-        console.log("llamando",$(this).attr("phone-number"))
+        console.log("llamando",phoneNumber)
         permissions.checkPermission(permissions.CALL_PHONE, function(status){
             if ( !status.hasPermission ) {
                 permissions.requestPermission(permissions.CALL_PHONE, function(){
-                    call( $(this).attr("phone-number"))
+                    call(phoneNumber)
                 }, function(){
                     showInfoD($.t("WARNING",$.t("SOME_FEATURES_WILL_NOT_WORK")))
                 });
             }else{
-                call( $(this).attr("phone-number"))
+                call(phoneNumber)
             }
 
         });
