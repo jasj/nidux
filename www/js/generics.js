@@ -348,6 +348,15 @@ function addStylesheetRule (rule) {
 Number.prototype.thousand = function () { return this.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }
 
 if ($ != undefined) {
+
+    $(document).on("tapend","[href]",function(ev){
+        if(checkPress(ev)){
+            ev.preventDefault()
+            console.log("open url:",$(this).attr("href"))
+            navigator.app.loadUrl($(this).attr("href"), { openExternal:true}); 
+        }
+    })
+
     $.fn.hasAttr = function (name) {  
         return this.attr(name) !== undefined
     }
