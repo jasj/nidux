@@ -150,6 +150,7 @@ function requestMyShops(version,old){
                 uuid : device.uuid,
                 userId: x.userId,
                 version:version},function(data){
+                    shopsReady = true
             console.log(data,old)
             if(!$.isEmptyObject(data)){
                 var newMyShops = data.myShops.map(function(t){return t.myShopId})
@@ -165,7 +166,7 @@ function requestMyShops(version,old){
                     }
 
             }
-        })
+        },function(){ shopsReady = true})
     })
 }
 

@@ -1,6 +1,5 @@
 function checkPreviusLogin () {
     home.init()
-    navigator.splashscreen.show()
     db.get("loginInfoAdmin").then(function (doc) {
         loginId = doc.loginId
         tempObj = {
@@ -8,7 +7,21 @@ function checkPreviusLogin () {
             uuid: typeof device !== "undefined" ? device.uuid : "Browser"
         }
         console.log(tempObj)
+        $("div#loadingPage .fa").eq(0).css({color : "white"})
         _consolePost(beServices.SECURITY.CHECK_LOGIN, tempObj, function (data) {
+            $("div#loadingPage .fa").eq(0).css({color : "darkgoldenrod"})
+            $("div#loadingPage .fa").eq(1).css({color : "white"})
+            $("div#loadingPage p").html($.t("DOWNLOADING_SHOPS"))
+            concurentWait(function(){return shopsReady},function(){
+                setTimeout(function(){ 
+                    $("div#loadingPage .fa").eq(1).css({color : "darkgoldenrod"})
+                    $("div#loadingPage .fa").eq(2).css({color : "white"})
+                    $("div#loadingPage p").html($.t("READY_TO_LUNCH"))
+                    setTimeout(function(){ 
+                        $("#loadingPage").fadeOut()
+                    },1000)
+                },500)
+            })
             loginObj = data
             fillUserConfigLogin(data) 
             home.init()
@@ -19,19 +32,28 @@ function checkPreviusLogin () {
             }
 
             $("#login").fadeOut()
+            $("#loadingPage").fadeOut()
             navigator.splashscreen.hide()
             if (cordova.platformId == "android") {
                 StatusBar.backgroundColorByHexString("#4066b3")
             }
         }, function (e) {
             $("#login").fadeOut()
-            navigator.splashscreen.hide()
+            showInfoD($.t("WARNING"),$.t("OFFLINE_MODE"))
+            $("#loadingPage").fadeOut()
             if (cordova.platformId == "android") {
                 StatusBar.backgroundColorByHexString("#4066b3")
             }
         })
     }).catch(function (err) {
-        navigator.splashscreen.hide()
+        if(navigator.connection.type == "none"){
+            $("div#loadingPage .fa").eq(0).css({color : "red"})
+            $("div#loadingPage p").html($.t("NITHER_INTERNET_OR_PRE_LOGIN"))
+            showInfoD($.t("ERROR"),$.t("NITHER_INTERNET_OR_PRE_LOGIN"))
+        }else{
+            $("#loadingPage").fadeOut()
+        }
+
     })
 }
 

@@ -73,6 +73,30 @@ input,textarea,select,[contenteditable]{
 	z-index: 999;
 }
 
+div#loadingPage {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 10000;
+    background-color: #d7c101;
+    text-align: center;
+    justify-content: space-between;
+    color: white;
+}
+
+div#loadingPage .fa {
+    font-size: 88px;
+}
+
+div#loadingPage>div {
+    display: flex;
+    justify-content: space-evenly;
+    color: darkgoldenrod;
+    margin-top: calc(50% + 80px);
+}
+
 .section_page{
 	display: none;
 	position: absolute;

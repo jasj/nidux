@@ -11,6 +11,8 @@ function onDeviceReady () {
         document.addEventListener("menubutton", menubutton, true)
         document.addEventListener("resume", onResume, false)
         document.addEventListener("pause", onPause, false)
+        document.addEventListener("offline", onOffline, false);
+        document.addEventListener("online", onLine, false);
     } catch (e) {
         console.log(e)
     }
