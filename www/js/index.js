@@ -7,12 +7,14 @@ function onDeviceReady () {
         onDeviceReady_pn()
         onDeviceReady_au()
 
+        document.addEventListener("offline", onOffline, false);
+        document.addEventListener("online", onLine, false);
+
         document.addEventListener("backbutton", backbutton, true)
         document.addEventListener("menubutton", menubutton, true)
         document.addEventListener("resume", onResume, false)
         document.addEventListener("pause", onPause, false)
-        document.addEventListener("offline", onOffline, false);
-        document.addEventListener("online", onLine, false);
+      
     } catch (e) {
         console.log(e)
     }

@@ -42,7 +42,7 @@ function checkPreviusLogin () {
             showInfoD($.t("WARNING"),$.t("OFFLINE_MODE"))
             $("#loadingPage").fadeOut()
             if (cordova.platformId == "android") {
-                StatusBar.backgroundColorByHexString("#4066b3")
+                StatusBar.backgroundColorByHexString("#b2431e")
             }
         })
     }).catch(function (err) {
