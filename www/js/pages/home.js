@@ -160,6 +160,10 @@ function requestMyShops(version,old){
                         addMyShops(data.myShops[i])
                     }
 
+                    for(var i=0; i < data.deleted.length;i++){
+                        $("#myShop"+data.deleted[i]).remove()
+                    }
+
             }
         })
     })
