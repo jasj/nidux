@@ -1,11 +1,5 @@
 function onDeviceReady () {
     try {
-        onDeviceReady_db()
-        onDeviceReady_dw()
-        onDeviceReady_fm()
-        onDeviceReady_mp()
-        onDeviceReady_pn()
-        onDeviceReady_au()
 
         document.addEventListener("offline", onOffline, false);
         document.addEventListener("online", onLine, false);
@@ -14,6 +8,16 @@ function onDeviceReady () {
         document.addEventListener("menubutton", menubutton, true)
         document.addEventListener("resume", onResume, false)
         document.addEventListener("pause", onPause, false)
+
+        
+        onDeviceReady_db()
+        onDeviceReady_dw()
+        onDeviceReady_fm()
+        onDeviceReady_mp()
+        onDeviceReady_pn()
+        onDeviceReady_au()
+
+        
       
     } catch (e) {
         console.log(e)

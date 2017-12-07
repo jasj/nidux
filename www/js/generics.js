@@ -197,7 +197,7 @@ function simDevice () {
         c(dir)
     }
     onDeviceReady_db()
-    $("#login").hide()
+    checkPreviusLogin()
 }
 
 var observeDOM = (function () {
