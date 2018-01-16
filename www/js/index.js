@@ -9,7 +9,7 @@ function onDeviceReady () {
         document.addEventListener("resume", onResume, false)
         document.addEventListener("pause", onPause, false)
 
-        
+        onDeviceReady_pn()
         onDeviceReady_db()
         onDeviceReady_dw()
         onDeviceReady_fm()
