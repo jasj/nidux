@@ -7,6 +7,9 @@ directory = "condo"
 btToken = "sandbox_vcs5jw2p_8n4tk7sj3dw3g79s"
 
 shopsReady = false
+bannersReady = false
+productsReady = false
+
 
 
 captureCfg = {

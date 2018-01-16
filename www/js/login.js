@@ -12,7 +12,7 @@ function checkPreviusLogin () {
             $("div#loadingPage .fa").eq(0).css({color : "darkgoldenrod"})
             $("div#loadingPage .fa").eq(1).css({color : "white"})
             $("div#loadingPage p").html($.t("DOWNLOADING_SHOPS"))
-            concurentWait(function(){return shopsReady},function(){
+            concurentWait(function(){return shopsReady&&productsReady&&bannersReady},function(){
                 setTimeout(function(){ 
                     $("div#loadingPage .fa").eq(1).css({color : "darkgoldenrod"})
                     $("div#loadingPage .fa").eq(2).css({color : "white"})

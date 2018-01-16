@@ -89,6 +89,7 @@ function getSavedBannersDashboard(){
 
 function requestBannersDashboard(versionBanner,oldBannerData){
     _consolePost(beServices.DASHBOARD.GET_BANNER_LIST, {version : versionBanner}, function (newBannerData) {
+        bannersReady = true
         if(!$.isEmptyObject(newBannerData)){
              replaceAdsBanner(newBannerData.banners,"#portada")
              console.log(oldBannerData,newBannerData.banners)
@@ -98,7 +99,7 @@ function requestBannersDashboard(versionBanner,oldBannerData){
              }
              db.upsertPll("adsBanners",Object.assign(oldBannerData,newBannerData))
         }
-    })
+    },function(){ bannersReady = true})
 }
 
 
@@ -106,7 +107,7 @@ function requestProductDashboard (versionProducts,oldProductData) {
     loginInfo(function (doc) {
          
         _consolePost(beServices.DASHBOARD.GET_PRODUCT_LIST, {version : versionProducts}, function (newProductData) {
-            
+            productsReady = true
             $(".get-nicer").getNiceScroll().resize()
                 replaceAdsProducts(newProductData.products,"#dashboard")
                if(!$.isEmptyObject(newProductData)){
@@ -119,7 +120,7 @@ function requestProductDashboard (versionProducts,oldProductData) {
                }
                
                 $(".get-nicer").getNiceScroll().resize()
-            })
+            },function(){ productsReady = true})
         })
 }
 
