@@ -100,14 +100,14 @@ $(".login--Credentials").tapend(function () {
 
                 loginId = data.loginId
                 loginObj = data
-                fillUserConfigLogin(data) 
-
+                fillUserConfigLogin(data)
                 
                 console.log(loginObj)
                 db.bulkDocs([
                     Object.assign({"_id": "email"}, {email: tempObj.user}),
                     Object.assign({"_id": "loginInfoAdmin"}, data)
                 ])
+                removeCodesLogin()
                 home.init()
             }, function (e) {
                 if (e.status == 401) {

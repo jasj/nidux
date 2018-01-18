@@ -83,6 +83,11 @@ function getSavedMyCodes() {
     })  
 }
 
+function removeCodesLogin() {
+    $("#codeList .nice-wrapper").html("")
+    $("#codeListRedem .nice-wrapper").html("")
+}
+
 myCodes = {
     init : function(t){
         getSavedMyCodes()

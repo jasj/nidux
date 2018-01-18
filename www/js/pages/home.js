@@ -163,11 +163,13 @@ function requestMyShops(version,old){
 
 function getSavedMyShops(){
     db.get("myShops").then(function(shops){
+        $("#myshops .nice-wrapper").html("")
         for(var i= 0; i < shops.myShops.length; i++){
             addMyShops(shops.myShops[i])
         }
         requestMyShops(shops.version,shops)
     }).catch(function(){
+        $("#myshops .nice-wrapper").html("")
         requestMyShops(0,{version:0 , deleted : [], myShops: []})
     })
 }
