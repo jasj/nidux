@@ -1,14 +1,12 @@
 function addMyCodes(req,promoObject) {
-    console.log("req: ", req)
     var dty = new Date().getTime()
     $("#promU"+req.promotionPerUserId).remove()
-    if(dty < req.dueTime  && req.redeemed == null){
+    if(dty < req.dueTime  && req.redeemed == null) {
         $(`<div class="code_lst_elment" id="promU`+req.promotionPerUserId+`">
             <div class="front">
             <h1>`+promoObject[req.promotionId].shopName +`</h1>
         
-            <img class="promoPictoure" src="`+promoObject[req.promotionId].image+`">
-                
+            <img class="promoPictoure" src="`+promoObject[req.promotionId].image+`">                
         
             <h3>`+promoObject[req.promotionId].header +`</h3>
             <table>
@@ -23,7 +21,6 @@ function addMyCodes(req,promoObject) {
                     </tr>
                 </tbody>
             </table>
-
 
             <p>`+promoObject[req.promotionId].description+`</p>
             <div class="ribbon">`+( Math.ceil(( req.dueTime - dty) / (1000 * 3600 * 24))  )+' '+$.t("DAYS")+`</div>
@@ -51,14 +48,12 @@ function addMyCodes(req,promoObject) {
 
 function requestNewMyCodes(version,oldPromo) {
     loginInfo(function(x){
-        console.log("x",x)
         _consolePost("/core/shops/promotion/perUser/list", {
             loginId : x.loginId,
             type: "C",
             uuid : device.uuid,
             userId: x.userId,
             version:version},function(data){
-                console.log("data",data)
                 if(!$.isEmptyObject(data)){
                     oldPromo.version = data.version
                     Object.assign(oldPromo.promos, data.promos)
@@ -68,7 +63,7 @@ function requestNewMyCodes(version,oldPromo) {
                     })
                     oldPromo.promosPerUser = notUpdatedPromoRequest.concat(data.promosPerUser)
                     db.upsert("promosPerUser",oldPromo)
-                    for(var i = 0; i < data.promosPerUser.length;i++) {
+                    for(var i = 0; i < data.promosPerUser.length; i++) {
                         addMyCodes(data.promosPerUser[i],data.promos)
                     }
                 }
@@ -81,8 +76,8 @@ function getSavedMyCodes() {
     db.get("promosPerUser").then(function(data){
         for(var i = 0; i < data.promosPerUser.length;i++){
             addMyCodes(data.promosPerUser[i],data.promos)
-          }
-          requestNewMyCodes(data.version,data) 
+        }
+        requestNewMyCodes(data.version,data) 
     }).catch(function(e){
         requestNewMyCodes(0,{promosPerUser: [], promos:{}}) 
     })  

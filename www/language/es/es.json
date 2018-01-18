@@ -20,5 +20,13 @@
     "REMOVE_STORE" : "Eliminar Tienda",
     "WHISH_DELETE_STORE" : "¿Desea eliminar la tienda",
     "ADD_STORE" : "Agregar Tienda",
-    "WHISH_ADD_STORE" : "¿Desea agregar la tienda"
+    "WHISH_ADD_STORE" : "¿Desea agregar la tienda",
+    "CHAT" : "Chat",
+    "PROMOTION" : "Promoción",
+    "UNKNOWN_PHONE_NUMBER" : "Número no especificado",
+    "ERROR_CALLING" : "Error en la llamada",
+    "ERROR_GENERIC" : "Error",
+    "SHOP_ADDED" : "Tienda agregada",
+    "THIS_SHOP_WHAS_ADDED" : "La tienda fue agregada",
+    "CONTENT_NOT_FOUND" : "No hay tiendas por mostrar"
 }

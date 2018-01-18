@@ -1,6 +1,3 @@
-
-
-
 $(".jasj_categorie_menu .fa-tag").tapend(function(){
     $(".jasj_select_categorie").fadeOut()
 })
@@ -15,26 +12,21 @@ $(".jasj_categorie_menu .fa-tag").tapend(function(){
     selectedCategory = "ALL"
     searchPage = 1
     search()
-
-
 })
 
-
-$(document).on("tapend",".jasj_categorie",function(ev){
-    if(checkPress(ev)){
-            if($(this).find(".jasj_categorie_categories").hasClass("open")){
+$(document).on("tapend",".jasj_categorie",function(ev) {
+    if(checkPress(ev)) {
+        if($(this).find(".jasj_categorie_categories").hasClass("open")) {
             $(this).find(".jasj_categorie_categories").slideUp().removeClass("open")
-
-        }else{
+        } else {
             $(".jasj_categorie").find(".jasj_categorie_categories.open").slideUp()
             $(this).find(".jasj_categorie_categories").slideDown().addClass("open")
         }
-    }
-   
+    }   
 })
 
-$(document).on("tapend",".jasj_categorie_categorie",function(ev){
-    if(checkPress(ev)){
+$(document).on("tapend",".jasj_categorie_categorie",function(ev) {
+    if(checkPress(ev)) {
         ev.stopPropagation()
         $(".jasj_categorie_menu.active").removeClass("active")
         $(".jasj_categorie_categorie.active").removeClass("active")
@@ -51,5 +43,4 @@ $(document).on("tapend",".jasj_categorie_categorie",function(ev){
         searchPage = 1
         search()
     }
-
 })

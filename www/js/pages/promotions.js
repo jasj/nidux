@@ -25,17 +25,17 @@ function insertPublishPromotion(promo){
 }
 
 function requestPublishPromotion(version, old){
-    console.log("old",old)
+    console.log("Publish old",old)
     _consolePost(beServices.PUBLIHED_PROMOTIONS.GET_PROMOTIONS,{"publicVersion" : version},function(data){
-        console.log(data)
+        console.log("Publish data",data)
         if(data.version != null){
 			if(old != undefined){ 
-				console.log("old pp lst",old)
+				console.log("Publish old pp lst",old)
 				var newIdexes = data.promos.map(function(t){return t.id})
 				old.promos = old.promos.filter(function(t) {
                     return newIdexes.indexOf(t.promotionId) < 0 && data.deleted.indexOf(t.promotionId) <0 
                 })
-				console.log("old pp lst2",old)
+				console.log("Publishold pp lst new",old)
 				data.promos = old.promos.concat(data.promos)
 			}
             console.log("data.promos",data.promos)
@@ -60,6 +60,7 @@ function requestPublishPromotion(version, old){
                 }
             }
             data.promos = data.promos.filter(function(t){return t.publishEndDate >= dptime})
+            console.log("data.promos.filter",data.promos)
             db.upsert("publishedPromotions",data)           
 		}
         promoSwiper.update();

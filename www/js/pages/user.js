@@ -7,19 +7,6 @@ $("#header_user_btn").tapend(function () {
 
     loginInfo(function (doc) {
         console.log("doc: ", doc)
-        var condominiumStr = ""
-        for (var condId = 0; condId < doc.endpoints.length; condId++) {
-            var endpoint = doc.endpoints[condId]
-            condominiumStr += '<option value="' + endpoint.condoId + '" ' + (endpoint.condoId == condoSelected ? "selected" : "") + ">" + endpoint.condoName + "</option>"
-        }
-        doc.endpoints.forEach(function (endpoint) {
-        })
-        $("#myCondos").html(condominiumStr).change(function () {
-            condoSelected = $(this).find("option:selected").attr("value")
-            setCondoEndpoint(condoSelected)
-            $("#condo_logo").trigger("tapend")
-            showInfoD($.t("SWITCH_CONDOMINIUM_HEADER"), $.t("SWITCH_CONDOMINIUM_DETAIL") + $(this).find("option:selected").html)
-        })
     })
     $("#modal").fadeIn()
     $("#user_config").fadeIn()

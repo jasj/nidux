@@ -9,24 +9,21 @@ shopSwiper = new Swiper("[section-name=shop] .swiper-container", {
     loop : true
 });
 
-
-$("[tab-target=shopPromo]").tapend(function(){
+$("[tab-target=shopPromo]").tapend(function() {
     setTimeout(function() {
         shopSwiper.update()
     }, 500);
-  
 })
-
 
 function call(phoneNumber){
     phonedialer.dial(
-       phoneNumber, 
-      function(err) {
-          if (err == "empty") alert($.t("UNKNOWN_PHONE_NUMBER"));
-          else showInfoD($.t("ERROR_CALLING"),$.t("ERROR_GENERIC"))   
-      },
+        phoneNumber, 
+        function(err) {
+            if (err == "empty") alert($.t("UNKNOWN_PHONE_NUMBER"));
+            else showInfoD($.t("ERROR_CALLING"),$.t("ERROR_GENERIC"))   
+        },
         function(success) { }
-  );
+    );
 }
 
 $(document).on("tapend",".callBtn",function(ev){
@@ -41,59 +38,49 @@ $(document).on("tapend",".callBtn",function(ev){
                 }, function(){
                     showInfoD($.t("WARNING",$.t("SOME_FEATURES_WILL_NOT_WORK")))
                 });
-            }else{
+            } else {
                 call(phoneNumber)
             }
-
         });
-		
 	}
 })
 
-
 $(document).on("tapend",".fa-map-marker",function(ev){
-   
-    
     if(checkPress(ev)){
         var directoryObj = { lat :  $(this).attr("map-lat"), lng :  $(this).attr("map-lng")}
-        console.log(directoryObj)
-        setTimeout(function(){
+        setTimeout(function() {
             map.animateCamera({
                 target: {lat: directoryObj.lat, lng: directoryObj.lng},
                 zoom: 17,
                 tilt: 60,
                 bearing: 140,
                 duration: 1000
-              }, function() {
+            }, function() {
                 console.log(1)
-            try{
-                  mkr.remove();
-            }catch(e){console.log(e)}
+                try {
+                    mkr.remove();
+                } catch(e) {
+                    console.log(e)
+                }
                 // Add a maker
                 console.log(2)
                 map.addMarker({
-                  position: {lat: directoryObj.lat, lng: directoryObj.lng},
-                  title: "",
-                  animation: plugin.google.maps.Animation.BOUNCE
+                    position: {lat: directoryObj.lat, lng: directoryObj.lng},
+                    title: "",
+                    animation: plugin.google.maps.Animation.BOUNCE
                 }, function(marker) {
                     mkr = marker
                     console.log(3)
-                  // Show the info window
-                  marker.showInfoWindow();
-            
-                  // Catch the click event
-                  marker.on(plugin.google.maps.event.INFO_CLICK, function() {
-            
-                   
-            
-                  });
+                    // Show the info window
+                    marker.showInfoWindow();            
+                    // Catch the click event
+                    marker.on(plugin.google.maps.event.INFO_CLICK, function() {
+                    });
                 });
-              });
-          },1600)
+            });
+        },1600)
     }
-   
 })
-
 
 $(document).on("search","#myShopsSearch",function(){
     $("[tab-target=myshops]").trigger("tapend")
@@ -101,11 +88,10 @@ $(document).on("search","#myShopsSearch",function(){
     $("[tab-name=myshops]>div>div[shopId]").each(function(){
         if(tempr.test($(this).attr("section-title"))){
             $(this).show()
-        }else{
+        } else {
             $(this).hide()
         }
     })
-    
 })
 
 function requestShopProducts(version,oldProductData){
@@ -145,28 +131,22 @@ function requestShopBanner(version,oldBannerData){
                 }
                 db.upsertPll(HexWhirlpool("myShopB" + myShopSync.idShop),mergedBanner)
             }
-            
-
         })
     })
 }
 
-
-
 function insertShopPromotion(promo){
     console.log("promo",promo)
-    if($("#ppromom_"+promo.promotionId).length == 0){
-        var dom= $(`<div id="ppromo_`+promo.promotionId+`"  class="swiper-slide">
-                         <img src="`+promo.image+`"/>
-                         <h4>`+promo.header+`</h4>
-                         <p>`+promo.description+`</p>
-                         <div class="btn_get" section-target="promotionsQR" niduxPromoCode="`+promo.promotionId+`">`+$.t("GET")+`</div>
-                  </div>`)
-                if( $("#ppromo_"+promo.promotionId).length == 0){
-                    $('.swiperShop-container .swiper-wrapper').append(dom)
-                }
-                  
-
+    if($("#spromo_"+promo.promotionId).length == 0){
+        var dom= $(`<div id="spromo_`+promo.promotionId+`"  class="swiper-slide">
+                    <img src="`+promo.image+`"/>
+                    <h4>`+promo.header+`</h4>
+                    <p>`+promo.description+`</p>
+                    <div class="btn_get" section-target="promotionsQR" niduxPromoCode="`+promo.promotionId+`">`+$.t("GET")+`</div>
+            </div>`)
+        if( $("#spromo_"+promo.promotionId).length == 0){
+            $('.swiperShop-container .swiper-wrapper').append(dom)
+        }
     }
 }
 
@@ -191,25 +171,25 @@ function requestShopPromotions(version,old){
                 
                 if(data.deleted != null){
                     data.deleted.forEach(function(id){
-                        $("#ppromom_"+id).remove()
+                        $("#spromo_"+id).remove()
                     })
                 }
                
                 for(var i = 0 ; i < data.promos.length; i++) {
                     var promo = data.promos[i]
-                    if(promo.dueTime < dptime){
+                    if(promo.dueTime < dptime) {
                         data.promos.slice(i,1)
                         try{
-                         $("#ppromom_"+promo.promotionId).remove()
-                        }catch(e){
+                            $("#spromo_"+promo.promotionId).remove()
+                        } catch(e) {
         
                         }
-                    }
-                    else{
+                    } else {
                         insertShopPromotion(promo)
                     }
                 }
                 data.promos = data.promos.filter(function(t){return t.dueTime >= dptime})
+                delete data.deleted
                 shopSwiper.update()
                 console.log("datos de escritura", data)
                 db.upsertPll(HexWhirlpool("myShopM" + myShopSync.idShop), data)
@@ -226,7 +206,6 @@ function requestShopPromotions(version,old){
     })
 }
 
-
 myShopSync = {
     idShop : 0,
 
@@ -238,14 +217,13 @@ myShopSync = {
             }).catch(function(){
                 requestShopProducts(0, {products : {} ,version: 0})
             })
-         },
+        },
 
         banner : function(){
-              db.get(HexWhirlpool("myShopB" + myShopSync.idShop)).then(function(banners){
-                  console.log("oldbit",banners)
+            db.get(HexWhirlpool("myShopB" + myShopSync.idShop)).then(function(banners){
+                console.log("oldbit",banners)
                 replaceAdsBanner(banners.shopBanners,"[section-name=shop]")
                 requestShopBanner( banners.version, banners.shopBanners)
-               
             }).catch(function(){
                 requestShopBanner(0, {shopBanners : {} ,version: 0})
             })
@@ -256,18 +234,16 @@ myShopSync = {
             db.get(HexWhirlpool("myShopM" + myShopSync.idShop)).then(function(data){
                 console.log(data)
                 var dptime = new Date().getTime()
-                for(var i = 0 ; i < data.promos.length;i++)
-                {
+                for(var i = 0 ; i < data.promos.length;i++) {
                     var promo = data.promos[i]
                     if(promo.dueTime < dptime){
                         data.promos.slice(i,1)
                         try{
-                         $("#ppromom_"+promo.promotionId).remove()
+                            $("#spromo_"+promo.promotionId).remove()
                         }catch(e){
         
                         }
-                    }
-                    else{
+                    } else {
                         console.log("inserted",promo)
                         insertShopPromotion(promo)
                     }
@@ -279,7 +255,6 @@ myShopSync = {
                 console.log(err)
                 requestShopPromotions(0)
             })
-        
         },
     },
 
@@ -288,16 +263,8 @@ myShopSync = {
         myShopSync.get.products()
         myShopSync.get.banner()
         myShopSync.get.promotions()
-
     }
-
 }
-
-
-
-
-
-
 
 shop = {
     init : function(t,tt){
@@ -323,12 +290,9 @@ shop = {
         $(".btn_get").css({ "background-color" : color} )
         $("#chat_sender_btn").css({ "color" : color} )
         $("#select_attachment_type").css({ "color" : color} )
-       
-
-         
         
-//temporal demo chat
-          insertChat({
+        //temporal demo chat
+        insertChat({
             id : 1000,
             isGroup: 1,
             name: "Ventas",
@@ -391,7 +355,5 @@ shop = {
             writeDate: 1505743662732,
             status: "R"
         })
-
-
     }
 }
