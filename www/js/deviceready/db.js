@@ -1,7 +1,7 @@
 
 
 function onDeviceReady_db () {
-    db = new PouchDB("condominus", {adapter: "websql"})
+    db = new PouchDB("nidux", {adapter: "websql"})
     db._pouchDBBusy  = false
     
     db.upsert = function (id, data, callback, err) {

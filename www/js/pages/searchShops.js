@@ -107,7 +107,7 @@ $(document).on("keypress","#searchForShop",function(ev){
 $(document).on("tapend",".shopInLst_mine",function(){
     var this_ = $(this)
    if( $(this).hasClass("fa-check")){
-        showAlert($.t("REMOVE_STORE"),$.t("WHISH_DELETE_STORE")+": "+ $(this).parent().text(), function(){
+        showAlert($.t("REMOVE_STORE"),$.t("WHISH_DELETE_STORE")+" "+ $(this).parent().text().trimRight() + "?", function(){
             loginInfo(function(doc){
             
                 var searchObj = {
@@ -126,7 +126,7 @@ $(document).on("tapend",".shopInLst_mine",function(){
             })
         })
    }else{
-        showAlert($.t("ADD_STORE"),$.t("WHISH_ADD_STORE")+": "+ $(this).parent().text(), function(){
+        showAlert($.t("ADD_STORE"),$.t("WHISH_ADD_STORE")+" "+ $(this).parent().text().trimRight() + "?", function(){
             loginInfo(function(doc){
                 
                     var searchObj = {

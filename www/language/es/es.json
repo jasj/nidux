@@ -1,13 +1,24 @@
 {
-    
     "EMAIL" : "Email",
     "PASSWORD" : "Contraseña",
     "FACEBOOK_LOGIN" : "Login con Facebook",
     "LOGIN" : "Login con Credenciales",
-    "GOOGLE_LOGIN" : "Login con Google",
-
-    
+    "GOOGLE_LOGIN" : "Login con Google",    
     "MY_SHOPS" : "Mis Tiendas",
     "PROMOTIONS" : "Promociones",
-    "MY_ORDERS" : "Mis Pedidos"
+    "MY_ORDERS" : "Mis Pedidos",
+    "MY_PROMOTION_CODES" : "Mis Promociones",
+    "ACTIVE" : "Activas",
+    "INACTIVE" : "Inactivas",
+    "ALL_CAT" : "Todas las Categorías",
+    "LOGOUT" : "Cerrar Sesión",
+    "LOGOUT_ASK" : "¿Desea Cerrar Sesión?",
+    "YES" : "Sí",
+    "NO" : "No",
+    "DISCLAIMER" : "Condiciones",
+    "GET" : "Obtener",
+    "REMOVE_STORE" : "Eliminar Tienda",
+    "WHISH_DELETE_STORE" : "¿Desea eliminar la tienda",
+    "ADD_STORE" : "Agregar Tienda",
+    "WHISH_ADD_STORE" : "¿Desea agregar la tienda"
 }

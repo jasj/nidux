@@ -254,7 +254,9 @@ function normalDateLocal (date) {
 }
 
 function normalDateOnlyLocal (date) {
+    console.log("date: ", date)
     var date_ = new Date(date)
+    console.log("date_: ", date_)
     return date_.getFullYear() + "-" + zeroPad(date_.getMonth() + 1, 2) + "-" + zeroPad(date_.getDate(), 2) 
 }
 

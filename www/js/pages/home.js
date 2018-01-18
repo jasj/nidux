@@ -28,18 +28,16 @@ $(".qr_btn ").tapend(function(ev){
 
 
 function replaceAdsProducts(products,where){
-    console.log(products)
     for(productIndex in products) {
        var product  = products[productIndex]
-       var productDOM =  $(where+" .product-card").eq(productIndex -1)
-       
-        if (product.empty == 1){
-            
+       var productDOM =  $(where+" .product-card").eq(productIndex -1)       
+        if (product.empty == 1){            
             productDOM.find("img").attr("src","https://dividendappreciation.com/wp-content/uploads/2017/05/For-Sale-Oldcastle.gif")
             productDOM.find("h6").html("CALL")
             productDOM.find("h5").html("")
             productDOM.attr("href","https://www.nidux.com/inicio/")
-        }else{
+        } else {
+            console.log("product... ", product)
             productDOM.attr("href",product.href)
             productDOM.find("img").attr("src",product.thumbnail)
             productDOM.find("h5").html(product.description)
@@ -55,7 +53,7 @@ function replaceAdsBanner(banners,where){
         if (banner.empty == 1){
             $(where +" .nivoSlider a").eq(bannerIndex -1).attr("href","https://www.nidux.com/inicio/")
             $(where +" .nivoSlider img").eq(bannerIndex -1).attr("src","https://dividendappreciation.com/wp-content/uploads/2017/05/For-Sale-Oldcastle.gif")            
-        }else{
+        } else {
             $(where + " .nivoSlider a").eq(bannerIndex -1).attr("href",banner.href)
             $(where + " .nivoSlider img").eq(bannerIndex -1).attr("src",banner.imageURL) 
         }

@@ -115,18 +115,17 @@ function requestShopProducts(version,oldProductData){
             "version" : version
         }
         _consolePost(beServices.SHOPS.GET_PRODUCTS,tempObj,function(newProductData){
+            console.log("oldProductData : ", oldProductData)
+            console.log("newProductData : ", newProductData)
             if(!$.isEmptyObject(newProductData)){
                 replaceAdsProducts(newProductData.products,"#myShopProducts")
                 var mergedProducts = {
-                    products: Object.assign(oldProductData.products, newProductData.products),
+                    products: Object.assign(oldProductData, newProductData.products),
                     version: newProductData.version 
                 }
-                db.upsertPll(HexWhirlpool("myShopP" + myShopSync.idShop),mergedProducts)
+                console.log("mergedProducts : ", mergedProducts)
+                db.upsertPll(HexWhirlpool("myShopP" + myShopSync.idShop), mergedProducts)
             }
-
-           
-            
-
         })
     })
 }
@@ -172,6 +171,7 @@ function insertShopPromotion(promo){
 }
 
 function requestShopPromotions(version,old){
+    console.log("old pp lst",old)
     loginInfo(function (doc) {
         var tempObj = {
             "shopId" : myShopSync.idShop,
@@ -179,14 +179,15 @@ function requestShopPromotions(version,old){
         }
         var dptime = new Date().getTime()
         _consolePost(beServices.SHOPS.GET_PROMOTIONS,tempObj,function(data){
-            if(data.version != null){
+            console.log("data db> ", data)
+            if(data.version != null) {
                 if(old != undefined){
-                    console.log("old pp lst",old)
-                    var newIdexes = data.promos.map(function(t){return t.id})
-                    old.promos = old.promos.filter(function(t){return newIdexes.indexOf(t.id) < 0 && data.deleted.indexOf(t.id) <0 })
+                    var newIdexes = data.promos.map(function(t){return t.promotionId})
+                    old.promos = old.promos.filter(function(t){return newIdexes.indexOf(t.promotionId) < 0 && data.deleted.indexOf(t.promotionId) <0 })
+                    console.log("old pp lst new",old)
                     data.promos = old.promos.concat(data.promos)
                 }
-                
+                console.log("data res> ", data)
                 
                 if(data.deleted != null){
                     data.deleted.forEach(function(id){
@@ -194,8 +195,7 @@ function requestShopPromotions(version,old){
                     })
                 }
                
-                for(var i = 0 ; i < data.promos.length;i++)
-                {
+                for(var i = 0 ; i < data.promos.length; i++) {
                     var promo = data.promos[i]
                     if(promo.dueTime < dptime){
                         data.promos.slice(i,1)
@@ -209,8 +209,18 @@ function requestShopPromotions(version,old){
                         insertShopPromotion(promo)
                     }
                 }
+                data.promos = data.promos.filter(function(t){return t.dueTime >= dptime})
                 shopSwiper.update()
-                db.upsertPll(HexWhirlpool("myShopM" + myShopSync.idShop),data)
+                console.log("datos de escritura", data)
+                db.upsertPll(HexWhirlpool("myShopM" + myShopSync.idShop), data)
+            } else {
+                if(old != undefined) {
+                    var size = old.promos.length
+                    old.promos = old.promos.filter(function(t){return t.dueTime >= dptime})
+                    if (size != old.promos.length) {
+                        db.upsertPll(HexWhirlpool("myShopM" + myShopSync.idShop), old)
+                    }
+                }
             }
         })
     })

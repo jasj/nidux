@@ -18,15 +18,13 @@ function insertPublishPromotion(promo){
                          <p>`+promo.description+`</p>
                          <div class="btn_get" section-target="promotionsQR" niduxPromoCode="`+promo.promotionId+`">`+$.t("GET")+`</div>
                   </div>`)
-                if( $("#ppromo_"+promo.promotionId).length == 0){
-                    $('[section-name=promotions] .swiper-wrapper').append(dom)
-                }
-                  
-
+        if( $("#ppromo_"+promo.promotionId).length == 0){
+            $('[section-name=promotions] .swiper-wrapper').append(dom)
+        }
     }
 }
 
-function requestPublishPromotion(version,old){
+function requestPublishPromotion(version, old){
     console.log("old",old)
     _consolePost(beServices.PUBLIHED_PROMOTIONS.GET_PROMOTIONS,{"publicVersion" : version},function(data){
         console.log(data)
@@ -34,10 +32,13 @@ function requestPublishPromotion(version,old){
 			if(old != undefined){ 
 				console.log("old pp lst",old)
 				var newIdexes = data.promos.map(function(t){return t.id})
-				old.promos = old.promos.filter(function(t){return newIdexes.indexOf(t.id) < 0 && data.deleted.indexOf(t.id) <0 })
+				old.promos = old.promos.filter(function(t) {
+                    return newIdexes.indexOf(t.promotionId) < 0 && data.deleted.indexOf(t.promotionId) <0 
+                })
+				console.log("old pp lst2",old)
 				data.promos = old.promos.concat(data.promos)
 			}
-			
+            console.log("data.promos",data.promos)
 			
 			if(data.deleted != null){
 				data.deleted.forEach(function(id){
@@ -45,8 +46,7 @@ function requestPublishPromotion(version,old){
 				})
 			}
            
-            for(var i = 0 ; i < data.promos.length;i++)
-            {
+            for(var i = 0 ; i < data.promos.length;i++) {
                 var promo = data.promos[i]
                 if(promo.publishEndDate < dptime){
                     data.promos.slice(i,1)
@@ -55,23 +55,18 @@ function requestPublishPromotion(version,old){
                     }catch(e){
     
                     }
-                }
-                else if(promo.publishStartDate < dptime){
+                } else if(promo.publishStartDate < dptime){
                     insertPublishPromotion(promo)
                 }
             }
-            
-
-            db.upsert("publishedPromotions",data)
-           
+            data.promos = data.promos.filter(function(t){return t.publishEndDate >= dptime})
+            db.upsert("publishedPromotions",data)           
 		}
-
         promoSwiper.update();
     },function(){
         console.log("fallo de promo")
         promoSwiper.update();
     })
-    
 }
 
 function getSavedPublishPromotion(){
@@ -79,8 +74,7 @@ function getSavedPublishPromotion(){
     db.get("publishedPromotions").then(function(promos){
         requestPublishPromotion(promos.version,promos)
         console.log("oldPromos",promos)
-        for(var i = 0 ; i < promos.promos.length;i++)
-        {
+        for(var i = 0 ; i < promos.promos.length; i++) {
             console.log("di2")
             var promo = promos.promos[i]
             if(promo.publishEndDate < dptime){
@@ -91,26 +85,20 @@ function getSavedPublishPromotion(){
                 }catch(e){
                       console.log(e)
                 }
-            }
-            else if(promo.publishStartDate < dptime){
+            } else if(promo.publishStartDate < dptime){
                 console.log("di")
                 insertPublishPromotion(promo)
-            }
-            else{
+            } else{
                 console.log("di3")
             }
         }
         promoSwiper.update();
-
        // insertPublishPromotion(promos.promos)
     }).catch(function(e){
         console.log(e)
         requestPublishPromotion(0)
     })
 }
-
-
-
 
 promotions = {
     init : function () {
