@@ -95,5 +95,11 @@ promotions = {
         setTimeout(function() {
             promoSwiper.update()
         }, 500);
+
+        //QR request as shop
+        $("#promotionsQRNav .fa-chevron-left")
+            .attr("section-target","promotions")
+            .attr("section-title",$.t("PROMOTION"))
+            .attr("section-color",MAIN_COLOR)
     }
 }

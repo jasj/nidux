@@ -11,6 +11,9 @@ bannersReady = false
 productsReady = false
 
 
+MAIN_COLOR = "#D7C101"
+
+
 
 captureCfg = {
     sampleRate: 44100,

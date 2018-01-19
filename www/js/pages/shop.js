@@ -134,7 +134,7 @@ function insertShopPromotion(promo){
                     <img src="`+promo.image+`"/>
                     <h4>`+promo.header+`</h4>
                     <p>`+promo.description+`</p>
-                    <div class="btn_get" section-target="promotionsQR" niduxPromoCode="`+promo.promotionId+`">`+$.t("GET")+`</div>
+                    <div class="btn_get" section-target="promotionsQR" section-color="`+shop_color+`" section-title=`+shop_name+` niduxPromoCode="`+promo.promotionId+`">`+$.t("GET")+`</div>
             </div>`)
         if( $("#spromo_"+promo.promotionId).length == 0){
             $('.swiperShop-container .swiper-wrapper').append(dom)
@@ -253,6 +253,7 @@ myShopSync = {
 shop = {
     init : function(t,tt){
         shop_name = $(t).attr("section-title")
+        shop_color = $(t).attr("section-color")
         myShopSync.idShop = $(t).attr("shopId")
         myShopSync.do()
 
@@ -261,19 +262,26 @@ shop = {
         $(".fa-map-marker").attr("map-lng",$(t).attr("map-lng"))
         
         $('#slider_shop').nivoSlider();
-        addStylesheetRule("#shopNav .active { color: "+$(t).attr("section-color")+"; border-bottom: 2px solid "+$(t).attr("section-color")+"}")
-        addStylesheetRule("[section-name=shop] .product-card{ color: "+$(t).attr("section-color")+";}")
-        addStylesheetRule("[section-name=shop] .product-card{ color: "+$(t).attr("section-color")+";}")
-        addStylesheetRule("[section-name=shop] .product-info h6{ background-color: "+$(t).attr("section-color")+";}")
+        addStylesheetRule("#shopNav .active { color: "+shop_color+"; border-bottom: 2px solid "+shop_color+"}")
+        addStylesheetRule("[section-name=shop] .product-card{ color: "+shop_color+";}")
+        addStylesheetRule("[section-name=shop] .product-card{ color: "+shop_color+";}")
+        addStylesheetRule("[section-name=shop] .product-info h6{ background-color: "+shop_color+";}")
         addStylesheetRule(".he_said{ background-color: "+hexToHSL(color,20)+";}")
-        addStylesheetRule("[section-name=shop] .nicescroll-cursors{ background-color: "+$(t).attr("section-color")+" !important;}")
-        addStylesheetRule("[section-name=shop] .chat_lst_element_msgQty{ background-color: "+$(t).attr("section-color")+" !important;}")
+        addStylesheetRule("[section-name=shop] .nicescroll-cursors{ background-color: "+shop_color+" !important;}")
+        addStylesheetRule("[section-name=shop] .chat_lst_element_msgQty{ background-color: "+shop_color+" !important;}")
        // $("[section-name=shop] .products").css({ "top" : (50 + $("#slider_shop").outerHeight())+"px"} )
         $("[section-name=shop] .products").css({ "top" : 150+"px"} )
         $(".chat_action_bar>.fa").css({ "color" : color} )
         $(".btn_get").css({ "background-color" : color} )
         $("#chat_sender_btn").css({ "color" : color} )
         $("#select_attachment_type").css({ "color" : color} )
+
+
+           //QR request as shop
+           $("#promotionsQRNav .fa-chevron-left")
+            .attr("section-target","shop")
+            .attr("section-title",shop_name)
+            .attr("section-color",shop_color)
         
         //temporal demo chat
         insertChat({
