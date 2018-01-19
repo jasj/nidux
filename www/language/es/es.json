@@ -2,7 +2,7 @@
     "EMAIL" : "Email",
     "PASSWORD" : "Contraseña",
     "FACEBOOK_LOGIN" : "Login con Facebook",
-    "LOGIN" : "Login con Credenciales",
+    "LOGIN" : "Login",
     "GOOGLE_LOGIN" : "Login con Google",    
     "MY_SHOPS" : "Mis Tiendas",
     "PROMOTIONS" : "Promociones",
@@ -28,5 +28,6 @@
     "ERROR_GENERIC" : "Error",
     "SHOP_ADDED" : "Tienda agregada",
     "THIS_SHOP_WHAS_ADDED" : "La tienda fue agregada",
-    "CONTENT_NOT_FOUND" : "No hay tiendas por mostrar"
+    "CONTENT_NOT_FOUND" : "No hay tiendas por mostrar",
+    "CLOSE_CAT" : "Cerrar Selección"
 }

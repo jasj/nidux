@@ -2,6 +2,10 @@ $(".jasj_categorie_menu .fa-tag").tapend(function(){
     $(".jasj_select_categorie").fadeOut()
 })
 
+$(".jasj_categorie_menu .fa-times").tapend(function(){
+    $(".jasj_select_categorie").fadeOut()
+})
+
 $(".jasj_categorie_menu .fa-tag").tapend(function(){
     $(".jasj_categorie_menu").addClass("active")
     $(".jasj_categorie_categorie.active").removeClass("active")

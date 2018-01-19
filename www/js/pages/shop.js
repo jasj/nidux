@@ -30,7 +30,6 @@ $(document).on("tapend",".callBtn",function(ev){
 	if(checkPress(ev)){
         var phoneNumber = $(this).attr("phone-number")
         var permissions = cordova.plugins.permissions;
-        console.log("llamando",phoneNumber)
         permissions.checkPermission(permissions.CALL_PHONE, function(status){
             if ( !status.hasPermission ) {
                 permissions.requestPermission(permissions.CALL_PHONE, function(){
@@ -56,21 +55,18 @@ $(document).on("tapend",".fa-map-marker",function(ev){
                 bearing: 140,
                 duration: 1000
             }, function() {
-                console.log(1)
                 try {
                     mkr.remove();
                 } catch(e) {
                     console.log(e)
                 }
                 // Add a maker
-                console.log(2)
                 map.addMarker({
                     position: {lat: directoryObj.lat, lng: directoryObj.lng},
                     title: "",
                     animation: plugin.google.maps.Animation.BOUNCE
                 }, function(marker) {
                     mkr = marker
-                    console.log(3)
                     // Show the info window
                     marker.showInfoWindow();            
                     // Catch the click event
@@ -101,15 +97,12 @@ function requestShopProducts(version,oldProductData){
             "version" : version
         }
         _consolePost(beServices.SHOPS.GET_PRODUCTS,tempObj,function(newProductData){
-            console.log("oldProductData : ", oldProductData)
-            console.log("newProductData : ", newProductData)
             if(!$.isEmptyObject(newProductData)){
                 replaceAdsProducts(newProductData.products,"#myShopProducts")
                 var mergedProducts = {
                     products: Object.assign(oldProductData, newProductData.products),
                     version: newProductData.version 
                 }
-                console.log("mergedProducts : ", mergedProducts)
                 db.upsertPll(HexWhirlpool("myShopP" + myShopSync.idShop), mergedProducts)
             }
         })
@@ -136,7 +129,6 @@ function requestShopBanner(version,oldBannerData){
 }
 
 function insertShopPromotion(promo){
-    console.log("promo",promo)
     if($("#spromo_"+promo.promotionId).length == 0){
         var dom= $(`<div id="spromo_`+promo.promotionId+`"  class="swiper-slide">
                     <img src="`+promo.image+`"/>
@@ -151,7 +143,6 @@ function insertShopPromotion(promo){
 }
 
 function requestShopPromotions(version,old){
-    console.log("old pp lst",old)
     loginInfo(function (doc) {
         var tempObj = {
             "shopId" : myShopSync.idShop,
@@ -159,15 +150,12 @@ function requestShopPromotions(version,old){
         }
         var dptime = new Date().getTime()
         _consolePost(beServices.SHOPS.GET_PROMOTIONS,tempObj,function(data){
-            console.log("data db> ", data)
             if(data.version != null) {
                 if(old != undefined){
                     var newIdexes = data.promos.map(function(t){return t.promotionId})
                     old.promos = old.promos.filter(function(t){return newIdexes.indexOf(t.promotionId) < 0 && data.deleted.indexOf(t.promotionId) <0 })
-                    console.log("old pp lst new",old)
                     data.promos = old.promos.concat(data.promos)
                 }
-                console.log("data res> ", data)
                 
                 if(data.deleted != null){
                     data.deleted.forEach(function(id){
@@ -191,7 +179,6 @@ function requestShopPromotions(version,old){
                 data.promos = data.promos.filter(function(t){return t.dueTime >= dptime})
                 delete data.deleted
                 shopSwiper.update()
-                console.log("datos de escritura", data)
                 db.upsertPll(HexWhirlpool("myShopM" + myShopSync.idShop), data)
             } else {
                 if(old != undefined) {
@@ -221,7 +208,6 @@ myShopSync = {
 
         banner : function(){
             db.get(HexWhirlpool("myShopB" + myShopSync.idShop)).then(function(banners){
-                console.log("oldbit",banners)
                 replaceAdsBanner(banners.shopBanners,"[section-name=shop]")
                 requestShopBanner( banners.version, banners.shopBanners)
             }).catch(function(){
@@ -232,7 +218,6 @@ myShopSync = {
         promotions: function(){
             $('.swiperShop-container .swiper-wrapper').html("")
             db.get(HexWhirlpool("myShopM" + myShopSync.idShop)).then(function(data){
-                console.log(data)
                 var dptime = new Date().getTime()
                 for(var i = 0 ; i < data.promos.length;i++) {
                     var promo = data.promos[i]
@@ -244,7 +229,6 @@ myShopSync = {
         
                         }
                     } else {
-                        console.log("inserted",promo)
                         insertShopPromotion(promo)
                     }
                 }
