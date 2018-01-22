@@ -1,17 +1,14 @@
-promoSwiper = new Swiper("[section-name=promotions] .swiper-container", {
-    speed: 400,
-    spaceBetween: 30,
-    pagination: '.swiper-pagination',
-    
-    // Navigation arrows
-    nextButton: '.swiper-button-next',
-    prevButton: '.swiper-button-prev',
-    loop : true
-});
+$(document).ready(function () {
+    $('[section-name=promotions] .swiper-container').JASJSwipper({
+         prevNav: "#promotionsPrevButton",
+         nextNav : "#promotionsNextButton"
+    })
+})
 
 function insertPublishPromotion(promo){
+    ocPosPromotions.push("ppromo_"+promo.promotionId)
     if($("#ppromo_"+promo.promotionId).length == 0){
-        var dom= $(`<div id="ppromo_`+promo.promotionId+`"  class="swiper-slide">
+        var dom= $(`<div id="ppromo_`+promo.promotionId+`"  class="jasj-slide">
                          <img src="`+promo.image+`"/>
                          <h4>`+promo.header+`</h4>
                          <p>`+promo.description+`</p>
@@ -56,9 +53,9 @@ function requestPublishPromotion(version, old){
             data.promos = data.promos.filter(function(t){return t.publishEndDate >= dptime})
             db.upsert("publishedPromotions",data)           
 		}
-        promoSwiper.update();
+        $('[section-name=promotions] .swiper-container').JASJSwipper({operacion: "update"})
     },function(){
-        promoSwiper.update();
+        $('[section-name=promotions] .swiper-container').JASJSwipper({operacion: "update"})
     })
 }
 
@@ -81,7 +78,7 @@ function getSavedPublishPromotion(){
                 console.log("di3")
             }
         }
-        promoSwiper.update();
+        $('[section-name=promotions] .swiper-container').JASJSwipper({operacion: "update"})
        // insertPublishPromotion(promos.promos)
     }).catch(function(e){
         console.log(e)
@@ -93,8 +90,10 @@ promotions = {
     init : function () {
         getSavedPublishPromotion()
         setTimeout(function() {
-            promoSwiper.update()
+            $('[section-name=promotions] .swiper-container').JASJSwipper({operacion: "update"})
         }, 500);
+
+        ocPosPromotions = []
 
         //QR request as shop
         $("#promotionsQRNav .fa-chevron-left")

@@ -1,17 +1,13 @@
-shopSwiper = new Swiper("[section-name=shop] .swiper-container", {
-    speed: 400,
-    spaceBetween: 30,
-    pagination: '.swiper-pagination',
-    
-    // Navigation arrows
-    nextButton: '.swiper-button-next',
-    prevButton: '.swiper-button-prev',
-    loop : true
-});
+$("[section-name=shop] .swiper-container").JASJSwipper({
+    prevNav: "#shopPrevButton",
+    nextNav : "#shopNextButton"
+})
+
+
 
 $("[tab-target=shopPromo]").tapend(function() {
     setTimeout(function() {
-        shopSwiper.update()
+        $("[section-name=shop] .swiper-container").JASJSwipper({operacion: "update"})
     }, 500);
 })
 
@@ -130,7 +126,7 @@ function requestShopBanner(version,oldBannerData){
 
 function insertShopPromotion(promo){
     if($("#spromo_"+promo.promotionId).length == 0){
-        var dom= $(`<div id="spromo_`+promo.promotionId+`"  class="swiper-slide">
+        var dom= $(`<div id="spromo_`+promo.promotionId+`"  class="jasj-slide">
                     <img src="`+promo.image+`"/>
                     <h4>`+promo.header+`</h4>
                     <p>`+promo.description+`</p>
@@ -178,7 +174,7 @@ function requestShopPromotions(version,old){
                 }
                 data.promos = data.promos.filter(function(t){return t.dueTime >= dptime})
                 delete data.deleted
-                shopSwiper.update()
+                $("[section-name=shop] .swiper-container").JASJSwipper({operacion: "update"})
                 db.upsertPll(HexWhirlpool("myShopM" + myShopSync.idShop), data)
             } else {
                 if(old != undefined) {
@@ -232,7 +228,7 @@ myShopSync = {
                         insertShopPromotion(promo)
                     }
                 }
-                shopSwiper.update()
+                $("[section-name=shop] .swiper-container").JASJSwipper({operacion: "update"})
                 requestShopPromotions(data.version,data)
                // createPromoSlider("[section-name=shop]")
             }).catch(function(err){

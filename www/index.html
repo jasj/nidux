@@ -24,7 +24,7 @@
 		<link rel="stylesheet" type="text/css" href="lib/pickadate.js-3.5.6/lib/themes/classic.time.css" />
 		<link rel="stylesheet" type="text/css" href="lib/select2/css/select2.min.css" />		
 		<link rel="stylesheet" href="lib/font-awesome-4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="lib/Swiper-3.4.2/dist/css/swiper.min.css">
+		<link rel="stylesheet" href="lib/Swiper-4.1.0/dist/css/swiper.min.css">
 
 		<title>Nidux Shopping</title>
 	
@@ -507,8 +507,8 @@
 										<div class="swiper-pagination"></div>
 										
 										<!-- If we need navigation buttons -->
-										<div class="swiper-button-prev"></div>
-										<div class="swiper-button-next"></div>
+										<div id="shopPrevButton" class="swiper-button-prev"></div>
+										<div id="shopNextButton"class="swiper-button-next"></div>
 										
 									
 								</div>	
@@ -531,8 +531,8 @@
 								<div class="swiper-pagination"></div>
 								
 								<!-- If we need navigation buttons -->
-								<div class="swiper-button-prev"></div>
-								<div class="swiper-button-next"></div>
+								<div id="promotionsPrevButton" class="swiper-button-prev"></div>
+								<div id="promotionsNextButton" class="swiper-button-next"></div>
 							</div>		
 								
 					</div>
@@ -1181,7 +1181,8 @@
 		
 		<!--script type="text/javascript" src="js/sim.js"></script-->
 		<script type="text/javascript" src="js/pushDriver.js"></script>
-		<script src="lib/Swiper-3.4.2/dist/js/swiper.jquery.js"></script>
+		<script src="js/jasjSwiper.js"></script>
+
 		<!-- pages scripts -->
 		<script type="text/javascript" src="js/pages/home.js"></script>
 		<script type="text/javascript" src="js/pages/user.js"></script>
@@ -1191,16 +1192,8 @@
 		<script type="text/javascript" src="js/pages/myCodes.js"></script> 
 		<script type="text/javascript" src="js/pages/searchShops.js"></script>
 		<script type="text/javascript" src="js/pages/selectCategorie.js"></script>
-		<!-- <script type="text/javascript" src="js/pages/people.js"></script>
-		
-		<script type="text/javascript" src="js/pages/employee.js"></script>
-		<script type="text/javascript" src="js/pages/habitant.js"></script>
-		<script type="text/javascript" src="js/pages/entries.js"></script>
-		<script type="text/javascript" src="js/pages/residents.js"></script> -->
+
 		<script type="text/javascript" src="js/pages/chat.js"></script>
-		<!-- <script type="text/javascript" src="js/pages/services.js"></script>
-		<script type="text/javascript" src="js/pages/resources.js"></script>
-		<script type="text/javascript" src="js/pages/bills.js"></script> -->
 		<script type="text/javascript" src="js/pnglib.js"></script>
 		<script type="text/javascript" src="js/Identicon.js"></script>
     </body>
