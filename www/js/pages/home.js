@@ -34,7 +34,9 @@ function replaceAdsProducts(products,where){
             productDOM.attr("href","https://www.nidux.com/inicio/")
         } else {
             console.log("product... ", product)
-            productDOM.attr("href",product.href)
+            productDOM.attr("explorer-href",product.href)
+            productDOM.attr("section-color",product.color)
+            productDOM.attr("section-title",product.storeName)
             productDOM.find("img").attr("src",product.thumbnail)
             productDOM.find("h5").html(product.description)
             productDOM.find("h6").html(product.price + " "+ product.currency)

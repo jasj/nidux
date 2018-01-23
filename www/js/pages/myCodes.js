@@ -4,6 +4,7 @@ function addMyCodes(req,promoObject) {
     if(dty < req.dueTime  && req.redeemed == null) {
         $(`<div class="code_lst_elment" id="promU`+req.promotionPerUserId+`">
             <div class="front">
+            <div class="ribbon">`+( Math.ceil(( req.dueTime - dty) / (1000 * 3600 * 24))  )+' '+$.t("DAYS")+`</div>
             <h1>`+promoObject[req.promotionId].shopName +`</h1>
         
             <img class="promoPictoure" src="`+promoObject[req.promotionId].image+`">                
@@ -23,7 +24,7 @@ function addMyCodes(req,promoObject) {
             </table>
 
             <p>`+promoObject[req.promotionId].description+`</p>
-            <div class="ribbon">`+( Math.ceil(( req.dueTime - dty) / (1000 * 3600 * 24))  )+' '+$.t("DAYS")+`</div>
+           
             </div>
             <div class="back">
                      <h3>`+promoObject[req.promotionId].header +`</h3>

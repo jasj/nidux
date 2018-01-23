@@ -1880,6 +1880,7 @@ table.billDetails {
     padding: 8px;
     border: 2px dashed gold;
     height: 430px;
+    overflow: hidden;
 
 }
 
@@ -1923,8 +1924,10 @@ table.billDetails {
     width: 80px;
     border-radius: 60px 0px;
     position: relative;
-    top: -439px;
     left: calc(100% - 73px);
+    top: 9px;
+    z-index: 2;
+    margin-bottom: -48px;
 }
 
 .code_lst_elment table {
@@ -1978,6 +1981,13 @@ table.billDetails {
     height: 35px;
     display: flex;
     justify-content: center;
+}
+
+
+iframe#exporerIframe {
+    width: 100%;
+    height: calc(100% - 55px);
+    border: 0px;
 }
 
 
