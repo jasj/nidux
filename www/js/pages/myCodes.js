@@ -13,8 +13,8 @@ function addMyCodes(req,promoObject) {
             <table>
                 <tbody>
                     <tr>
-                        <th>Codigo</th>
-                        <th>Expira</th>
+                        <th>` + $.t("CODE") + `</th>
+                        <th>` + $.t("EXPIRES") + `</th>
                     </tr>
                     <tr>
                         <td>`+req.code+`</td>
@@ -34,6 +34,7 @@ function addMyCodes(req,promoObject) {
         </div>`).prependTo("#codeList .nice-wrapper")
         new QRCode($("#promU"+req.promotionPerUserId +" .codePosition").get(0),{text:  req.code, colorDark : "#000",correctLevel : QRCode.CorrectLevel.H ,width: window.innerWidth - 80 ,width: window.innerWidth - 80});
         $("#promU"+req.promotionPerUserId).flip()
+        return req.promotionId
     } else {
         $(`<div class="inactiveCodeElement">
             <h3>`+promoObject[req.promotionId].shopName+`</h3>
@@ -44,6 +45,7 @@ function addMyCodes(req,promoObject) {
                 </tr>
                     </tbody></table>
             </div>`).prependTo("#codeListRedem .nice-wrapper")
+        return null
     }
 }
 
@@ -63,10 +65,21 @@ function requestNewMyCodes(version,oldPromo) {
                         return newPromoRequest.indexOf(t.promotionPerUserId) == -1
                     })
                     oldPromo.promosPerUser = notUpdatedPromoRequest.concat(data.promosPerUser)
-                    db.upsert("promosPerUser",oldPromo)
-                    for(var i = 0; i < data.promosPerUser.length; i++) {
-                        addMyCodes(data.promosPerUser[i],data.promos)
+                    var promIds = []
+                    for(var i = 0; i < oldPromo.promosPerUser.length; i++) {
+                        var id = addMyCodes(oldPromo.promosPerUser[i],oldPromo.promos)
+                        if (id) {
+                            promIds.push(id)
+                        }
                     }
+                    promIds = $.unique(promIds)
+                    var fullPromIds = $.map(oldPromo.promos, function(element,index) {return index})
+                    var delPromIds = fullPromIds.filter(function(t){ return promIds.indexOf(t) == -1 })
+                    for(var i = 0; i < delPromIds.length; i++) {
+                        console.log("imagen: ", delPromIds[i])
+                        oldPromo.promos[delPromIds[i]].image = "" 
+                    }
+                    db.upsert("promosPerUser",oldPromo)
                 }
             }
         )
