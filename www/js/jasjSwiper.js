@@ -72,7 +72,7 @@ $.fn.JASJSwipper = function (options){
 			
 			// clonar 3 veces cuando es solo un slide
 			if(this_.find('.jasj-slide').length == 1){
-					$('.jasj-slide')
+				this_.find('.jasj-slide')
 						.clone()
 							.attr("jasj-slide-copy",true)
 							.appendTo($(this).find('.swiper-wrapper'))
@@ -85,7 +85,7 @@ $.fn.JASJSwipper = function (options){
 			}
 			//colonar 2 veces el juego para cuando hay solo dos slides
 			if(this_.find('.jasj-slide').length == 2){
-				$('.jasj-slide')
+				this_.find('.jasj-slide')
 					.clone()
 						.attr("jasj-slide-copy",true)
 						.appendTo($(this).find('.swiper-wrapper'))
