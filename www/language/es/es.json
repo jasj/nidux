@@ -29,5 +29,7 @@
     "SHOP_ADDED" : "Tienda agregada",
     "THIS_SHOP_WHAS_ADDED" : "La tienda fue agregada",
     "CONTENT_NOT_FOUND" : "No hay tiendas por mostrar",
-    "CLOSE_CAT" : "Cerrar Selección"
+    "CLOSE_CAT" : "Cerrar Selección",
+    "CODE" : "Código",
+    "EXPIRES" : "Expira"
 }

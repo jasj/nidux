@@ -127,8 +127,6 @@ function _consolePost (url, obj, cb, fail) {
 
 function _condominiumPost (url, obj, cb, fail) {
     url = CondominiumIP + url
-    console.log("CondominiumIP: ", CondominiumIP)
-    console.log("url: ", url)
     _post(url, obj, cb, fail)
 }
 
@@ -254,9 +252,7 @@ function normalDateLocal (date) {
 }
 
 function normalDateOnlyLocal (date) {
-    console.log("date: ", date)
     var date_ = new Date(date)
-    console.log("date_: ", date_)
     return date_.getFullYear() + "-" + zeroPad(date_.getMonth() + 1, 2) + "-" + zeroPad(date_.getDate(), 2) 
 }
 
@@ -354,7 +350,6 @@ if ($ != undefined) {
     $(document).on("tapend","[href]",function(ev){
         if(checkPress(ev)){
             ev.preventDefault()
-            console.log("open url:",$(this).attr("href"))
             navigator.app.loadUrl($(this).attr("href"), { openExternal:true}); 
         }
     })
