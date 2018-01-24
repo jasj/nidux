@@ -339,9 +339,6 @@ div#dashboard {
 	overflow: overlay;
 }
 
-#typeOfSignInHome,#bookinNav,#AdminNav,#billsNav {
-   /* box-shadow: 0 2px 12px 0 rgba(0,0,0,0.2);*/
-}
 
 #resource_select_day{
 	background: white;
@@ -956,9 +953,6 @@ div#dashboard {
 	overflow: auto;
 }
 
-.nice-wrapper {
-	
-}
 
 .nicescroll-rails {
 	width: 2px;
@@ -1972,6 +1966,10 @@ table.billDetails {
     width: 10px;
     height:  10px;
     border-radius: 360px;
+}
+
+#promotionDisclamer {
+    padding: 0px 15px;
 }
 
 .swiper-pagination {
