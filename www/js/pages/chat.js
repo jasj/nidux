@@ -9,13 +9,30 @@ prevEvent = null
 currentChat = null
 
 w = new Worker("js/workers/chat_worker.js")
-w.onmessage = function (event) {
-    retData = JSON.parse(event.data)
-    if (retData.tid != undefined) {
+w.onmessage = function (event) {	
+	retData = JSON.parse(event.data)
+	if("error" in retData) {
+		switch(retData.error) {
+			case "INVALID_USER_OR_LOGIN":
+				db.destroy().then(function() { onDeviceReady_db() })
+				$("#modal").trigger("tapend")
+				clearWorkspace()
+				$("#login").fadeIn();
+				$("#msg"+retData.tid).remove()
+			break;
+
+			case "NO_RAVEL_ENDPOINT":
+				w.postMessage(JSON.stringify({controlType: "SET_RAVEL_IP", ip: localStorage.getItem('RAVEL_IP')}))
+			break;
+
+			default:
+			break;
+		} 
+	} else if (retData.tid != undefined) {
         $("#msg" + retData.tid).find(".fa-clock-o").removeClass("fa-clock-o").addClass("fa-paper-plane-o")
         $("#msg" + retData.tid).attr("id", "msg" + retData.chatMessageId)
         console.log("change")
-    }
+	}
 }
 
 img.onload = function () {
@@ -455,6 +472,14 @@ function insertMsg (from, msg_) {
     }	
 }
 
+function totalMessages (chats) {
+    var total = 0;
+    (chats || []).forEach( chat => {
+        total += (chat.chatId != null ? (isNaN(chat.messages) ? 0 : parseInt(chat.messages)) : 0 )
+    })
+    return total;
+}
+
 function insertChat (chat) {
     var dom = $(`<div id="` + chat.chatGroupId + `"  class="chat_lst_element" section-target="msgChat" chatid="` + chat.chatId + `"  i18Trans="CHAT" section-color="`+color+`" section-title="`+shop_name+`" section-fx-parameters="'` + chat.chatId + `'">
         <div class="chat_lst_element_picture">
@@ -476,7 +501,7 @@ function insertChat (chat) {
 
         <div class="chat_lst_element_right">
             <div class="chat_lst_element_msgQty">
-                ` + (chat.chatId != null ? chat.messages : "" ) + `
+                ` + (chat.chatId != null ? chat.messages : "0" ) + `
             </div> 
 
             <div class="removeChat">

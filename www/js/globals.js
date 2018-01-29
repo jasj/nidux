@@ -29,4 +29,6 @@ captureCfg = {
     
 }
 
+omitAuthServices = ["/security/login"]
+
 //db.upsert("loginInfo",{ estates : [{ guestId : "ef74ab1308edc737de7daac980220ec7"}]})

@@ -140,12 +140,30 @@ function _post (url, obj, cb, fail) {
         return cordovaHTTP.post(url, {
             k: RSAencript(JSON.stringify(pair)),
             c: aesjs.utils.hex.fromBytes(encryptedBytes)
-        }, {}, function (rs) { cb(JSON.parse(rs.data)) }, fail)
+        }, {}, function (rs) { cb(JSON.parse(rs.data)) }, function(e){
+			if((omitAuthServices && omitAuthServices.indexOf(url) == -1) && e.status == 401){
+				db.destroy().then(function () { onDeviceReady_db() })
+				$("#modal").trigger("tapend")
+				clearWorkspace()
+				$("#login").fadeIn();
+			} else{
+				fail(e)
+			}
+		})
     } else {
         return $.post(url, {
             k: RSAencript(JSON.stringify(pair)),
             c: aesjs.utils.hex.fromBytes(encryptedBytes)
-        }, cb).fail(fail)
+        }, cb).fail(function(e){
+			if((omitAuthServices && omitAuthServices.indexOf(url) == -1) && e.status == 401){
+				db.destroy().then(function () { onDeviceReady_db() })
+				$("#modal").trigger("tapend")
+				clearWorkspace()
+				$("#login").fadeIn();
+			}else{
+				fail(e)
+			}
+		})
     }
 }
 

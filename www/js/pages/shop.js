@@ -203,10 +203,11 @@ function requestChatList(old ){
             "chatVersion": old.chatVersion
          }
          console.log(old)
+         var total = totalMessages(old.chats)
         _consolePost(beServices.CHAT.LIST_DEPARTMENTS,tempObj, function(newData){
-            var updatedIdChats  = newData.chats.map(chat => { return chat.chatGroupId}) 
-            var oldChats      = old.chats.filter(chat => {  //aquellos chats viejos que no se actualizan ni se borran
-                 return  (updatedIdChats.indexOf(chat.chatGroupId) < 0) && 
+            var updatedIdChats = newData.chats.map(chat => { return chat.chatGroupId }) 
+            var oldChats = old.chats.filter(chat => {  //aquellos chats viejos que no se actualizan ni se borran
+                return  (updatedIdChats.indexOf(chat.chatGroupId) < 0) && 
                          (newData.deleteGroups.indexOf(chat.chatGroupId) < 0)
             })
 
@@ -216,20 +217,17 @@ function requestChatList(old ){
             newData.chatVersion  =  newData.chatVersion  == null  ? old.chatVersion  : newData.chatVersion
 
             $("#chat_list .nice-wrapper").html()
-            newData.chats =newData.chats.concat(oldChats)
+            newData.chats = newData.chats.concat(oldChats)
             console.log("newData",newData)
 
             db.upsert("chat_"+ myShopSync.idShop,newData)
+            total = totalMessages(newData.chats)
+            $("#shopNav .tablist li:eq(3) .bubble").text(total)
             newData.chats.forEach( chat => {
                 insertChat(chat)
             })
-           
-            
-
-
-
-            
         },function(error){
+            $("#shopNav .tablist li:eq(3) .bubble").text(total)
             console.log("error")
         })
     })
@@ -237,17 +235,13 @@ function requestChatList(old ){
 
 function getChatList(){
     $("#chat_list .nice-wrapper").html()
-    db.get("chat_"+ myShopSync.idShop)
-    .then(data => {
+    db.get("chat_"+ myShopSync.idShop).then(data => {
         data.chats.forEach( chat => {
             insertChat(chat)
         })
-
-        requestChatList(data)
-
-       
-    })
-    .catch( error => {
+        requestChatList(data)       
+    }).catch( error => {
+        $("#shopNav .tablist li:eq(3) .bubble").text("0")
         requestChatList()
     })
 }

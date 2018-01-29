@@ -38,7 +38,11 @@ cordovaHTTP = {
                 console.log(callback)
                 callback({data: xhr.responseText})
             } else {
-                fail({error: xhr.status})
+                if(xhr.status == 401){
+					postMessage('{"error" : "INVALID_USER_OR_LOGIN", "tid": "' + tid + '"}' )
+				} else {
+					fail({error : xhr.status})
+				}
             }
         } catch (e) {
             fail({error: e})
