@@ -13,13 +13,13 @@ beServices = {
     },
     "CHAT": {
         "STATUS_DETAIL": ":2521/ravel/1.0/chat/status/detail",
-        "READ_APP": ":2521/ravel/1.0/chat/read/app",
+        "LIST_DEPARTMENTS": "/chat/list",
         "DELETE_MESSAGE_APP": ":2521/ravel/1.0/chat/delete/message/app",
         "READ_MESSAGE_VALIDATE": ":2521/ravel/1.0/chat/read/message/validate",
         "DOWNLOADER_READ_MESSAGE": "http://54.212.218.84:2591/downloader/1.0/read/message/",
         "DELETE_APP": ":2521/ravel/1.0/chat/delete/app",
-        "READ_USERS_GROUPS": ":2521/ravel/1.0/chat/read/users/groups",
-        "WRITE_APP": ":2521/ravel/1.0/chat/write/app"
+        "READ_MESSAGE": "/chat/read/app",
+        "WRITE_APP": "/chat/write/app"
     },
     "DASHBOARD" : {
         "GET_PRODUCT_LIST" : "/core/promo/product/get",

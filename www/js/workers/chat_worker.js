@@ -51,7 +51,7 @@ function sendMessage (msg) {
     var newMsg = JSON.parse(JSON.stringify(msg))
     delete newMsg.endpoint
     var endpoint = msg.endpoint 
-    _post(endpoint + beServices.CHAT.WRITE_APP, newMsg, function (data) {
+    _consolePost(beServices.CHAT.WRITE_APP, newMsg, function (data) {
         postMessage(JSON.stringify(data))
         retBool = false
     }, function (e) {

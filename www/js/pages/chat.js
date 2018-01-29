@@ -138,14 +138,16 @@ function goBottom (delay, wait) {
 
 function getMessages (chatId, print, goDown) {
     console.log(print)
-    var tempObj = {
-        chatId: chatId,
-        to: loginObj.userId,
-        toType: userType,
+    var tempObj = { 
+        from: loginObj.userId,
+        fromType:userType,
+        to: chatId,
+        toType: "G",
+        type: userType,
         changeStatus: print
     }
-
-    db.get4User("chatId" + chatId + condoSelected, loginObj.userId).then(function (oldMsg) {
+    
+    db.get("chatId" + chatId ).then(function (oldMsg) {
         try {
             console.log("oldMsg ", oldMsg)
             tempObj.version = oldMsg.version
@@ -165,7 +167,7 @@ function getMessages (chatId, print, goDown) {
                 }
             }
 
-            _condominiumPost(beServices.CHAT.READ_APP, tempObj, function (data) {
+            _consolePost(beServices.CHAT.READ_MESSAGE, tempObj, function (data) {
                 $(".loading").fadeOut()
                 if ("messages" in data && data.messages.length > 0) {
                     console.log("downloadData:", data)
@@ -224,7 +226,7 @@ function getMessages (chatId, print, goDown) {
             console.log(e)
         }
     }).catch(function (e) {
-        _condominiumPost(beServices.CHAT.READ_APP, tempObj, function (data) {
+        _consolePost(beServices.CHAT.READ_MESSAGE, tempObj, function (data) {
             $(".loading").fadeOut()
             console.log(data)
             console.log(e)
@@ -454,28 +456,27 @@ function insertMsg (from, msg_) {
 }
 
 function insertChat (chat) {
-    var dom = $(`<div id="` + chat.id + `"  class="chat_lst_element" section-target="msgChat"  i18Trans="CHAT" section-color="`+color+`" section-title="`+shop_name+`" section-fx-parameters="'` + chat.chatId + `'">
+    var dom = $(`<div id="` + chat.chatGroupId + `"  class="chat_lst_element" section-target="msgChat" chatid="` + chat.chatId + `"  i18Trans="CHAT" section-color="`+color+`" section-title="`+shop_name+`" section-fx-parameters="'` + chat.chatId + `'">
         <div class="chat_lst_element_picture">
-            <i class="fa fa-user` + (chat.isGroup == 1 ? "s" : "") + `"></i>
+            <i class="fa ` + (chat.icon != null  ? chat.icon : "fa-users") + `"></i>
         </div>
-
         <div class="chat_lst_element_info">
             <div class="chat_lst_element_who">
-                ` + chat.name + `
+                ` +  chat.name + `
             </div> 
 
             <div class="chat_lst_element_lastMsg">
-                ` + unescapeUnicode(chat.message) + `
+                ` + (chat.chatId != null ? unescapeUnicode(chat.message) : "" )+ `
             </div> 
 
             <div class="chat_lst_element_lastMsgDate">
-                ` + (new Date(chat.writeDate)).toLocaleString() + `
+                ` +  (chat.chatId != null ? (new Date(chat.writeDate)).toLocaleString() : "")+ `
             </div> 
         </div>
 
         <div class="chat_lst_element_right">
             <div class="chat_lst_element_msgQty">
-                ` + chat.messages + `
+                ` + (chat.chatId != null ? chat.messages : "" ) + `
             </div> 
 
             <div class="removeChat">
@@ -484,8 +485,8 @@ function insertChat (chat) {
         </div>
     </div>`)
 
-    if ($("#" + chat.id).length > 0) {
-        $("#" + chat.id).replaceWith(dom)
+    if ($("#" + chat.chatGroupId).length > 0) {
+        $("#" + chat.chatGroupId).replaceWith(dom)
     } else {
         $("#chat_list .nice-wrapper").append(dom)
     }
@@ -802,30 +803,32 @@ $("#phone_rec").swipe({
 })
   
 function sendMessage (tid, date, type, data, fileName) {
-    var tempObj = {
-        endpoint: CondominiumIP,
-        from: loginObj.userId,
-        fromType: userType,
-        writeDate: date,
-        tid: tid, // id temporal mientras q be devuelve el real
-        message: {
-            type: type,
-            data: data
+    loginInfo( info => {
+        var tempObj = {
+            loginId : info.loginId,
+            endpoint: CondominiumIP,
+            from: loginObj.userId,
+            fromType: userType,
+            type: userType,
+
+            writeDate: date,
+            tid: tid, // id temporal mientras q be devuelve el real
+            message: {
+                type: type,
+                data: data
+            }
         }
-    }
 
-    if (currentChat.chatType == "contact") {
-        tempObj.to = currentChat.to
-        tempObj.toType = currentChat.toType
-    } else {
-        tempObj.chatId = currentChat.chatId
-    }
-
-    if (fileName != undefined) {
-        tempObj.fileName = fileName
-    }
-    console.log(tempObj)
-    w.postMessage(JSON.stringify(tempObj))  
+    
+            tempObj.to = currentChat.to
+            tempObj.toType = "G"
+    
+        if (fileName != undefined) {
+            tempObj.fileName = fileName
+        }
+        console.log(tempObj)
+        w.postMessage(JSON.stringify(tempObj)) 
+    }) 
 }
 
 $("#chat_sender_btn").tapend(function () {
@@ -1055,21 +1058,19 @@ chat = {
 }
 
 msgChat = {
-    init: function (this_, chatId) {
+    init: function (this_, tt) {
        // $(".loading").fadeIn()
-       
-        console.log(chatId)
+        var chatId = $(this_).attr("id")
+        console.log("chatId",chatId)
         if (currentChat != null && currentChat.chatId != chatId) {
             $("#chat_lst_box .nice-wrapper").html("")
         }
 
         window.plugins.toast.showLongCenter($.t("SYNC_MESSAGES"))
-        if (chatId != "null") {
-            currentChat = {chatId: chatId, chatType: "chat"}
-        } else {
+       
             console.log("Normal")
             currentChat = {to: $(this_).attr("id"), toType: $(this_).attr("type") == "user" ? "U" : "G", chatType: "contact"}
-        }
+
         console.log(chatId)
         console.log($(this_))
 

@@ -189,6 +189,69 @@ function requestShopPromotions(version,old){
     })
 }
 
+
+function requestChatList(old ){
+    var old = (old == undefined ? {groupVersion: 0, chatVersion: 0, chats: [] } : old)
+    loginInfo( info => {
+        var tempObj = {
+            "loginId": info.loginId,
+            "uuid" : info.uuid,
+            "type" : "C",
+            "userId" : info.userId,
+            "shopId" : myShopSync.idShop,
+            "groupVersion": old.groupVersion,
+            "chatVersion": old.chatVersion
+         }
+         console.log(old)
+        _consolePost(beServices.CHAT.LIST_DEPARTMENTS,tempObj, function(newData){
+            var updatedIdChats  = newData.chats.map(chat => { return chat.chatGroupId}) 
+            var oldChats      = old.chats.filter(chat => {  //aquellos chats viejos que no se actualizan ni se borran
+                 return  (updatedIdChats.indexOf(chat.chatGroupId) < 0) && 
+                         (newData.deleteGroups.indexOf(chat.chatGroupId) < 0)
+            })
+
+            console.log("updatedIdChats",updatedIdChats)
+           
+            newData.groupVersion =  newData.groupVersion == null  ? old.groupVersion : newData.groupVersion
+            newData.chatVersion  =  newData.chatVersion  == null  ? old.chatVersion  : newData.chatVersion
+
+            $("#chat_list .nice-wrapper").html()
+            newData.chats =newData.chats.concat(oldChats)
+            console.log("newData",newData)
+
+            db.upsert("chat_"+ myShopSync.idShop,newData)
+            newData.chats.forEach( chat => {
+                insertChat(chat)
+            })
+           
+            
+
+
+
+            
+        },function(error){
+            console.log("error")
+        })
+    })
+}
+
+function getChatList(){
+    $("#chat_list .nice-wrapper").html()
+    db.get("chat_"+ myShopSync.idShop)
+    .then(data => {
+        data.chats.forEach( chat => {
+            insertChat(chat)
+        })
+
+        requestChatList(data)
+
+       
+    })
+    .catch( error => {
+        requestChatList()
+    })
+}
+
 myShopSync = {
     idShop : 0,
 
@@ -279,33 +342,12 @@ shop = {
             .attr("section-title",shop_name)
             .attr("section-color",shop_color)
         
+
+        //Chat list
+        getChatList()
+        
         //temporal demo chat
-        insertChat({
-            id : 1000,
-            isGroup: 1,
-            name: "Ventas",
-            message : "Gracias por su compra",
-            writeDate : 1505783672732,
-            messages: 2
-        })
 
-        insertChat({
-            id : 1001,
-            isGroup: 1,
-            name: "Soporte",
-            message : "Denos un segundo, para verificar lo que sucede",
-            writeDate : 1505753662732,
-            messages: 1
-        })
-
-        insertChat({
-            id : 1003,
-            isGroup: 1,
-            name: "Transporte",
-            message : "Listo ya me llegó &#x263a;",
-            writeDate : 1505743662732,
-            messages: 0
-        })
 
         insertMsg("I", {
             from: "I",
