@@ -2,39 +2,41 @@ function addMyCodes(req,promoObject) {
     var dty = new Date().getTime()
     $("#promU"+req.promotionPerUserId).remove()
     if(dty < req.dueTime  && req.redeemed == null) {
-        $(`<div class="code_lst_elment" id="promU`+req.promotionPerUserId+`">
-            <div class="front">
-            <div class="ribbon">`+( Math.ceil(( req.dueTime - dty) / (1000 * 3600 * 24))  )+' '+$.t("DAYS")+`</div>
-            <h1>`+promoObject[req.promotionId].shopName +`</h1>
-        
-            <img class="promoPictoure" src="`+promoObject[req.promotionId].image+`">                
-        
-            <h3>`+promoObject[req.promotionId].header +`</h3>
-            <table>
-                <tbody>
-                    <tr>
-                        <th>` + $.t("CODE") + `</th>
-                        <th>` + $.t("EXPIRES") + `</th>
-                    </tr>
-                    <tr>
-                        <td>`+req.code+`</td>
-                        <td>`+normalDateOnlyLocal(req.dueTime)+`</td>
-                    </tr>
-                </tbody>
-            </table>
+        imageContent(promoObject[req.promotionId].image+"?promoid="+req.promotionId,function(image){
+                $(`<div class="code_lst_elment" id="promU`+req.promotionPerUserId+`">
+                    <div class="front">
+                    <div class="ribbon">`+( Math.ceil(( req.dueTime - dty) / (1000 * 3600 * 24))  )+' '+$.t("DAYS")+`</div>
+                    <h1>`+promoObject[req.promotionId].shopName +`</h1>
+                
+                    <img class="promoPictoure" src="`+image+`">                
+                
+                    <h3>`+promoObject[req.promotionId].header +`</h3>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>` + $.t("CODE") + `</th>
+                                <th>` + $.t("EXPIRES") + `</th>
+                            </tr>
+                            <tr>
+                                <td>`+req.code+`</td>
+                                <td>`+normalDateOnlyLocal(req.dueTime)+`</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-            <p>`+promoObject[req.promotionId].description+`</p>
-           
-            </div>
-            <div class="back">
-                     <h3>`+promoObject[req.promotionId].header +`</h3>
-                     <div class="codePosition"></div>
-                     <div class="disclosure">`+promoObject[req.promotionId].disclosure +`</div> 
-            </div>
-        </div>`).prependTo("#codeList .nice-wrapper")
-        new QRCode($("#promU"+req.promotionPerUserId +" .codePosition").get(0),{text:  req.code, colorDark : "#000",correctLevel : QRCode.CorrectLevel.H ,width: window.innerWidth - 80 ,width: window.innerWidth - 80});
-        $("#promU"+req.promotionPerUserId).flip()
-        return req.promotionId
+                    <p>`+promoObject[req.promotionId].description+`</p>
+                
+                    </div>
+                    <div class="back">
+                            <h3>`+promoObject[req.promotionId].header +`</h3>
+                            <div class="codePosition"></div>
+                            <div class="disclosure">`+promoObject[req.promotionId].disclosure +`</div> 
+                    </div>
+                </div>`).appendTo("#codeList .nice-wrapper")
+                new QRCode($("#promU"+req.promotionPerUserId +" .codePosition").get(0),{text:  req.code, colorDark : "#000",correctLevel : QRCode.CorrectLevel.H ,width: window.innerWidth - 80 ,width: window.innerWidth - 80});
+                $("#promU"+req.promotionPerUserId).flip()
+                return req.promotionId
+        })
     } else {
         $(`<div class="inactiveCodeElement">
             <h3>`+promoObject[req.promotionId].shopName+`</h3>
@@ -45,6 +47,12 @@ function addMyCodes(req,promoObject) {
                 </tr>
                     </tbody></table>
             </div>`).prependTo("#codeListRedem .nice-wrapper")
+            if(dty >= req.dueTime){
+
+                imageContentRemove(promoObject[req.promotionId].image+"?promoid="+req.promotionId)
+                console.log( promoObject[req.promotionId].image+"?promoid="+req.promotionId)
+                console.log("|||°", req.promotionId,req.promotionPerUserId)
+            }
         return null
     }
 }
@@ -62,7 +70,8 @@ function requestNewMyCodes(version,oldPromo) {
                     Object.assign(oldPromo.promos, data.promos)
                     var newPromoRequest = data.promosPerUser.map(function(t){return t.promotionPerUserId})
                     var notUpdatedPromoRequest =  oldPromo.promosPerUser.filter(function(t){
-                        return newPromoRequest.indexOf(t.promotionPerUserId) == -1
+                        return newPromoRequest.indexOf(t.promotionPerUserId) == -1 //&&
+                               t.dueTime < new Date().getDate()
                     })
                     oldPromo.promosPerUser = notUpdatedPromoRequest.concat(data.promosPerUser)
                     var promIds = []
@@ -77,7 +86,6 @@ function requestNewMyCodes(version,oldPromo) {
                     var delPromIds = fullPromIds.filter(function(t){ return promIds.indexOf(t) == -1 })
                     for(var i = 0; i < delPromIds.length; i++) {
                         console.log("imagen: ", delPromIds[i])
-                        oldPromo.promos[delPromIds[i]].image = "" 
                     }
                     db.upsert("promosPerUser",oldPromo)
                 }

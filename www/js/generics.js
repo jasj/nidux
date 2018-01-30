@@ -294,6 +294,11 @@ function imageContent(url,imageFx){
     })
 }
 
+function imageContentRemove(url){
+    db.remove(HexWhirlpool(url))
+    .catch(function(err){})
+}
+
 
 function setCondoEndpoint (condoId) {
     for (var i = 0; i < loginObj.endpoints.length; i++) {
