@@ -307,7 +307,7 @@ shop = {
     init : function(t,tt){
         shop_name = $(t).attr("section-title")
         shop_color = $(t).attr("section-color")
-        myShopSync.idShop = $(t).attr("shopId")
+        myShopSync.idShop = $(t).attr("shopId") ? $(t).attr("shopId") :  myShopSync.idShop
         myShopSync.do()
 
         $(".callBtn").attr("phone-number",$(t).attr("phone-num"))
@@ -343,41 +343,5 @@ shop = {
         //temporal demo chat
 
 
-        insertMsg("I", {
-            from: "I",
-            chatId: 3,
-            fromType: "U",
-            message: {
-                type: "text",
-                data: "Hola, hoy llegaba mi paquete, cierto?"
-            },
-            writeDate: 1505753662732,
-            status: "R"
-        })
-
-        insertMsg("I", {
-            from: "I",
-            chatId: 5,
-             name: "Esteban",
-            fromType: "R",
-            message: {
-                type: "text",
-                data: "La orden <a href='#124567'>#124567</a> esta programada para la tarde, debe de llegar en cualquer momento."
-            },
-            writeDate: 1893949485,
-            status: "R"
-        })
-
-        insertMsg("I", {
-            from: "I",
-            chatId: 6,
-            fromType: "U",
-            message: {
-                type: "text",
-                data: "Listo ya me llegó &#x263a;"
-            },
-            writeDate: 1505743662732,
-            status: "R"
-        })
     }
 }
