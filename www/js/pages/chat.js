@@ -831,7 +831,7 @@ function sendMessage (tid, date, type, data, fileName) {
     loginInfo( info => {
         var tempObj = {
             loginId : info.loginId,
-            uuid: info.uuid,
+            uuid: device.uuid,
             endpoint: CondominiumIP,
             from: loginObj.userId,
             fromType: userType,
