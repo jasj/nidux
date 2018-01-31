@@ -169,7 +169,7 @@ function _post (url, obj, cb, fail) {
 
 function addLoginInfo (obj) {
     obj.loginId = obj.loginId || loginObj.loginId
-    obj.uuid = obj.uuid || (typeof device !== "undefined" ? device.uuid : "uuid()")
+    obj.uuid = obj.uuid || (typeof device !== "undefined" ? device.uuid : "uuid()") 
 }
 
 loginInfo = function (callback) {
