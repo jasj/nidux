@@ -164,11 +164,9 @@ function getMessages (chatId, print, goDown) {
         changeStatus: print
     }
     
-    db.get("chatId" + chatId ).then(function (oldMsg) {
+    db.get4User("chatId" + chatId, loginObj.userId).then(function (oldMsg) {
         try {
-            console.log("oldMsg ", oldMsg)
             tempObj.version = oldMsg.version
-            console.log("tempObj", tempObj)
             if (print) {
                 oldMsg.messages.sort(function (a, b) {
                     return a.writeDate - b.writeDate
@@ -187,13 +185,10 @@ function getMessages (chatId, print, goDown) {
             _consolePost(beServices.CHAT.READ_MESSAGE, tempObj, function (data) {
                 $(".loading").fadeOut()
                 if ("messages" in data && data.messages.length > 0) {
-                    console.log("downloadData:", data)
                     var incommingId = data.messages.map(function (o) { return o.chatId })
-                    console.log("incommingId", incommingId)
                     var otherOlds = oldMsg.messages.filter(function (o) { 
                         return (incommingId.indexOf(o.chatId) == -1) 
                     })
-                    console.log("otherOlds", otherOlds)
 
                     data.deleted = data.deleted.map(function (temp) { return temp.chatId })
                     otherOlds.filter(function (msg) {
@@ -204,8 +199,7 @@ function getMessages (chatId, print, goDown) {
                         return true
                     })
                     data.messages = data.messages.concat(otherOlds)
-                    console.log(data)
-                    db.upsert4User("chatId" + chatId + condoSelected, loginObj.userId, data)
+                    db.upsert4User("chatId" + chatId, loginObj.userId, data)
                     if (print) {
                         data.messages.sort(function (a, b) {
                             return a.writeDate - b.writeDate
@@ -245,9 +239,7 @@ function getMessages (chatId, print, goDown) {
     }).catch(function (e) {
         _consolePost(beServices.CHAT.READ_MESSAGE, tempObj, function (data) {
             $(".loading").fadeOut()
-            console.log(data)
-            console.log(e)
-            db.upsert4User("chatId" + chatId + condoSelected, loginObj.userId, data)
+            db.upsert4User("chatId" + chatId, loginObj.userId, data)
             if (print) {
                 data.messages.sort(function (a, b) {
                     return a.writeDate - b.writeDate
@@ -555,13 +547,13 @@ $(document).on("tapend", "#ChatMsgNav .fa-trash-o", function () {
         console.log(tempObj)
         _condominiumPost(beServices.CHAT.DELETE_MESSAGE_APP, tempObj, function () {
             $("#ChatMsgNav").html(chatBar)
-            db.get4User("chatId" + currentChat.chatId + condoSelected, loginObj.userId).then(function (oldMsg) {
+            db.get4User("chatId" + currentChat.chatId, loginObj.userId).then(function (oldMsg) {
                 var selected = getSelectedIds().map(function (temp) { return temp.id })
                 $(".chat_message.selected").remove()
                 oldMsg.messages = oldMsg.messages.filter(function (msg) {
                     return selected.indexOf(msg.chatId) < 0
                 })
-                db.upsert4User("chatId" + currentChat.chatId + condoSelected, loginObj.userId, oldMsg)
+                db.upsert4User("chatId" + currentChat.chatId, loginObj.userId, oldMsg)
             })
         }, function () {
             window.plugins.toast.showLongCenter($.t("ERROR_REMOVING_FILES"))
@@ -748,14 +740,14 @@ $(document).on("tapend", ".removeChat", function (ev) {
             }
             console.log(tempObj)
             _condominiumPost(beServices.CHAT.DELETE_APP, tempObj, function (data) {
-                db.get4User("chat" + condoSelected, loginObj.userId).then(function (doc1) {
+                db.get4User("chat", loginObj.userId).then(function (doc1) {
                     doc1.chats = doc1.chats.filter(function (chat) {
                         return chat.chatId != chatId
                     })
-                    db.upsert4User("chat" + condoSelected, loginObj.userId, doc1)
+                    db.upsert4User("chat", loginObj.userId, doc1)
                 }) 
 
-                db.get4User("chatId" + chatId + condoSelected, loginObj.userId).then(function (oldMsg) {
+                db.get4User("chatId" + chatId, loginObj.userId).then(function (oldMsg) {
                     return db.remove(oldMsg)
                 })
                 this_.parents(".chat_lst_element").remove()
@@ -992,7 +984,7 @@ chat = {
             to: loginObj.userId,
             toType: userType
         }
-        db.get4User("chat" + condoSelected, loginObj.userId).then(function (doc1) {
+        db.get4User("chat", loginObj.userId).then(function (doc1) {
             doc1.chats.forEach(function (chat) {
                 insertChat(chat)
             })
@@ -1009,7 +1001,7 @@ chat = {
                     data.chats = data.chats.concat(doc1.chats.filter(function (t) { return newChatsId.indexOf(t.chatId) < 0 }))
                 }
                 console.log(data)
-                db.upsert4User("chat" + condoSelected, loginObj.userId, data)
+                db.upsert4User("chat", loginObj.userId, data)
                 data.chats.forEach(function (chat) {
                     insertChat(chat)
                 })
@@ -1022,7 +1014,7 @@ chat = {
             _condominiumPost(beServices.CHAT.READ_APP, tempObj, function (data) {
                 $(".loading").fadeOut()
                 console.log(data)
-                db.upsert4User("chat" + condoSelected, loginObj.userId, data)
+                db.upsert4User("chat", loginObj.userId, data)
                 data.chats.forEach(function (chat) {
                     insertChat(chat)
                 })
