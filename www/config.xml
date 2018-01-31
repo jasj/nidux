@@ -52,7 +52,7 @@
 	<gap:plugin name="cordova-custom-config" source="npm" version="4.0.2"/>
 	<gap:plugin name="cordova-plugin-pushplugin" source="npm"/>
     
-    <gap:plugin name="cordova-plugin-splashscreen" source="npm" />
+    <gap:plugin name="cordova-plugin-splashscreen" source="npm" version="5.0.1"/>
     <gap:plugin name="cordova-plugin-file" source="npm" version="4.3.2"/>
     <gap:plugin name="cordova-plugin-file-transfer" source="npm" version="1.6.2"/>
     <gap:plugin name="cordova-plugin-file-opener2" source="npm" version="2.0.19"/>
@@ -97,7 +97,7 @@
     <gap:plugin name="cordova-plugin-vibration" source="npm"/>
 	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
 	<gap:plugin name="cordova-plugin-statusbar" source="npm"/>
-	<gap:plugin name="cordova-plugin-googlemaps" source="npm">
+	<gap:plugin name="cordova-plugin-googlemaps" source="npm" version="2.1.1">
 		<param name="API_KEY_FOR_ANDROID" value="AIzaSyB6aIc8sBqx7Ruln1iKqhS-cVcUJ8LoDUo" />
 		<param name="API_KEY_FOR_IOS" value="AIzaSyAEaC4GVdLJ1Zvyt2ro7wfyqYPBi0Al3Zk" />
 	</gap:plugin>
