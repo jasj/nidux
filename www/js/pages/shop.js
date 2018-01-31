@@ -234,7 +234,7 @@ function requestChatList(old ){
 }
 
 function getChatList(){
-    $("#chat_list .nice-wrapper").html()
+    $("#chat_list .nice-wrapper").html("")
     db.get("chat_"+ myShopSync.idShop).then(data => {
         data.chats.forEach( chat => {
             insertChat(chat)
