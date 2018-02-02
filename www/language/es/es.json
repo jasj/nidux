@@ -40,5 +40,9 @@
     "NITHER_INTERNET_OR_PRE_LOGIN": "Sin internet o prelogin",
     "SOMETHING_WENT_WRONG_RETRY": "Algo salió mal, intente luego",
     "ERROR_EMAIL_VALIDATION": "El usuario no es un email",
-    "BAD_CREDENTIALS": "Credenciales incorrectas"
+    "BAD_CREDENTIALS": "Credenciales incorrectas",
+    "READ": "Leído",
+    "DELIVERED": "Entregado",
+    "REMAININGS": "Restantes",
+    "DOWNLOADING_CONTENT": "Descargando contenido"
 }

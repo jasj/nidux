@@ -153,27 +153,35 @@ function goBottom (delay, wait) {
     setTimeout(function () { $("#chat_lst_box").getNiceScroll(0).doScrollTop($("#chat_lst_box").getNiceScroll(0).page.maxh, delay) }, wait)
 }
 
-function getMessages (chatId, print, goDown) {
+function getMessages (chatGroupId, chatId, print, goDown) {
     console.log(print)
     var tempObj = { 
         from: loginObj.userId,
         fromType:userType,
-        to: chatId,
-        toType: "G",
         type: userType,
         changeStatus: print
     }
+
+    if (chatGroupId && chatGroupId != "null") {
+        tempObj.to = chatGroupId
+        tempObj.toType = "G"
+    } else {
+        tempObj.chatId = chatId
+    }
+
+    chatId = (chatGroupId && chatGroupId != "null") ? chatGroupId : chatId
     
     db.get4User("chatId" + chatId, loginObj.userId).then(function (oldMsg) {
+        console.log("oldMsg: ", oldMsg)
         try {
-            tempObj.version = oldMsg.version
+            tempObj.version = oldMsg.version || 0
             if (print) {
-                oldMsg.messages.sort(function (a, b) {
+                (oldMsg.messages || []).sort(function (a, b) {
                     return a.writeDate - b.writeDate
-                })
-                oldMsg.messages.forEach(function (chat) {
+                });
+                (oldMsg.messages || []).forEach(function (chat) {
                     insertMsg(loginObj.userId, chat)
-                })
+                });
 
                 if (goDown) {
                     goBottom()
@@ -183,12 +191,14 @@ function getMessages (chatId, print, goDown) {
             }
 
             _consolePost(beServices.CHAT.READ_MESSAGE, tempObj, function (data) {
+                console.log("data: ", data)
                 $(".loading").fadeOut()
                 if ("messages" in data && data.messages.length > 0) {
                     var incommingId = data.messages.map(function (o) { return o.chatId })
-                    var otherOlds = oldMsg.messages.filter(function (o) { 
+                    var otherOlds = (oldMsg.messages || []).filter(function (o) { 
                         return (incommingId.indexOf(o.chatId) == -1) 
-                    })
+                    });
+                    console.log("otherOlds: ", otherOlds)
 
                     data.deleted = data.deleted.map(function (temp) { return temp.chatId })
                     otherOlds.filter(function (msg) {
@@ -204,6 +214,7 @@ function getMessages (chatId, print, goDown) {
                         data.messages.sort(function (a, b) {
                             return a.writeDate - b.writeDate
                         })
+                        console.log("data::", data)
                         data.messages.forEach(function (chat) {
                             insertMsg(loginObj.userId, chat)
                         })
@@ -218,12 +229,12 @@ function getMessages (chatId, print, goDown) {
                 // window.plugins.toast.showLongCenter("Mensajes Sincronizados")
             }, function (e) {
                 if (print) {
-                    oldMsg.messages.sort(function (a, b) {
+                    (oldMsg.messages || []).sort(function (a, b) {
                         return a.writeDate - b.writeDate
-                    })
-                    oldMsg.messages.forEach(function (chat) {
+                    });
+                    (oldMsg.messages || []).forEach(function (chat) {
                         insertMsg(loginObj.userId, chat)
-                    })
+                    });
 
                     if (goDown) {
                         goBottom()
@@ -238,19 +249,22 @@ function getMessages (chatId, print, goDown) {
         }
     }).catch(function (e) {
         _consolePost(beServices.CHAT.READ_MESSAGE, tempObj, function (data) {
+            console.log("data2: ", data)
             $(".loading").fadeOut()
-            db.upsert4User("chatId" + chatId, loginObj.userId, data)
-            if (print) {
-                data.messages.sort(function (a, b) {
-                    return a.writeDate - b.writeDate
-                })
-                data.messages.forEach(function (chat) {
-                    insertMsg(loginObj.userId, chat)
-                })
-                if (goDown) {
-                    goBottom()
-                } else {
+            if ("messages" in data) {
+                db.upsert4User("chatId" + chatId, loginObj.userId, data)
+                if (print) {
+                    data.messages.sort(function (a, b) {
+                        return a.writeDate - b.writeDate
+                    })
+                    data.messages.forEach(function (chat) {
+                        insertMsg(loginObj.userId, chat)
+                    })
+                    if (goDown) {
+                        goBottom()
+                    } else {
 
+                    }
                 }
             }
         }, function (e) {})
@@ -364,6 +378,7 @@ function insertMsg (from, msg_) {
     var obj
     console.log("msgFull", msg_)
     obj = msg.message
+    console.log("msg", msg)
 
     if (msg.from == from & msg.fromType == userType) {
         dom = $(`<div class="chat_message" id="msg` + msg.chatId + `"><div class="i_said" ><div class="said_who">` + msg.name + `</div><div class="said_body" who="~Yo"></div></div></div>`)
@@ -371,8 +386,9 @@ function insertMsg (from, msg_) {
         dom = $(`<div class="chat_message"  id="msg` + msg.chatId + `"><div class="he_said" ><div class="said_who">` + msg.name + `</div><div class="said_body" who="` + msg.name + `"></div></div></div>`)
     }
 
+
     if ($("#msg" + msg.chatId).length > 0) {
-        $("#" + msg.chatId).replaceWith(dom)
+        $("#msg" + msg.chatId).replaceWith(dom)
     } else {
         $("#chat_lst_box .nice-wrapper").append(dom)
     }
@@ -837,9 +853,12 @@ function sendMessage (tid, date, type, data, fileName) {
             }
         }
 
-    
+        if (currentChat.hasChatId) {
+            tempObj.chatId = currentChat.chatId
+        } else {
             tempObj.to = currentChat.to
             tempObj.toType = "G"
+        }
     
         if (fileName != undefined) {
             tempObj.fileName = fileName
@@ -1078,7 +1097,8 @@ chat = {
 msgChat = {
     init: function (this_, tt) {
        // $(".loading").fadeIn()
-        var chatId = $(this_).attr("id")
+        var chatId = $(this_).attr("chatid")
+        var chatGroupId = $(this_).attr("id")
         console.log("chatId",chatId)
         if (currentChat != null && currentChat.chatId != chatId) {
             $("#chat_lst_box .nice-wrapper").html("")
@@ -1086,15 +1106,21 @@ msgChat = {
 
         window.plugins.toast.showLongCenter($.t("SYNC_MESSAGES"))
        
-            console.log("Normal")
-            currentChat = {to: $(this_).attr("id"), toType: $(this_).attr("type") == "user" ? "U" : "G", chatType: "contact"}
+        currentChat = {
+            hasChatId: (chatId && chatId != "null"),
+            chatId: chatId && chatId != "null" ? chatId : chatGroupId,
+            to: $(this_).attr("id"), 
+            toType: $(this_).attr("type") == "user" ? "U" : "G", 
+            chatType: "contact"
+        }
 
-        console.log(chatId)
+        console.log("chatId: ", chatId)
+        console.log("chatGroupId: ", chatGroupId)
         console.log($(this_))
 
         $("#ChatMsgInfoNav div").html($(this_).find(".chat_lst_element_who").html())
         $("#ChatMsgNav div").html($(this_).find(".chat_lst_element_who").html())
         $("#ChatMsgInfoNav .fa-chevron-left").attr("section-fx-parameters", "'" + chatId + "'")
-        getMessages(chatId, true, true)
+        getMessages(chatGroupId, chatId, true, true)
     }
 }
