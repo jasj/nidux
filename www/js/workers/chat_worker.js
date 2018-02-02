@@ -24,6 +24,7 @@ importScripts("../../lib/rsa/base64.js")
 importScripts("../crypto/aes.js")
 importScripts("../generics.js")
 queueSendPendings = []
+tid = "";
 var i = 0
 
 cordovaHTTP = {
@@ -55,6 +56,7 @@ function sendMessage (msg) {
     var newMsg = JSON.parse(JSON.stringify(msg))
     delete newMsg.endpoint
     var endpoint = msg.endpoint 
+	tid = newMsg.tid
     _consolePost(beServices.CHAT.WRITE_APP, newMsg, function (data) {
         postMessage(JSON.stringify(data))
         retBool = false

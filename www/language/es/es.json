@@ -56,5 +56,7 @@
     "CONFIRMATION": "Confirmación",
     "DELETE_CHAT_CONFIRMATION": "¿Seguro que desea borrar este Chat?",
     "ERROR_GETTING_CONTACTS": "No se pudo descargar las listas de contactos",
-    "DOWNLOADING_SHOPS": "Descargando tiendas"
+    "DOWNLOADING_SHOPS": "Descargando tiendas",
+    "SYNC_MESSAGES": "Sincronizando mensajes",
+    "SHOP_CAR": "Carrito"
 }
