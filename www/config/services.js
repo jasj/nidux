@@ -12,12 +12,12 @@ beServices = {
         "GUEST_AUTHORIZATION_RESPONSE": "/condominus/guest/authorization/response"
     },
     "CHAT": {
-        "STATUS_DETAIL": ":2521/ravel/1.0/chat/status/detail",
+        "STATUS_DETAIL": "/chat/status/detail",
         "LIST_DEPARTMENTS": "/chat/list",
-        "DELETE_MESSAGE_APP": ":2521/ravel/1.0/chat/delete/message/app",
-        "READ_MESSAGE_VALIDATE": ":2521/ravel/1.0/chat/read/message/validate",
+        "DELETE_MESSAGE_APP": "/chat/delete/message/app",
+        "READ_MESSAGE_VALIDATE": "/chat/read/message/validate",
         "DOWNLOADER_READ_MESSAGE": "http://54.212.218.84:2591/downloader/1.0/read/message/",
-        "DELETE_APP": ":2521/ravel/1.0/chat/delete/app",
+        "DELETE_APP": "/chat/delete/app",
         "READ_MESSAGE": "/chat/read/app",
         "WRITE_APP": "/chat/write/app"
     },

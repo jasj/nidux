@@ -7,6 +7,11 @@ var clip = new Clipboard("#ChatMsgNav .fa-clone")
 chatBar = ""
 prevEvent = null
 currentChat = null
+chatInfo = {
+    chatId: null,
+    chatGroupId: null,
+    toType: null
+}
 
 w = new Worker("js/workers/chat_worker.js")
 w.onmessage = function (event) {	
@@ -89,7 +94,7 @@ msgInfo = {
 
         clone.appendTo("#msgInfoPreview")
         $(".loading").fadeIn()
-        _condominiumPost(beServices.CHAT.STATUS_DETAIL, tempObj, function (data) {
+        _consolePost(beServices.CHAT.STATUS_DETAIL, tempObj, function (data) {
             $(".loading").fadeOut()
             iterateStatusObject(data)
         })
@@ -225,6 +230,17 @@ function getMessages (chatGroupId, chatId, print, goDown) {
 
                         }
                     }
+                } else if ("deleted" in data && data.deleted.length > 0) {
+                    var delIfo = data.deleted.map(function (temp) { return temp.chatId })
+                    delIfo.forEach(function (lChatId) {
+                        $("msg" + lChatId).remove()
+                    })
+
+                    var otherOlds = (oldMsg.messages || []).filter(function (o) { 
+                        return delIfo.indexOf(o.chatId) == -1 
+                    });
+
+                    db.upsert4User("chatId" + chatId, loginObj.userId, otherOlds)
                 }
                 // window.plugins.toast.showLongCenter("Mensajes Sincronizados")
             }, function (e) {
@@ -248,6 +264,7 @@ function getMessages (chatGroupId, chatId, print, goDown) {
             console.log(e)
         }
     }).catch(function (e) {
+        console.log("e: ", e)
         _consolePost(beServices.CHAT.READ_MESSAGE, tempObj, function (data) {
             console.log("data2: ", data)
             $(".loading").fadeOut()
@@ -554,14 +571,15 @@ $(document).on("tapend", "#ChatMsgNav .fa-reply", function () {
 })
 
 $(document).on("tapend", "#ChatMsgNav .fa-trash-o", function () {
-    showAlert($.t("DELETE_MESSAGES"), $.t("DELETE_ASK") + $(".chat_message.selected").length + " " + $.t("MESSAGES"), function () {
+    var total = $(".chat_message.selected").length
+    showAlert($.t("DELETE_MESSAGES"), $.t("DELETE_ASK") + total + " " + $.t((total > 1 ? "MESSAGES" : "MESSAGE")), function () {
         var tempObj = {
             to: loginObj.userId,
             toType: userType,
             messages: getSelectedIds()
         }
         console.log(tempObj)
-        _condominiumPost(beServices.CHAT.DELETE_MESSAGE_APP, tempObj, function () {
+        _consolePost(beServices.CHAT.DELETE_MESSAGE_APP, tempObj, function () {
             $("#ChatMsgNav").html(chatBar)
             db.get4User("chatId" + currentChat.chatId, loginObj.userId).then(function (oldMsg) {
                 var selected = getSelectedIds().map(function (temp) { return temp.id })
@@ -647,7 +665,7 @@ downloadMsg = function (this_, recived, callback) {
         received: recived == "true"
     }
     console.log("DownloadMsg_temporalObj", tempObj)
-    _condominiumPost(beServices.CHAT.READ_MESSAGE_VALIDATE, tempObj, function (data) {
+    _consolePost(beServices.CHAT.READ_MESSAGE_VALIDATE, tempObj, function (data) {
         console.log(data)
         try {
             saveDoc(beServices.CHAT.DOWNLOADER_READ_MESSAGE + data.uid + "/" + this_.attr("download-name"),
@@ -755,7 +773,7 @@ $(document).on("tapend", ".removeChat", function (ev) {
                 chatId: chatId
             }
             console.log(tempObj)
-            _condominiumPost(beServices.CHAT.DELETE_APP, tempObj, function (data) {
+            _consolePost(beServices.CHAT.DELETE_APP, tempObj, function (data) {
                 db.get4User("chat", loginObj.userId).then(function (doc1) {
                     doc1.chats = doc1.chats.filter(function (chat) {
                         return chat.chatId != chatId
@@ -1008,7 +1026,7 @@ chat = {
                 insertChat(chat)
             })
             tempObj.version = doc1.version
-            _condominiumPost(beServices.CHAT.READ_APP, tempObj, function (data) {
+            _consolePost(beServices.CHAT.READ_APP, tempObj, function (data) {
                 $(".loading").fadeOut()
                 console.log(data)
                 if ($.isEmptyObject(data)) {
@@ -1030,7 +1048,7 @@ chat = {
                 })
             })
         }).catch(function (e) {
-            _condominiumPost(beServices.CHAT.READ_APP, tempObj, function (data) {
+            _consolePost(beServices.CHAT.READ_APP, tempObj, function (data) {
                 $(".loading").fadeOut()
                 console.log(data)
                 db.upsert4User("chat", loginObj.userId, data)
@@ -1058,7 +1076,7 @@ chat = {
                 insertChatContact(group, "users")
             })
 
-            _condominiumPost(beServices.CHAT.READ_USERS_GROUPS, tempObj, function (data) {
+            _consolePost(beServices.CHAT.READ_USERS_GROUPS, tempObj, function (data) {
                 if (!$.isEmptyObject(data)) {
                     if ("users" in data) {
                         data.users.forEach(function (user) {
@@ -1078,7 +1096,7 @@ chat = {
                 // showInfoD("Error","No se pudo descargar las listas de contactos")
             })
         }).catch(function (e) {
-            _condominiumPost(beServices.CHAT.READ_USERS_GROUPS, tempObj, function (data) {
+            _consolePost(beServices.CHAT.READ_USERS_GROUPS, tempObj, function (data) {
                 $(".loading").fadeOut()
                 data.users.forEach(function (user) {
                     insertChatContact(user, "user")
@@ -1097,30 +1115,32 @@ chat = {
 msgChat = {
     init: function (this_, tt) {
        // $(".loading").fadeIn()
-        var chatId = $(this_).attr("chatid")
-        var chatGroupId = $(this_).attr("id")
-        console.log("chatId",chatId)
-        if (currentChat != null && currentChat.chatId != chatId) {
+        chatInfo.chatId = $(this_).attr("chatid") ? $(this_).attr("chatid") : chatInfo.chatId
+        chatInfo.chatGroupId = $(this_).attr("id") ? $(this_).attr("id") : chatInfo.chatGroupId
+        chatInfo.toType = $(this_).attr("type") ? ($(this_).attr("type") == "user" ? "U" : "G") : chatInfo.toType
+
+        console.log("chatId",chatInfo.chatId)
+        if (currentChat != null && currentChat.chatId != chatInfo.chatId) {
             $("#chat_lst_box .nice-wrapper").html("")
         }
 
         window.plugins.toast.showLongCenter($.t("SYNC_MESSAGES"))
        
         currentChat = {
-            hasChatId: (chatId && chatId != "null"),
-            chatId: chatId && chatId != "null" ? chatId : chatGroupId,
-            to: $(this_).attr("id"), 
-            toType: $(this_).attr("type") == "user" ? "U" : "G", 
+            hasChatId: (chatInfo.chatId && chatInfo.chatId != "null"),
+            chatId: chatInfo.chatId && chatInfo.chatId != "null" ? chatInfo.chatId : chatInfo.chatGroupId,
+            to: chatInfo.chatGroupId, 
+            toType: chatInfo.toType, 
             chatType: "contact"
         }
 
-        console.log("chatId: ", chatId)
-        console.log("chatGroupId: ", chatGroupId)
+        console.log("chatId: ", chatInfo.chatId)
+        console.log("chatGroupId: ", chatInfo.chatGroupId)
         console.log($(this_))
 
         $("#ChatMsgInfoNav div").html($(this_).find(".chat_lst_element_who").html())
         $("#ChatMsgNav div").html($(this_).find(".chat_lst_element_who").html())
-        $("#ChatMsgInfoNav .fa-chevron-left").attr("section-fx-parameters", "'" + chatId + "'")
-        getMessages(chatGroupId, chatId, true, true)
+        $("#ChatMsgInfoNav .fa-chevron-left").attr("section-fx-parameters", "'" + chatInfo.chatId + "'")
+        getMessages(chatInfo.chatGroupId, chatInfo.chatId, true, true)
     }
 }

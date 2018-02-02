@@ -44,5 +44,17 @@
     "READ": "Leído",
     "DELIVERED": "Entregado",
     "REMAININGS": "Restantes",
-    "DOWNLOADING_CONTENT": "Descargando contenido"
+    "DOWNLOADING_CONTENT": "Descargando contenido",
+    "DELETE_MESSAGES": "Eliminar Mensajes",
+    "FAILED_MESSAGE": "Failed because: ",
+    "DELETE_ASK": "Desea eliminar ",
+    "MESSAGE": "mensaje",
+    "MESSAGES": "mensajes",
+    "ERROR_REMOVING_FILES": "Imposible borrar archivos en este momento",
+    "ERROR_DOWNLOADING_FILE": "Error downloading file",
+    "ERROR_GETTING_PATH": "Imposible obtener ruta segura",
+    "CONFIRMATION": "Confirmación",
+    "DELETE_CHAT_CONFIRMATION": "¿Seguro que desea borrar este Chat?",
+    "ERROR_GETTING_CONTACTS": "No se pudo descargar las listas de contactos",
+    "DOWNLOADING_SHOPS": "Descargando tiendas"
 }
