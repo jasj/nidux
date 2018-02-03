@@ -167,14 +167,13 @@ function getMessages (chatGroupId, chatId, print, goDown) {
         changeStatus: print
     }
 
-    if (chatGroupId && chatGroupId != "null") {
+    if (chatId && chatId != "null") {
+        tempObj.chatId = chatId
+    } else {
         tempObj.to = chatGroupId
         tempObj.toType = "G"
-    } else {
-        tempObj.chatId = chatId
+        chatId = chatGroupId
     }
-
-    chatId = (chatGroupId && chatGroupId != "null") ? chatGroupId : chatId
     
     db.get4User("chatId" + chatId, loginObj.userId).then(function (oldMsg) {
         console.log("oldMsg: ", oldMsg)
@@ -573,20 +572,26 @@ $(document).on("tapend", "#ChatMsgNav .fa-reply", function () {
 $(document).on("tapend", "#ChatMsgNav .fa-trash-o", function () {
     var total = $(".chat_message.selected").length
     showAlert($.t("DELETE_MESSAGES"), $.t("DELETE_ASK") + total + " " + $.t((total > 1 ? "MESSAGES" : "MESSAGE")), function () {
+        var selectedIds = getSelectedIds()
         var tempObj = {
             to: loginObj.userId,
             toType: userType,
-            messages: getSelectedIds()
-        }
+            messages: selectedIds
+        }        
         console.log(tempObj)
         _consolePost(beServices.CHAT.DELETE_MESSAGE_APP, tempObj, function () {
             $("#ChatMsgNav").html(chatBar)
+            console.log("currentChat.chatId: ", currentChat.chatId)
+            console.log("loginObj.userId: ", loginObj.userId)
             db.get4User("chatId" + currentChat.chatId, loginObj.userId).then(function (oldMsg) {
-                var selected = getSelectedIds().map(function (temp) { return temp.id })
+                var selected = selectedIds.map(function (temp) { return temp.id })
                 $(".chat_message.selected").remove()
+                console.log("selected: ", selected)
+                console.log("oldMsg: ", oldMsg)
                 oldMsg.messages = oldMsg.messages.filter(function (msg) {
                     return selected.indexOf(msg.chatId) < 0
                 })
+                console.log("oldMsg2: ", oldMsg)
                 db.upsert4User("chatId" + currentChat.chatId, loginObj.userId, oldMsg)
             })
         }, function () {
@@ -1136,11 +1141,14 @@ msgChat = {
 
         console.log("chatId: ", chatInfo.chatId)
         console.log("chatGroupId: ", chatInfo.chatGroupId)
+        console.log("currentChat: ", currentChat)
         console.log($(this_))
 
         $("#ChatMsgInfoNav div").html($(this_).find(".chat_lst_element_who").html())
         $("#ChatMsgNav div").html($(this_).find(".chat_lst_element_who").html())
         $("#ChatMsgInfoNav .fa-chevron-left").attr("section-fx-parameters", "'" + chatInfo.chatId + "'")
-        getMessages(chatInfo.chatGroupId, chatInfo.chatId, true, true)
+        var lChatGroupId = chatInfo.chatGroupId
+        var lChatId = chatInfo.chatId
+        getMessages(lChatGroupId, lChatId, true, true)
     }
 }
