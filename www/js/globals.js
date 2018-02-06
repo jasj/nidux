@@ -3,7 +3,7 @@ ConsoleServerIP = "http://54.212.218.84:7521/ravel/1.0"
 CondominiumIP = ""
 loginObj = {}
 condoSelected = 0
-directory = "condo"
+directory = "nidux"
 btToken = "sandbox_vcs5jw2p_8n4tk7sj3dw3g79s"
 
 shopsReady = false
