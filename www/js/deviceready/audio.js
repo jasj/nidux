@@ -45,7 +45,7 @@ function stopRecoarding(tid,date,cb) {
             var blob = encoder.finish("audio/wav");
             console.log("BLOB created");
 			var fileName =  date+ ".wav";
-			dirc.getDirectory(dirPath, { create: true }, function (dirEntry) {
+			dirc.getDirectory(directory, { create: true }, function (dirEntry) {
 				dirEntry.getDirectory("wav", { create: true }, function (subDirEntry) {
 				   	subDirEntry.getFile(fileName, {create: true}, function (file) {
 						file.createWriter(function (fileWriter) {
