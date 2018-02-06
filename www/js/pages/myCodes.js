@@ -74,18 +74,8 @@ function requestNewMyCodes(version,oldPromo) {
                                t.dueTime < new Date().getDate()
                     })
                     oldPromo.promosPerUser = notUpdatedPromoRequest.concat(data.promosPerUser)
-                    var promIds = []
                     for(var i = 0; i < oldPromo.promosPerUser.length; i++) {
-                        var id = addMyCodes(oldPromo.promosPerUser[i],oldPromo.promos)
-                        if (id) {
-                            promIds.push(id)
-                        }
-                    }
-                    promIds = $.unique(promIds)
-                    var fullPromIds = $.map(oldPromo.promos, function(element,index) {return index})
-                    var delPromIds = fullPromIds.filter(function(t){ return promIds.indexOf(t) == -1 })
-                    for(var i = 0; i < delPromIds.length; i++) {
-                        console.log("imagen: ", delPromIds[i])
+                        addMyCodes(oldPromo.promosPerUser[i],oldPromo.promos)
                     }
                     db.upsert("promosPerUser",oldPromo)
                 }
