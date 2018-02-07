@@ -25,11 +25,6 @@ function checkPreviusLogin () {
             loginObj = data
             fillUserConfigLogin(data) 
             home.init()
-            
-            if ("endpoints" in data && data.endpoints.length > 0) {
-                condoSelected = data.endpoints[0].condoId
-                setCondoEndpoint(condoSelected)
-            }
 
             $("#login").fadeOut()
             $("#loadingPage").fadeOut()

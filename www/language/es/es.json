@@ -58,5 +58,8 @@
     "ERROR_GETTING_CONTACTS": "No se pudo descargar las listas de contactos",
     "DOWNLOADING_SHOPS": "Descargando tiendas",
     "SYNC_MESSAGES": "Sincronizando mensajes",
-    "SHOP_CAR": "Carrito"
+    "SHOP_CAR": "Carrito",
+    "DAYS": "Días",
+    "REDEEMED": "Redimido",
+    "EXPIRED": "Expirado"
 }

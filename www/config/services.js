@@ -7,10 +7,6 @@ beServices = {
         "LOGIN": "/security/login",
         "UPDATE_CREDENTIALS": "/security/update/credentials" 
     },
-    "CONDOMINUS": {
-        "GUEST_ADDESTATE": "/condominus/guest/addEstate",
-        "GUEST_AUTHORIZATION_RESPONSE": "/condominus/guest/authorization/response"
-    },
     "CHAT": {
         "STATUS_DETAIL": "/chat/status/detail",
         "LIST_DEPARTMENTS": "/chat/list",
